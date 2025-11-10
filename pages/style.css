@@ -1,0 +1,493 @@
+.homepage {
+  background-color: #000000;
+  overflow: hidden;
+  width: 100%;
+  min-width: 1430px;
+  min-height: 8511px;
+  position: relative;
+}
+
+.homepage .footer {
+  position: absolute;
+  top: 7846px;
+  left: 0;
+  width: 1450px;
+  height: 665px;
+}
+
+.homepage .rectangle {
+  left: 0;
+  width: 1430px;
+  height: 665px;
+  position: absolute;
+  top: 0;
+}
+
+.homepage .vector {
+  top: 167px;
+  width: 602px;
+  height: 77px;
+  position: absolute;
+  left: 703px;
+}
+
+.homepage .img {
+  top: 327px;
+  width: 602px;
+  height: 98px;
+  position: absolute;
+  left: 703px;
+}
+
+.homepage .vector-2 {
+  top: 267px;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  left: 703px;
+}
+
+.homepage .flexcontainer {
+  gap: 10px;
+  width: 336px;
+  height: 290px;
+  top: 187px;
+  left: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+}
+
+.homepage .text {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 32px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .text-wrapper {
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 32px;
+  letter-spacing: 0;
+}
+
+.homepage .GYM-RULES-COOKIES {
+  position: absolute;
+  top: 571px;
+  left: 38px;
+  width: 1306px;
+  height: 31px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .div {
+  position: absolute;
+  top: 605px;
+  left: 38px;
+  width: 1306px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cabin Condensed-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 15px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .p {
+  position: absolute;
+  top: 115px;
+  left: 700px;
+  width: 361px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cabin Condensed-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .text-wrapper-2 {
+  position: absolute;
+  top: 264px;
+  left: 747px;
+  width: 361px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cabin Condensed-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .text-wrapper-3 {
+  position: absolute;
+  top: 437px;
+  left: 703px;
+  width: 361px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Cabin Condensed-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .s-GYM {
+  position: absolute;
+  top: 85px;
+  left: 145px;
+  width: 303px;
+  height: 133px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 128px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.homepage .span {
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 128px;
+  letter-spacing: 0;
+}
+
+.homepage .text-wrapper-4 {
+  font-size: 96px;
+}
+
+.homepage .flexcontainer-2 {
+  gap: 5px;
+  width: 241px;
+  height: 175px;
+  top: 234px;
+  left: 410px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+}
+
+.homepage .text-wrapper-5 {
+  position: absolute;
+  top: 469px;
+  left: 38px;
+  width: 37px;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #f18ccd;
+  font-size: 64px;
+  letter-spacing: 0;
+  line-height: normal;
+  white-space: nowrap;
+}
+
+.homepage .text-wrapper-6 {
+  position: absolute;
+  top: 40px;
+  left: 691px;
+  width: 459px;
+  height: 86px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 64px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .a-s-gym {
+  position: absolute;
+  top: 40px;
+  left: 38px;
+  width: 119px;
+  height: 119px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.homepage .hero-section {
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 1430px;
+  height: 822px;
+  aspect-ratio: 1.78;
+}
+
+.homepage .text-wrapper-7 {
+  position: absolute;
+  top: 1914px;
+  left: calc(50.00% - 203px);
+  width: 407px;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 64px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .element {
+  position: absolute;
+  top: 5939px;
+  left: 570px;
+  width: 786px;
+  height: 589px;
+  aspect-ratio: 1.33;
+  object-fit: cover;
+}
+
+.homepage .hi-we-re-a-local-gym {
+  position: absolute;
+  top: 883px;
+  left: calc(50.00% - 315px);
+  width: 632px;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 60px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 100px;
+  white-space: nowrap;
+}
+
+.homepage .established-in {
+  position: absolute;
+  top: 1075px;
+  left: calc(50.00% - 470px);
+  width: 941px;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 30px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 60px;
+}
+
+.homepage .header {
+  left: 1px;
+  position: absolute;
+  top: 0;
+  width: 1429px;
+  height: 149px;
+}
+
+.homepage .HEADER {
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1429px;
+  height: 149px;
+}
+
+.homepage .rectangle-2 {
+  left: 0;
+  width: 1429px;
+  height: 68px;
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+}
+
+.homepage .rectangle-3 {
+  width: 7.92%;
+  height: 100%;
+  left: 10.36%;
+  position: absolute;
+  top: 0;
+}
+
+.homepage .logo {
+  position: absolute;
+  width: 5.58%;
+  top: 22px;
+  left: 11.62%;
+  height: 80px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.homepage .CONTACT-US {
+  position: absolute;
+  top: 13px;
+  left: 947px;
+  width: 112px;
+  height: 40px;
+  display: flex;
+}
+
+.homepage .text-wrapper-8 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 112px;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .CAMP-SITE {
+  position: absolute;
+  top: 13px;
+  left: 825px;
+  width: 112px;
+  height: 40px;
+  display: flex;
+}
+
+.homepage .WHY-AS-GYM {
+  position: absolute;
+  top: 13px;
+  left: 694px;
+  width: 112px;
+  height: 40px;
+  display: flex;
+}
+
+.homepage .text-wrapper-9 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 112px;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .PERSONAL-TRAINING {
+  position: absolute;
+  top: 13px;
+  left: 482px;
+  width: 176px;
+  height: 40px;
+  display: flex;
+}
+
+.homepage .text-wrapper-10 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 176px;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .MEMBERSHIP {
+  position: absolute;
+  top: 13px;
+  left: 336px;
+  height: 40px;
+  width: 120px;
+  display: flex;
+}
+
+.homepage .text-wrapper-11 {
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 20px;
+  letter-spacing: 0;
+  line-height: normal;
+  width: 120px;
+  display: flex;
+}
+
+.homepage .text-wrapper-12 {
+  position: absolute;
+  top: 8016px;
+  left: 715px;
+  width: 379px;
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.homepage .text-wrapper-13 {
+  position: absolute;
+  top: 8173px;
+  left: 703px;
+  width: 602px;
+  height: 98px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Lalezar-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
+}
