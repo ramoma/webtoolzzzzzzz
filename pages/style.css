@@ -7,3 +7,36 @@
 .nav-item:hover{
   background-color: rgb(190, 190, 190);
 }
+.hero_banner img{
+  position:fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  z-index: -100;
+}
+
+.logo-icon{
+  float:left;
+  position:relative;
+  left: 320px;
+}
+
+.logo-icon img{
+  position:relative;
+  top: -38px;
+  left: 13px;
+  height: 79px;
+  width: 79px;
+  z-index: 100;
+}
+
+.logo-icon .logo-background {
+  transform: skewX(-12deg);
+  position: relative;
+  top:-140px;
+  width:113px;
+  height:130px; 
+  background-color: #EE5ABD;
+  z-index: 1;
+}
