@@ -40,3 +40,38 @@
   background-color: #EE5ABD;
   z-index: 1;
 }
+
+
+main{
+  height:500px;
+}
+
+
+footer{
+  height: 500px;
+  flex-direction: row;
+  background-color: #616161;
+}
+
+.contacts {
+  height: 300px;
+  width: 700px;
+  font-size: 32px;
+}
+
+.contacts_content {
+  flex-direction: row;
+  margin: auto;
+}
+
+.footer_logo {
+  flex-direction: row;
+  font-size: 96px;
+  color: white;
+}
+
+.footer_logo img{
+  height: 119px;
+  width: auto;
+}
+
