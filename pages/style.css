@@ -3,6 +3,9 @@
   font-weight: 400;
   font-style: normal;
 }
+* {
+  overflow-x: hidden;
+}
 
 .nav-item:hover{
   background-color: rgb(190, 190, 190);
@@ -17,15 +20,28 @@
 }
 
 .logo-icon{
-  float:left;
-  position:relative;
-  left: 320px;
+  top: 80px;
+}
+
+.a_zone{
+  height: 45px;
+  width: 193px;
+  border:#EE5ABD solid;
+  border-radius: 25px;
+  color: #EE5ABD;
+  font-size: 32px;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+.a_zone span {
+  padding-left: 20%;
 }
 
 .logo-icon img{
   position:relative;
-  top: -38px;
-  left: 13px;
+  top: 10px;
+  left: 21%;
   height: 79px;
   width: 79px;
   z-index: 100;
@@ -34,7 +50,8 @@
 .logo-icon .logo-background {
   transform: skewX(-12deg);
   position: relative;
-  top:-140px;
+  top: -79px;
+  left: 20%;
   width:113px;
   height:130px; 
   background-color: #EE5ABD;
@@ -43,25 +60,35 @@
 
 
 main{
-  height:500px;
+  height: auto;
+  background-color: black;
 }
 
 
 footer{
-  height: 500px;
-  flex-direction: row;
+  /* position: fixed;
+  bottom: 0; */
+  height: 665px;
+  width: 100%;
   background-color: #616161;
+  color: white;
+  flex-direction: row;
+}
+
+.something ul{
+  list-style-type: none;
+  flex-direction: row;
 }
 
 .contacts {
-  height: 300px;
-  width: 700px;
   font-size: 32px;
+  margin: auto;
 }
 
+
 .contacts_content {
-  flex-direction: row;
-  margin: auto;
+  height: 290px;
+  width: 336px; 
 }
 
 .footer_logo {
