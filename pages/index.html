@@ -13,12 +13,12 @@
 </head>
 <body class="bg-black lalezar-regular">
 
-<nav class="navbar navbar-expand-lg navbar-custom bg-white py-0 fixed-top">
+<nav class="navbar navbar-expand-lg bg-body-tertiary p-0 fixed-top">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav m-auto">
 
-        <li class="nav-item"><a class="nav-link" href="pornhub.com">MEMBERSHIP</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html">MEMBERSHIP</a></li>
 
         <li class="nav-item"><a class="nav-link" href="#">PERSONAL TRAINING</a></li>
 
@@ -32,7 +32,7 @@
   </div>
 </nav>
 
-<div class="logo-icon fixed-top">
+<div class="logo logo-icon fixed-top">
     <img src="../images/logo.png" class="">
     <div class="logo-background"></div>
 </div>
@@ -40,9 +40,7 @@
   <img src="../images/hero_banner.png" class="w-100">
 </div>
 
-
-<main>
-
+<main></main>
 <div class=" a_zone">
   <span class="">A's Zone</span>
 </div>
@@ -55,13 +53,13 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <video src="../images/slider_video_1.mp4" autoplay controls muted class="d-block w-25 h-25 m-auto" alt="...">
+      <video src="../images/slider_video_1.mp4" loop autoplay controls muted class="d-block w-25 h-25 m-auto rounded-4" alt="...">
     </div>
     <div class="carousel-item">
-      <video src="../images/slider_video_2.mp4" autoplay controls muted class="d-block w-25 h-25 m-auto" alt="...">
+      <video src="../images/slider_video_2.mp4" loop autoplay controls muted class="d-block w-25 h-25 m-auto rounded-4" alt="...">
     </div>
     <div class="carousel-item">
-      <video src="../images/slider_video_3.mp4" autoplay controls muted class="d-block w-25 h-25 m-auto" alt="...">
+      <video src="../images/slider_video_3.mp4" loop autoplay controls muted class="d-block w-25 h-25 m-auto rounded-4" alt="...">
     </div>
   </div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -74,12 +72,27 @@
   </button>
 </div>
 
+<div class="meet_the_team ">
+  <h1 class="team_header text-white">MEET THE TEAM</h1>
+  <div class="d-flex flex-row">
+  <div>
+    <img src="../images/meet the team/merc1.png" style="margin: auto; height: 300px;">
+  </div>
+  <div>
+    <img src="../images/meet the team/merc2.png" style="margin: auto; height: 300px;">
+  </div>
+  <div>
+    <img src="../images/meet the team/merc3.png" style="margin: auto; height: 300px;">
+  </div>
+  </div>
+</div>
 
 </main>
 
  <footer> <!-- footer -->
-    <div id="contacts" class="contacts row ">
-        <span class="footer_logo"><img src="../images/aonlylogo.png" alt="logo" class="h-[119px] w-[119px]">'S GYM</span>
+  <div class="d-flex flex-row" style="height:420px;">
+    <div id="contacts" class="contacts mx-50">
+        <span class="footer_logo"><img src="../images/aonlylogo.png" alt="logo" class="">'S GYM</span>
         <div class="d-flex flex-row">
             <ul class="contacts_content">
                 <li>MEMBERSHIP</li>
@@ -97,25 +110,29 @@
             </ul>
         </div>
     </div>
-    <div id="subscribe" class="subscribe"> 
+    <div id="subscribe" class="contacts"> 
         <form>
-            <p class="text-64">STAY UP TO DATE</p>
-            <p class="text-[20px]">Subscribe now to get the latest news!</p>
+            <p class="subscribe_header">STAY UP TO DATE</p>
+            <!-- <p class="text-[20px]">Subscribe now to get the latest news!</p> -->
             <input type="email" placeholder="EMAIL" class="bg-white text-black text-[24px] px-5 rounded-lg w-full h-[60px]"><br>
-            <input type="checkbox" name="subscribed" value="" class="bg-[#AEAEAE] h-6 w-6 my-4">
+            <input type="checkbox" name="subscribed" value="" class="">
             <label for="subscribed" class="text-[24px]">Are you an existing customer?</label><br>
-            <button type="submit" class="bg-[#E798CB] hover:bg-[#DB67B2] p-2 w-full rounded-lg text-[32px]">Subscribe</button><br>
+            <button type="submit" class="sub_button">Subscribe</button><br>
             <p class="text-[24px]">Get started right now:</p>
         </form>
     </div>
+  </div>
+  <div class="d-flex flex-row icons_holder">
+    <a><i class="fa-brands fa-facebook fa-3x"></i></a>
+  </div>
     <div class="bottom">
-        <ul class="flex flex-row list-none text-[20px] text-white mx-50 my-2">
+        <ul class="d-flex flex-row list-none text-[20px] text-white p-0">
             <li class="px-5">GYM RULES</li>
             <li class="px-5">COOKIES POLICY</li>
             <li class="px-5">PRIVACY POLICY</li>
             <li class="px-5">TERMS AND CONDITIONS</li>
         </ul>
-        <p class="text-[15px] text-white mx-50 px-5">Copyright©2025A’s Gym. All rights reserved. </p>
+        <p class="text-[15px] text-white px-5">Copyright©2025A’s Gym. All rights reserved. </p>
     </div>
 
   </footer>
@@ -124,4 +141,5 @@
 
     
 </body>
+<script src="https://kit.fontawesome.com/3e73f0f5d1.js" crossorigin="anonymous"></script>
 </html>
