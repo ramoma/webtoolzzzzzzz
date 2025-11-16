@@ -70,9 +70,39 @@ main{
 
 .team_header{
   font-size: 64px;
+  padding: 30px;
   text-align: center;
 }
 
+.memberships{
+  height: 704.35px;
+  background: linear-gradient(to right,#800020,#B72D6F,#EE5ABD);
+}
+
+.backdrop{
+  height: 326.3px;
+  width: 289px;
+  background-color: #B72D6F;
+  transform: skewX(12deg);
+}
+.zone_switch{
+  width:565px;
+  height: 62.86px;
+  text-align: center;
+  background-color: black;
+  border-radius: 55px;
+}
+.zone_container{
+  transform: skewX(-12deg);
+  top: -350px;
+  left: 60px;
+  position: relative;
+  width: 271px;
+  height: 318.9px;
+  border: solid 10px #800020;
+  background: black;
+  text-align: center;
+}
 /* main contents end */
 
 footer{
