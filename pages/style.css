@@ -17,7 +17,7 @@
   z-index: -100;
 }
 
-.a_zone{
+.a_bullets{
   height: 45px;
   width: 193px;
   border:#EE5ABD solid;
@@ -28,8 +28,9 @@
   margin-top: 50px;
   margin-bottom: 50px;
 }
-.a_zone span {
-  padding-left: 20%;
+.a_bullets p {
+  width: 193px;
+  text-align: center;
 }
 
 .logo {
@@ -68,7 +69,7 @@ main{
   margin-top: 40px;
 }
 
-.team_header{
+.header{
   font-size: 64px;
   padding: 30px;
   text-align: center;
@@ -92,6 +93,15 @@ main{
   background-color: black;
   border-radius: 55px;
 }
+
+.choices{
+  font-size: 40px;
+}
+
+.choices:hover{
+  cursor: pointer;
+}
+
 .zone_container{
   transform: skewX(-12deg);
   top: -350px;
@@ -99,15 +109,114 @@ main{
   position: relative;
   width: 271px;
   height: 318.9px;
-  border: solid 10px #800020;
+  border: solid 20px #800020;
   background: black;
   text-align: center;
+  font-size: large;
 }
+
+.zone_content{
+  transform: skewX(12deg);
+  font-size: 40px;
+}
+
+.zone_button{
+  transform: skewX(12deg);
+  background-color: #EB329F;
+  font-size: 32px;
+  width: 160px;
+  height: 54px;
+  margin: auto;
+  padding-top: 5px;
+  border-radius: 50px;;
+}
+
+.zone_button:hover{
+  cursor: pointer;
+  background-color: #B72D6F;
+}
+
+.perks_container{
+  width: 100%;
+
+}
+
+.perks_content{
+  margin: auto;
+  width: 271px;
+  height: 470px;
+}
+
+.perks_backdrop{
+  position:relative;
+  top: 50px;
+  transform: skew(2deg);
+  rotate: -30deg;
+  background-color: #B72D6F;
+  height: 180px;
+  width: 180px;
+}
+
+.perk_container{
+  position:relative;
+  top: -180px;
+  left: 50px; 
+  background-color: #800020;
+  width: 234px;
+  height: 220px;
+}
+
+.perk_desc{
+  position: relative;
+  top: -100px;
+  text-align: center;
+  
+}
+
+.perk_desc h1{
+  font-size: 48px;
+}
+
+.perk_container img{
+  width: 240px;
+  height: 180px; 
+  align-items: center;
+}
+
+.about{
+  width: 941px;
+  margin: auto;
+  text-align: center;
+}
+
+.about h1{
+  font-size: 60px;
+}
+
+.about p {
+  font-size: 30px;
+}
+
+.landing_form input{
+  height: 54px;
+  width: 440px;
+  border: none;
+  margin-top: 15px;
+  padding-right: 12px;
+  border-radius: 15px;
+  font-size: 32px;
+}
+.form_image img{
+  height:556px;
+  width: 754px;
+  border-radius: 20px;
+}
+
 /* main contents end */
 
 footer{
   height: 620px;
-  width: 1900px;
+  width: 1920px;
   background-color: #616161;
   color: white;
 }
@@ -146,6 +255,10 @@ footer{
 .icons_holder{
   margin-left: 25px;
 }
+
+.fa-facebook{
+  color: #F28CCE;
+}
 .sub_button{
   height: 98px;
   width: 602px;
@@ -156,7 +269,7 @@ footer{
 .sub_button:hover{
   background: #DB67B2;
 }
-input[type=email]{
+footer input[type=email]{
   width: 602px;
   height: 60px;
 }
