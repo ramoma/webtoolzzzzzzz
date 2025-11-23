@@ -17,6 +17,7 @@ body{
 }
 
 .form_container input[type=text]{
+    outline: none;
     height: 59px;
     width: 407px;
     font-size: 30px;
@@ -26,6 +27,7 @@ body{
 }
 
 .form_container input[type=password]{
+    outline: none;
     height: 59px;
     width: 830px;
     font-size: 30px;
@@ -35,11 +37,14 @@ body{
 }
 
 .form_container input[type=radio]{
+    outline: none;
     height: 50px;
     width: auto;
+    outline:none;
 }
 
 .form_container input[type=number]{
+    outline: none;
     height: 59px;
     width: 407px;
     font-size: 30px;
@@ -75,4 +80,26 @@ body{
 .terms_container a{
     color: #EE5ABD;
     text-decoration: none;
+}
+
+.terms{
+    text-align: justify;
+}
+
+.consent{
+    padding-top: 24px;  
+    text-align: justify;
+    border-top: white solid 1px;
+}
+
+.submit{
+    border: none;
+    border-radius: 15px;
+    background-color: #EE5ABD;
+    height: 59px;
+    width: 830px;
+}
+
+.submit:hover{
+    background-color: #B72D6F;
 }

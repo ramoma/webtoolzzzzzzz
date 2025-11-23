@@ -208,6 +208,7 @@ main{
   padding-right: 12px;
   border-radius: 15px;
   font-size: 32px;
+  outline: none;
 }
 .landing_form input[type=submit]{
   height: 44px;
@@ -285,10 +286,12 @@ footer input[type=checkbox]{
   height: 34px;
   width: 34px;
   margin-top: 12px;
+  outline: none;
 }
 footer input[type=email]{
   width: 602px;
   height: 60px;
+  outline: none;
 }
 .bottom{
   margin-top: 50px;
