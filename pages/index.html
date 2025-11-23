@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="globals.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/globals.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="icon" type="image/png" href="../images/aonlylogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -40,7 +40,7 @@
   <img src="../images/hero_banner.png" class="w-100">
 </div>
 
-<main>
+<main class="bg-black">
 <div class=" a_bullets">
   <p>A's Zone</p>
 </div>
@@ -103,7 +103,7 @@
         <div class="mt-5 text-center">
           <h2 class="zone_content">Daily</h2>
           <h2 class="zone_content">₱60.00</h2>
-          <div class="zone_button">TRY NOW!</div>
+          <div class="zone_button" onclick="scroll_to()">TRY NOW!</div>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@
         <div class="mt-5 text-center">
           <h2 class="zone_content">Ten Days</h2>
           <h2 class="zone_content">₱250.00</h2>
-          <div class="zone_button">TRY NOW!</div>
+          <div class="zone_button" onclick="scroll_to()">TRY NOW!</div>
         </div>
       </div>
     </div>
@@ -125,7 +125,7 @@
         <div class="mt-5 text-center">
           <h2 class="zone_content">Two Weeks</h2>
           <h2 class="zone_content">₱350.00</h2>
-          <div class="zone_button">TRY NOW!</div>
+          <div class="zone_button" onclick="scroll_to()">TRY NOW!</div>
         </div>
       </div>
     </div>
@@ -136,7 +136,7 @@
         <div class="mt-5 text-center">
           <h2 class="zone_content">One Month</h2>
           <h2 class="zone_content">₱600.00</h2>
-          <div class="zone_button">TRY NOW!</div>
+          <div class="zone_button" onclick="scroll_to()">TRY NOW!</div>
         </div>
       </div>
     </div>
@@ -152,7 +152,7 @@
   <div class="perks_content">
     <div class="perks_backdrop"></div>
     <div class="perk_container">
-      <img src="../images/perks icons/perk_icon1.png" alt="perc image" class="my-3">
+      <img src="../images/perks icons/perkicon_1.png" alt="perc image" class="my-3">
     </div>
     <div class="perk_desc">
      <h1>CANCEL ANYTIME</h1> 
@@ -163,7 +163,7 @@
   <div class="perks_content">
     <div class="perks_backdrop"></div>
     <div class="perk_container">
-      <img src="../images/perks icons/perk_icon1.png" alt="perc image">
+      <img src="../images/perks icons/perkicon_2.png" alt="perc image">
     </div>
     <div class="perk_desc">
      <h1>COACH-LED TRAINING</h1> 
@@ -173,7 +173,7 @@
   <div class="perks_content">
     <div class="perks_backdrop"></div>
     <div class="perk_container">
-      <img src="../images/perks icons/perk_icon1.png" alt="perc image">
+      <img src="../images/perks icons/perkicon_4.png" alt="perc image">
     </div>
     <div class="perk_desc">
      <h1>CERTIFIED TRAINERS</h1> 
@@ -183,7 +183,7 @@
   <div class="perks_content">
     <div class="perks_backdrop"></div>
     <div class="perk_container">
-      <img src="../images/perks icons/perk_icon1.png" alt="perc image">
+      <img src="../images/perks icons/perkicon_3.png" alt="perc image">
     </div>
     <div class="perk_desc">
      <h1>FLEXIBLE GYM HOURS</h1> 
@@ -200,7 +200,9 @@
 
 </div>
 
-<div class="d-flex flex-row mx-5 my-5"><!-- the forms -->
+<div style="height: 200px;" id="form_break"></div>
+
+<div class="d-flex flex-row mx-5 my-5" id="forms"><!-- the forms -->
 
   <div class="landing_form text-white">
     <form>
@@ -209,6 +211,7 @@
       <input type="email" placeholder="EMAIL" class="px-4"><br>
       <input type="text" placeholder="CONTACT NUMBER" class="px-4"><br>
       <input type="password" placeholder="PASSWORD" class="px-4"><br>
+      <input type="submit" value="CONTINUE" class="text-white" onclick="window.open('signup_forms.html')">
     </form>
   </div>
 
@@ -250,7 +253,7 @@
             <input type="checkbox" name="subscribed" value="" class="">
             <label for="subscribed" class="text-[24px]">Are you an existing customer?</label><br>
             <button type="submit" class="sub_button">Subscribe</button><br>
-            <p class="text-[24px]">Get started right now:</p>
+            <p>Get started right now:</p>
         </form>
     </div>
   </div>
@@ -274,4 +277,9 @@
     
 </body>
 <script src="https://kit.fontawesome.com/3e73f0f5d1.js" crossorigin="anonymous"></script>
+<script>
+  function scroll_to(){
+    document.getElementById("form_break").scrollIntoView({behavior: 'smooth'});
+  }
+</script>
 </html>

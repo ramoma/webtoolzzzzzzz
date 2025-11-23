@@ -12,7 +12,7 @@
   position:fixed;
   left: 0;
   top: 0;
-  width: 1900px;
+  width: 100%;
   height: auto;
   z-index: -100;
 }
@@ -58,7 +58,6 @@
 /* main content starts */
 main{
   height: auto;
-  background-color: black;
 }
 
 .meet_the_team{
@@ -137,7 +136,9 @@ main{
 }
 
 .perks_container{
-  width: 100%;
+  width: 1531px;
+  margin: auto;
+  border-bottom: grey solid 1px;
 
 }
 
@@ -178,8 +179,10 @@ main{
 }
 
 .perk_container img{
-  width: 240px;
-  height: 180px; 
+  position: relative;
+  top:-18px;
+  width: auto;
+  height: 240px; 
   align-items: center;
 }
 
@@ -205,6 +208,12 @@ main{
   padding-right: 12px;
   border-radius: 15px;
   font-size: 32px;
+}
+.landing_form input[type=submit]{
+  height: 44px;
+  width: 211px;
+  border-radius: 50px;
+  background: #EE5ABD;
 }
 .form_image img{
   height:556px;
@@ -254,6 +263,9 @@ footer{
 
 .icons_holder{
   margin-left: 25px;
+  border-bottom: grey solid 1px;
+  width: 90%;
+  padding-bottom: 12px;
 }
 
 .fa-facebook{
@@ -268,6 +280,11 @@ footer{
 }
 .sub_button:hover{
   background: #DB67B2;
+}
+footer input[type=checkbox]{
+  height: 34px;
+  width: 34px;
+  margin-top: 12px;
 }
 footer input[type=email]{
   width: 602px;
