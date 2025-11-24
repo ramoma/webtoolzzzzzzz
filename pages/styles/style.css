@@ -100,6 +100,18 @@ main a{
 
 .choices{
   font-size: 40px;
+  height: 52px;
+  width: 1001px;
+  border-radius: 50px;
+  background-color: #800020;
+}
+
+.choices_2{
+  font-size: 40px;
+  height: 52px;
+  width: 1001px;
+  border-radius: 50px;
+  background-color: black;
 }
 
 .choices:hover{
