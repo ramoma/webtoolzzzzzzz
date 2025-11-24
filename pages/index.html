@@ -18,15 +18,15 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav m-auto text-black">
 
-        <li class="nav-item"><a class="nav-link" href="index.html">MEMBERSHIP</a></li>
+        <li class="nav-item"><a class="nav-link">MEMBERSHIP</a></li>
 
-        <li class="nav-item"><a class="nav-link" href="#">PERSONAL TRAINING</a></li>
+        <li class="nav-item" onclick="scroll_member()"><a class="nav-link">PERSONAL TRAINING</a></li>
 
-        <li class="nav-item"><a class="nav-link" href="#">WHY A'S GYM</a></li>
+        <li class="nav-item" onclick="scroll_about()"><a class="nav-link">WHY A'S GYM</a></li>
 
-        <li class="nav-item"><a class="nav-link" href="#">CLASSES</a></li>
+        <li class="nav-item" onclick="scroll_perks()"><a class="nav-link">CLASSES</a></li>
         
-        <li class="nav-item"><a class="nav-link" href="#">CONTACT  US</a></li>
+        <li class="nav-item"><a class="nav-link" href="login.html">ACCOUNT</a></li>
       </ul>
     </div>
   </div>
@@ -90,7 +90,7 @@
   </div>
 </div>
 
-<div class="memberships text-white"> <!-- the path to fitness weiner in ur mouth -->
+<div class="memberships text-white" id="to_member"> <!-- the path to fitness weiner in ur mouth -->
   <h1 class="header">THE PATH TO FITNESS STARTS WITH YOU</h1>
   <div class="zone_switch m-auto d-flex flex-row">
     <div class="choices">MEMBERSHIP</div>
@@ -144,7 +144,7 @@
   </div>
 </div>
 
-<div class="a_bullets"><!-- this is the perks i believe -->
+<div class="a_bullets" id="perks"><!-- this is the perks i believe -->
   <p>A'S PERKS</p>
 </div>
 
@@ -191,7 +191,7 @@
   </div>
 </div>
 
-<div class="about text-white"> <!-- about section -->
+<div class="about text-white" id="about"> <!-- about section -->
   <div class="a_bullets">
     <p>ABOUT A'S</p>
   </div>
@@ -205,14 +205,15 @@
 <div class="d-flex flex-row mx-5 my-5" id="forms"><!-- the forms -->
 
   <div class="landing_form text-white">
-    <form>
+    <form method="post">
       <legend class="display-4">CREATE YOUR ACCOUNT</legend>
-      <input type="text" placeholder="FULL NAME" class="px-4"><br>
+      <input type="text" placeholder="FULL NAME" class="px-4" id="name"><br>
       <input type="email" placeholder="EMAIL" class="px-4"><br>
       <input type="text" placeholder="CONTACT NUMBER" class="px-4"><br>
       <input type="password" placeholder="PASSWORD" class="px-4"><br>
       <input type="submit" value="CONTINUE" class="text-white " onclick="window.open('signup_forms.html',self)">
     </form>
+    <!-- <p class="h4 my-2">ALREADY HAVE AN ACCOUNT? <a href="login.html">CLICK HERE!</a></p> -->
   </div>
 
   <div class="form_image">
@@ -281,5 +282,24 @@
   function scroll_to(){
     document.getElementById("form_break").scrollIntoView({behavior: 'smooth'});
   }
+
+  function scroll_about(){
+    document.getElementById("about").scrollIntoView({behavior: 'smooth'});
+  }
+
+  function scroll_member(){
+    document.getElementById("to_member").scrollIntoView({behavior: 'smooth'});
+  }
+
+  function scroll_perks(){
+    document.getElementById('perks').scrollIntoView({behavior: 'smooth'});
+  }
+
+  function parse(){
+    const name = document.getElementById("name").value;
+    let something = JSON.stringify(name);
+  }
+
+  
 </script>
 </html>

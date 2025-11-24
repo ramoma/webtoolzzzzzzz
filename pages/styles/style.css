@@ -3,9 +3,9 @@
   font-weight: 400;
   font-style: normal;
 }
-
 .nav-item:hover{
   background-color: rgb(190, 190, 190);
+  cursor: pointer;
 }
 
 .hero_banner img{
@@ -58,6 +58,11 @@
 /* main content starts */
 main{
   height: auto;
+}
+
+main a{
+  color:#EE5ABD;
+  text-decoration: none;
 }
 
 .meet_the_team{
@@ -211,6 +216,8 @@ main{
   outline: none;
 }
 .landing_form input[type=submit]{
+  position: relative;
+  left: 260px;
   height: 44px;
   width: 211px;
   border-radius: 50px;
