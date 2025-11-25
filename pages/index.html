@@ -9,7 +9,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
     <title>A'S GYM</title>
+
+    <style>
+      #carouselExampleIndicators .carousel-item img {
+        width: 100%;
+        height: 480px; /* max height, adjust px size depending on img. LOWER IF NEED TO BE WIDER */
+        object-fit: cover;
+        border-radius: 12px; /* round corners */
+      }
+
+      .carousel-wrapper {
+        max-width: 1200px; 
+        margin: 2.5rem auto; 
+        padding: 0 12px;
+      }
+      .hero-spacer { margin-top: 70px; }
+
+      .carousel-caption small { font-size: 0.9rem; }
+    </style>
 </head>
 <body class="bg-black lalezar-regular">
 
@@ -36,7 +55,7 @@
     <img src="../images/logo.png" class="">
     <div class="logo-background"></div>
 </div>
-<div class="">
+<div class="hero-spacer">
   <img src="../images/hero_banner.png" class="w-100">
 </div>
 
@@ -45,32 +64,66 @@
   <p>A's Zone</p>
 </div>
 
-<div id="carouselExampleIndicators" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<!-- ======= BIGGER IMAGE SLIDER =======
+     Notes:
+     - Replace the image src attributes below with your own image paths, e.g.
+       src="../images/slider_1.jpg"
+     - To change image height, adjust the CSS `height: 520px` above.
+     - If you prefer full-width, set .carousel-wrapper max-width to 100% and remove margin auto.
+-->
+<div class="carousel-wrapper">
+
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <!-- Indicators -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <!-- Slide 1 is example of how to modify the values -->
+    <div class="carousel-inner">
+
+      <!-- Slide 1: change the src below to your image -->
+      <div class="carousel-item active">
+        <img src="/Users/joshf/Downloads/♡⠀ _⠀ cyrene⠀ !!.jpg" class="d-block w-100" alt="Max Verstappen WDC 2025"> 
+        <div class="carousel-caption d-none d-md-block">
+          <small>amogus amogus amogus</small> <!--small text in the slider, remove if unneeded --> 
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <img src="../images/slider_2.jpg" class="d-block w-100" alt="Slide 2 - replace with your image">
+        <div class="carousel-caption d-none d-md-block">
+          <small>Slide 2 — Change src="../images/slider_2.jpg" to your image file</small>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <img src="../images/slider_3.jpg" class="d-block w-100" alt="Slide 3 - replace with your image">
+        <div class="carousel-caption d-none d-md-block">
+          <small>Slide 3 — Change src="../images/slider_3.jpg" to your image file</small>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <video src="../images/slider_video_1.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto rounded-4" alt="...">
-    </div>
-    <div class="carousel-item">
-      <video src="../images/slider_video_2.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto rounded-4" alt="...">
-    </div>
-    <div class="carousel-item">
-      <video src="../images/slider_video_3.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto rounded-4" alt="...">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+
 </div>
+<!-- ======= ₊✩‧₊˚౨ৎ˚₊✩‧₊ SLIDER END ₊✩‧₊˚౨ৎ˚₊✩‧₊======= -->
 
 <div class="meet_the_team "> <!-- meet the team banner haha :3 -->
   <h1 class="header text-white">MEET THE TEAM</h1>
@@ -196,7 +249,7 @@
     <p>ABOUT A'S</p>
   </div>
   <h1>Hi! We're a local gym in Cembo, Taguig.</h1>
-  <h2>A's gym first opened its doors during November 2016. It was founded by Angel Santos after he'd frequently go to a gym in Pateros after working, so he decided to make one at home instead. The name comes from everyone in his family, who all have a first name starting with A. Him and his wife manage the gym full time and they also provide supplements and personal trainers. </h2>
+  <h2>A's gym first opened its doors during November 2016. It was founded by Angel Santos after he'd frequently go to a gym in Pateros after working, so he decided to make one at home instead. The name comes from everyone in his family, who all have a first name starting with A. Him and his wife manage the gym full time and they also provide supplements and personal trainers. </h2>
 
 </div>
 
@@ -213,7 +266,7 @@
   </div>
 
   <div class="form_image">
-    <img src="../images/form_image.jpg">
+    <img src="../images/form_image.jpg" alt="form image">
   </div>
 </div>
 
