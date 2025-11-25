@@ -1,54 +1,20 @@
-.carousel{
-    height: 900px;
-    width: 80%;
-    border: black solid 1px;
-    margin: auto;
-    overflow: hidden  ;
-}
-.carousel_container{
-    display: flex;
-    margin: auto;
-}
 
-.item-container{
-    width: 200px;
-    height: 300px;
-    border: black solid 1px;
-    margin:auto;
+.contianer{
+  display:flex;
+  height: 500px;
+  overflow-x:hidden;
+}
+.membership{
+  width:100%;
+  height: 500px;
+  border: solid black 2px;
+}
+.services{
+  width:100%;
+  height: 500px;
+  border: solid black 2px;  
 }
 
-.dots {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: center;
-}
-
-.dot {
-  height: 12px;
-  width: 12px;
-  margin: 0 5px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  transition: background-color 0.3s;
-  cursor: pointer;
-}
-
-.dot.active {
-  background-color: rgba(0, 0, 0, 0.9);
-}
-
-/* containers haha i wanna fucking kill mysef uwu :3 */
-
-.slider video{
-  margin:auto;
-    width: auto;
-    height: 300px;
-    border: black solid 1px;
-    position: relative;
-    left: px;
-    background-color: white;
-    z-index: 10000;
+.container_2{
+  height: 100%;
 }

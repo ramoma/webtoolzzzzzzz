@@ -95,16 +95,19 @@
   </div>
 </div>
 
+
 <div class="memberships text-white" id="to_member"> <!-- the path to fitness weiner in ur mouth -->
   <h1 class="header">THE PATH TO FITNESS STARTS WITH YOU</h1>
   <div class="zone_switch m-auto d-flex flex-row">
-    <div class="choices my-1">MEMBERSHIP</div>
-    <div class="choices_2 my-1">SERVICES</div>
+    <div class="choices active my-1" id="membership" onclick="set_membership">MEMBERSHIP</div>
+    <div class="choices my-1" id="services" onclick="set_services">SERVICES</div>
   </div>
+
+<div class="membership_body" id="membership_body">
   <div class="my-5 d-flex flex-row">
-    <div class="membership_container m-auto">
+    <div class="membership_container m-auto" id="membership_container">
       <div class="backdrop"></div>
-      <div class="zone_container d-flex flex-column">
+      <div class="zone_container d-flex flex-column" id="zone_container">
         <div class="mt-5 text-center">
           <h2 class="zone_content">Daily</h2>
           <h2 class="zone_content">₱60.00</h2>
@@ -113,7 +116,7 @@
       </div>
     </div>
 
-    <div class="membership_container m-auto">
+    <div class="membership_container m-auto" id="membership_container">
       <div class="backdrop"></div>
       <div class="zone_container d-flex flex-column">
         <div class="mt-5 text-center">
@@ -124,7 +127,7 @@
       </div>
     </div>
 
-    <div class="membership_container m-auto">
+    <div class="membership_container m-auto" id="membership_container">
       <div class="backdrop"></div>
       <div class="zone_container d-flex flex-column">
         <div class="mt-5 text-center">
@@ -135,7 +138,7 @@
       </div>
     </div>
 
-    <div class="membership_container m-auto">
+    <div class="membership_container m-auto" id="membership_container">
       <div class="backdrop"></div>
       <div class="zone_container d-flex flex-column">
         <div class="mt-5 text-center">
@@ -147,10 +150,37 @@
     </div>
 
   </div>
-  <div class="services">
+</div>
+<div class="services">
+  <div class="services_body text-white d-flex flex-row">
+    <div class="m-auto">
+      <div class="services_backdrop"></div>
+      <div class="services_container">
+        <h1 class="text-center">4K PLAN</h1>
+        <ul class="h2 text-left">
+          <li>BASIC TRAINING</li>
+          <li>CARDIO</li>
+          <li>WARM UP AND COOL DOWN</li>
+          <li>10 SESSIONS</li>
+        </ul>
+      </div>
+    </div>
 
+    <div class="m-auto">
+      <div class="services_backdrop"></div>
+      <div class="services_container">
+        <h1 class="text-center">4K PLAN</h1>
+        <ul class="h2 text-left">
+          <li>BASIC TRAINING</li>
+          <li>CARDIO</li>
+          <li>WARM UP AND COOL DOWN</li>
+          <li>10 SESSIONS</li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
+  
 
 <div class="a_bullets" id="perks"><!-- this is the perks i believe -->
   <p>A'S PERKS</p>
@@ -303,9 +333,29 @@
     document.getElementById('perks').scrollIntoView({behavior: 'smooth'});
   }
 
-  function parse(){
-    const name = document.getElementById("name").value;
-    let something = JSON.stringify(name);
+
+  document.getElementById("membership").addEventListener("click", set_membership);
+  document.getElementById("services").addEventListener("click", set_services);
+  function set_membership(){
+    document.getElementById("services").classList.remove("active");
+    document.getElementById("membership").classList.add("active");
+
+    document.getElementById("membership_body").classList.remove("hide");
+    document.getElementById("services").classList.add("show");
+    
+    document.getElementById("membership_body").style.zIndex = 10;
+    document.getElementById("services").style.zIndex = 0;
+  }
+
+  function set_services(){
+    document.getElementById("services").classList.add("active");
+    document.getElementById("membership").classList.remove("active");
+
+    document.getElementById("membership_body").classList.add("hide");
+    document.getElementById("services").classList.add("show");
+    
+    document.getElementById("membership_body").style.zIndex = 0;
+    document.getElementById("services").style.zIndex = 10;
   }
 
   

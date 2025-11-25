@@ -72,16 +72,84 @@ main a{
   margin: auto;
   margin-top: 40px;
 }
-
+/* membership adsfijasdfa'odfjawoidfhaoif */
 .header{
+  position: relative;
   font-size: 64px;
   padding: 30px;
   text-align: center;
+  z-index: 1000;
 }
 
 .memberships{
+  position: relative;
   height: 704.35px;
   background: linear-gradient(to right,#800020,#B72D6F,#EE5ABD);
+  z-index: 100;
+}
+.membership_body{
+  position:relative;
+  z-index: 10;
+  transition: 1s ease-in;
+  opacity: 1; 
+}
+.membership_body.hide{
+  transition: 1s ease-out;
+  opacity: 0;
+}
+.services{
+  position: relative;
+  z-index: 0;
+  width: 80%;
+  margin: auto;
+  transition: 1s ease-out;
+  opacity: 0;
+}
+.services.show{
+  transition: 1s ease-out;
+  opacity: 1;
+}
+.services_body{
+  position: relative;
+  top: -693px;
+  z-index: 10;  
+  margin: auto;
+}
+
+.zone_switch{
+  position: relative;
+  width:565px;
+  height: 62.86px;
+  text-align: center;
+  background-color: black;
+  border-radius: 55px;
+  z-index: 10000;
+}
+
+.choices{
+  font-size: 40px;
+  height: 52px;
+  width: 1001px;
+  border-radius: 50px;
+  background-color: black;
+  z-index: 10000;
+}
+
+.choices.active{
+  font-size: 40px;
+  height: 52px;
+  width: 1001px;
+  border-radius: 50px;
+  background-color:#800020;
+}
+
+.choices:hover{
+  cursor: pointer;
+}
+
+.membership_container{
+  transition: 2s ease-in;
+  opacity: 1;
 }
 
 .backdrop{
@@ -90,32 +158,24 @@ main a{
   background-color: #B72D6F;
   transform: skewX(12deg);
 }
-.zone_switch{
-  width:565px;
-  height: 62.86px;
-  text-align: center;
-  background-color: black;
-  border-radius: 55px;
+
+.services_backdrop{
+  height: 326.3px;
+  width: 289px;
+  background-color: #B72D6F;
+  transform: skewX(12deg);
 }
 
-.choices{
-  font-size: 40px;
-  height: 52px;
-  width: 1001px;
-  border-radius: 50px;
-  background-color: #800020;
-}
-
-.choices_2{
-  font-size: 40px;
-  height: 52px;
-  width: 1001px;
-  border-radius: 50px;
-  background-color: black;
-}
-
-.choices:hover{
-  cursor: pointer;
+.services_container{
+  transform: skewX(-12deg);
+  top: -350px;
+  left: 60px;
+  position: relative;
+  width: 300px;
+  height: 350px;
+  border: solid 20px #800020;
+  background: black;
+  font-size: large;
 }
 
 .zone_container{
@@ -151,7 +211,7 @@ main a{
   cursor: pointer;
   background-color: #B72D6F;
 }
-
+/* jalsdijfaoewjaldlkadjfoaidfj */
 .perks_container{
   width: 1531px;
   margin: auto;
