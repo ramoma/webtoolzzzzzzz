@@ -83,7 +83,7 @@ main a{
 
 .memberships{
   position: relative;
-  height: 762px;
+  height: 796px;
   background: linear-gradient(to right,#800020,#B72D6F,#EE5ABD);
   z-index: 100;
 }
@@ -111,12 +111,11 @@ main a{
 }
 .services_body{
   position: relative;
+  top: -170px;
   width: 300px;
   z-index: 10;  
   margin: auto;
 }
-
-
 
 .zone_switch{
   position: relative;
@@ -155,6 +154,8 @@ main a{
 }
 
 .backdrop{
+  position:relative;
+  top: 50px;
   height: 353px;
   width: 289px;
   background-color: #B72D6F;
@@ -162,7 +163,9 @@ main a{
 }
 
 .services_backdrop{
-  height: 326.3px;
+  position: relative;
+  top: 150px;
+  height: 465px;
   width: 289px;
   background-color: #B72D6F;
   transform: skewX(12deg);
@@ -173,14 +176,27 @@ main a{
   top: -350px;
   left: 60px;
   position: relative;
-  width: 300px;
-  height: 380px;
+  width: 371px;
+  height: 479px;
   border: solid 20px #800020;
   background: black;
   font-size: large;
 }
 .service_header{
   transform: skewX(12deg);
+  font-size: 36px;
+}
+
+.service_button{
+  transform: skewX(12deg);
+  background-color: #EB329F;
+  font-size: 32px;
+  width: 178px;
+  height: 67px;
+  margin: auto;
+  margin-top:0;
+  padding-top: 15px;
+  border-radius: 50px;
 }
 
 .zone_container{
@@ -198,7 +214,6 @@ main a{
 
 .zone_content{
   transform: skewX(12deg);
-  font-size: 40px;
 }
 
 .zone_button{
@@ -209,7 +224,7 @@ main a{
   height: 54px;
   margin: auto;
   padding-top: 5px;
-  border-radius: 50px;;
+  border-radius: 50px;
 }
 
 .zone_button:hover{
