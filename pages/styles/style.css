@@ -83,7 +83,7 @@ main a{
 
 .memberships{
   position: relative;
-  height: 704.35px;
+  height: 762px;
   background: linear-gradient(to right,#800020,#B72D6F,#EE5ABD);
   z-index: 100;
 }
@@ -99,22 +99,24 @@ main a{
 }
 .services{
   position: relative;
+  top: -693px;
   z-index: 0;
   width: 80%;
   margin: auto;
-  transition: 1s ease-out;
-  opacity: 0;
+  opacity:0;
 }
 .services.show{
-  transition: 1s ease-out;
+  transition: 1s ease-in;
   opacity: 1;
 }
 .services_body{
   position: relative;
-  top: -693px;
+  width: 300px;
   z-index: 10;  
   margin: auto;
 }
+
+
 
 .zone_switch{
   position: relative;
@@ -153,7 +155,7 @@ main a{
 }
 
 .backdrop{
-  height: 326.3px;
+  height: 353px;
   width: 289px;
   background-color: #B72D6F;
   transform: skewX(12deg);
@@ -172,10 +174,13 @@ main a{
   left: 60px;
   position: relative;
   width: 300px;
-  height: 350px;
+  height: 380px;
   border: solid 20px #800020;
   background: black;
   font-size: large;
+}
+.service_header{
+  transform: skewX(12deg);
 }
 
 .zone_container{
@@ -184,7 +189,7 @@ main a{
   left: 60px;
   position: relative;
   width: 271px;
-  height: 318.9px;
+  height: 345px;
   border: solid 20px #800020;
   background: black;
   text-align: center;
