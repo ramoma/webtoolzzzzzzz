@@ -18,13 +18,12 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav m-auto text-black">
 
-        <li class="nav-item"><a class="nav-link">MEMBERSHIP</a></li>
+        <li class="nav-item" onclick="scroll_member()"><a class="nav-link">MEMBERSHIP</a></li>
 
-        <li class="nav-item" onclick="scroll_member()"><a class="nav-link">PERSONAL TRAINING</a></li>
+        <li class="nav-item" onclick="scroll_perks()"><a class="nav-link">PERSONAL TRAINING</a></li>
 
         <li class="nav-item" onclick="scroll_about()"><a class="nav-link">WHY A'S GYM</a></li>
 
-        <li class="nav-item" onclick="scroll_perks()"><a class="nav-link">CLASSES</a></li>
         
         <li class="nav-item"><a class="nav-link" href="login.html">ACCOUNT</a></li>
       </ul>
@@ -37,7 +36,7 @@
     <div class="logo-background"></div>
 </div>
 <div class="">
-  <img src="../images/hero_banner.png" class="w-100">
+  <img src="../images/hero_banner.png" class="w-100 hero-">
 </div>
 
 <main class="bg-black">
@@ -98,8 +97,8 @@
 <div class="memberships text-white" id="to_member"> <!-- the path to fitness weiner in ur mouth -->
   <h1 class="header">THE PATH TO FITNESS STARTS WITH YOU</h1>
   <div class="zone_switch m-auto d-flex flex-row">
-    <div class="choices active my-1" id="membership" onclick="set_membership">MEMBERSHIP</div>
-    <div class="choices my-1" id="services" onclick="set_services">SERVICES</div>
+    <div class="choices active my-2 mx-2" id="membership" onclick="set_membership">MEMBERSHIP</div>
+    <div class="choices my-2 mx-2" id="services" onclick="set_services">SERVICES</div>
   </div>
 
   <div class="membership_body" id="membership_body">
@@ -189,6 +188,7 @@
   </div>
 </div>  
   
+<div class="separate" id="separate"></div>
 
 <div class="a_bullets" id="perks"><!-- this is the perks i believe -->
   <p>A'S PERKS</p>
@@ -237,6 +237,7 @@
   </div>
 </div>
 
+<div class="separate" id="about_separate"></div>
 <div class="about text-white" id="about"> <!-- about section -->
   <div class="a_bullets">
     <p>ABOUT A'S</p>
@@ -272,18 +273,18 @@
 
 
  <footer> <!-- footer -->
-  <div class="d-flex flex-row" style="height:420px;">
-    <div id="contacts" class="contacts mx-50">
-        <span class="footer_logo"><img src="../images/aonlylogo.png" alt="logo" class="">'S GYM</span>
+  <div class="contacts_container d-flex flex-row">
+    <div id="contacts" class="contacts mt-4">
+        <span class="footer_logo display-4 mx-5"><img src="../images/aonlylogo.png" alt="logo" class="">'S GYM</span>
         <div class="d-flex flex-row">
-            <ul class="contacts_content">
+            <ul class="contacts_content h4 mx-5 pt-3">
                 <li>MEMBERSHIP</li>
                 <li>PERSONAL TRAINING</li>
                 <li>WHY A'S GYM</li>
                 <li>CLASSES</li>
                 <li>CONTACT US</li>
             </ul>
-            <ul class="contacts_content">
+            <ul class="contacts_content h4 pt-3">
                 <li>FAQS</li>
                 <li>COOKIES POLICY</li>
                 <li>PROFILE</li>
@@ -294,9 +295,9 @@
     </div>
     <div id="subscribe" class="contacts"> 
         <form>
-            <p class="subscribe_header">STAY UP TO DATE</p>
+            <p class="display-4 mt-5">STAY UP TO DATE</p>
             <!-- <p class="text-[20px]">Subscribe now to get the latest news!</p> -->
-            <input type="email" placeholder="EMAIL" class="bg-white text-black text-[24px] px-3 rounded-lg w-full h-[60px]"><br>
+            <input type="email" placeholder="EMAIL" class="bg-white text-black px-3"><br>
             <input type="checkbox" name="subscribed" value="" class="">
             <label for="subscribed" class="text-[24px]">Are you an existing customer?</label><br>
             <button type="submit" class="sub_button">Subscribe</button><br>
@@ -307,14 +308,14 @@
   <div class="d-flex flex-row icons_holder">
     <a href="https://www.facebook.com/share/1Ca4tuz2vL/"><i class="fa-brands fa-facebook fa-3x"></i></a>
   </div>
-    <div class="bottom">
+    <div class="bottom pt-2">
         <ul class="d-flex flex-row list-none text-[20px] text-white p-0">
             <li class="px-5">GYM RULES</li>
             <li class="px-5">COOKIES POLICY</li>
             <li class="px-5">PRIVACY POLICY</li>
             <li class="px-5">TERMS AND CONDITIONS</li>
         </ul>
-        <p class="text-[15px] text-white px-5">Copyright©2025A’s Gym. All rights reserved. </p>
+        <p class="text-white px-5">Copyright©2025A’s Gym. All rights reserved. </p>
     </div>
 
   </footer>
@@ -330,7 +331,7 @@
   }
 
   function scroll_about(){
-    document.getElementById("about").scrollIntoView({behavior: 'smooth'});
+    document.getElementById("about_separate").scrollIntoView({behavior: 'smooth'});
   }
 
   function scroll_member(){
@@ -338,7 +339,7 @@
   }
 
   function scroll_perks(){
-    document.getElementById('perks').scrollIntoView({behavior: 'smooth'});
+    document.getElementById('separate').scrollIntoView({behavior: 'smooth'});
   }
 
 
