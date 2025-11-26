@@ -3,6 +3,15 @@
   font-weight: 400;
   font-style: normal;
 }
+
+
+.oswald {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .nav-item:hover{
   background-color: rgb(190, 190, 190);
   cursor: pointer;
@@ -264,7 +273,7 @@ figure{
   position: relative;
   top: -590px;
   left: 100px;
-  width: 1000px;
+  width: 1600px;
   height: 100px;
   z-index: 1000;
 }
@@ -395,7 +404,6 @@ figure{
 .form_image img{
   height:556px;
   width: 754px;
-  border-radius: 20px;
 }
 
 /* main contents end */
