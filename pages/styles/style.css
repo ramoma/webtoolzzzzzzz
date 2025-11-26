@@ -312,6 +312,7 @@ main a{
   width: 440px;
   border: none;
   margin-top: 15px;
+  padding-top: 10px;
   padding-right: 12px;
   border-radius: 15px;
   font-size: 32px;
@@ -319,12 +320,18 @@ main a{
 }
 .landing_form input[type=submit]{
   position: relative;
+  padding-top:0;
   left: 260px;
   height: 44px;
   width: 211px;
   border-radius: 50px;
   background: #EE5ABD;
 }
+
+.landing_form input[type=submit]:hover{
+  background-color: #B72D6F;
+}
+
 .form_image img{
   height:556px;
   width: 754px;
@@ -378,8 +385,8 @@ footer{
   color: #F28CCE;
 }
 .sub_button{
-  height: 40px;
-  width: 402px;
+  height: 50px;
+  width: 502px;
   background: #E798CB;
   color:white;
   font-size: 20px;
@@ -390,12 +397,11 @@ footer{
 footer input[type=checkbox]{
   height: 21px;
   width: 21px;
-  margin-top: 12px;
   outline: none;
 }
 footer input[type=email]{
-  width: 402px;
-  height: 40px;
+  width: 502px;
+  height: 50px;
   outline: none;
 }
 .bottom{
