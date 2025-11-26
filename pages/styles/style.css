@@ -21,8 +21,7 @@
   left: 0;
   top: 0;
   width: 100%;
-  height: auto;
-  z-index: -100;
+  z-index: 100;
 }
 
 .a_bullets{
@@ -99,7 +98,7 @@ main a{
 }
 .team_info:hover{
   transition: ease-in 0.1s;
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .coach_info{
@@ -263,8 +262,11 @@ main a{
 
 figure{
   position: relative;
-  top: -500px;
+  top: -590px;
   left: 100px;
+  width: 1000px;
+  height: 100px;
+  z-index: 1000;
 }
 
 .zone_container{
