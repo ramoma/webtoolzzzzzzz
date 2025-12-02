@@ -4,8 +4,6 @@
   font-style: normal;
 }
 
-
-
 .montserrat {
   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
@@ -13,6 +11,14 @@
   font-style: normal;
 }
 
+.nav-item{
+  padding-top:6px;
+  color:black;
+}
+
+.navbar{
+  height: 50px;
+}
 
 .nav-item:hover{
   background-color: rgb(190, 190, 190);
@@ -406,7 +412,7 @@ figure{
 .landing_form input[type=submit]{
   position: relative;
   padding-top:0;
-  left: 260px;
+  left: 230px;
   height: 44px;
   width: 211px;
   border-radius: 50px;
@@ -425,7 +431,7 @@ figure{
 /* main contents end */
 
 footer{
-  height: 400px;
+  height: 360px;
   width: 100%;
   background-color: #616161;
   color: white;
@@ -458,9 +464,9 @@ footer{
 }
 
 .icons_holder{
-  margin-left: 25px;
+  margin-left: 10px;
   border-bottom: grey solid 1px;
-  width: 100%;
+  width: 1000px;
   padding-bottom: 6px;
 }
 

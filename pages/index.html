@@ -14,18 +14,17 @@
 <body class="bg-black lalezar-regular">
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary p-0 fixed-top">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav m-auto text-black">
+  <div class="container-fluid h-100">
+    <div class="collapse navbar-collapse h-100" id="navbarNav">
+      <ul class="navbar-nav m-auto h-100">
 
-        <li class="nav-item" onclick="scroll_member()"><a class="nav-link">MEMBERSHIP</a></li>
+        <li class="nav-item" onclick="scroll_member()"><a class="nav-link text-black">MEMBERSHIP</a></li>
 
-        <li class="nav-item" onclick="scroll_perks()"><a class="nav-link">PERSONAL TRAINING</a></li>
+        <li class="nav-item" onclick="scroll_perks()"><a class="nav-link text-black">PERSONAL TRAINING</a></li>
 
-        <li class="nav-item" onclick="scroll_about()"><a class="nav-link">WHY A'S GYM</a></li>
+        <li class="nav-item" onclick="scroll_about()"><a class="nav-link text-black">WHY A'S GYM</a></li>
 
-        
-        <li class="nav-item"><a class="nav-link" href="login.html">ACCOUNT</a></li>
+        <li class="nav-item"><a class="nav-link text-black" href="login.html">ACCOUNT</a></li>
       </ul>
     </div>
   </div>
@@ -57,28 +56,37 @@
   <p>A's Zone</p>
 </div>
 
-<div id="carouselExampleIndicators" class="carousel slide">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active"><video src="../images/slider_video_1.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="..."></div>
+  <div class="carousel-inner m-auto w-75">
+    <div class="carousel-item active" data-bs-interval="4000">
+
+      <div class="d-flex flex-row">
+        <video src="../images/slider/slider_video_1.mp4" loop autoplay muted class="d-block w-25 m-auto" alt="..."></video>
+        <video src="../images/slider/slider_video_2.mp4" loop autoplay muted class="d-block w-25  m-auto" alt="..."></video>
+        <video src="../images/slider/slider_video_3.mp4" loop autoplay muted class="d-block w-25  m-auto" alt="..."></video>
+      </div>
       
-    <div class="carousel-item">
-      <video src="../images/slider_video_2.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="...">
     </div>
-    <div class="carousel-item">
-      <video src="../images/slider_video_3.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="...">
+      
+    <div class="carousel-item" data-bs-interval="4000">
+      <div class="d-flex flex-row">
+        <video src="../images/slider/slider_video_4.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="..."></video>
+        <img src="../images/slider/slider_image_1.JPG" class="w-25 h-25 d-block m-auto">
+        <video src="../images/slider/slider_video_5.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="..."></video>
+      </div>
     </div>
-    <!-- <div class="carousel-item">
-      <video src="../images/slider_video_4.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="...">
+    <div class="carousel-item" data-bs-interval="4000">
+      <div class="d-flex flex-row">
+        <video src="../images/slider/slider_video_1.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="..."></video>
+        <img src="../images/slider/slider_image_3.JPG" class="w-25">
+        <video src="../images/slider/slider_video_2.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="..."></video>
+      </div>
     </div>
-    <div class="carousel-item">
-      <video src="../images/slider_video_5.mp4" loop autoplay muted class="d-block w-25 h-25 m-auto" alt="...">
-    </div>
-  </div> -->
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
@@ -303,16 +311,15 @@
 
 </main>
 
-
-
- <footer> <!-- footer -->
+<footer> <!-- footer -->
   <div class="contacts_container d-flex flex-row">
     <div id="contacts" class="contacts mt-4">
         <span class="footer_logo display-4 mx-5"><img src="../images/aonlylogo.png" alt="logo" class="">'S GYM</span>
-        <div class="">
-          <div class="h4 mt-5 mx-4">CONTACT US</div>
-          <div class="d-flex flex-row icons_holder">
+        <div class="contacts">
+          <div class="h4 mt-5 mx-5">CONTACT US</div>
+          <div class="d-flex flex-row icons_holder mx-5">
             <a href="https://www.facebook.com/share/1Ca4tuz2vL/"><i class="fa-brands fa-facebook fa-3x"></i></a>
+
           </div>
             <!-- <ul class="contacts_content h4  d-flex align-items-center">
                 <li>MEMBERSHIP</li>
@@ -330,10 +337,9 @@
             </ul> -->
         </div>
     </div>
-    <div id="subscribe" class="contacts"> 
+    <div id="subscribe" class="subscribe"> 
         <form>
             <p class="display-4 mt-4">STAY UP TO DATE</p>
-            <!-- <p class="text-[20px]">Subscribe now to get the latest news!</p> -->
             <input type="email" placeholder="EMAIL" class="bg-white text-black px-3"><br>
             <div class="d-flex align-items-center my-2">
             <input type="checkbox" name="subscribed" value="" class="">
@@ -358,11 +364,7 @@
         <a href="#"><p class="px-5">Copyright©2025A’s Gym. All rights reserved. </p></a>
     </div>
 
-  </footer>
-
-
-
-    
+</footer> 
 </body>
 <script src="https://kit.fontawesome.com/3e73f0f5d1.js" crossorigin="anonymous"></script>
 <script>
