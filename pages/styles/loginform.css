@@ -1,6 +1,7 @@
 
 body{
   background-image: linear-gradient(to right, #800020, #B72D6F, #EE5ABD);
+  overflow-y: hidden;
 }
 
 .form_container{
@@ -9,7 +10,7 @@ body{
   border-radius: 25px;
   background-color: black;
   margin:auto;
-  margin-top: 10%;
+  margin-top: 100px;
   padding: 50px;
 }
 

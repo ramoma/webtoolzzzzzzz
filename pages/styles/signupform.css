@@ -5,13 +5,16 @@ body{
 }
 
 .form_container{
+  position: relative;
   width: 970px;
   height: auto;
   border-radius: 25px;
   background-color: black;
   margin:auto;
-  margin-top: 10%;
+  margin-top: 5%;
   padding: 50px;
+  margin-bottom: 10px;
+  z-index: 10;
 }
 
 .form_container input[type=text]{
