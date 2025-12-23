@@ -25,7 +25,7 @@
   cursor: pointer;
 }
 
-.hero_banner img{
+.hero_banner{
   position: relative;
   left: 0;
   top: 0;
@@ -37,4 +37,32 @@
 
 
 /* header icon */
+.logobackground{
+  transform: skew(-12deg);
+}
+.logobackground img{
+  transform: skew(12deg);
+}
 /* header icon */
+
+/* section tab */
+
+.section-tab{
+  height: 88px;
+  width: 351px;
+  transform-origin: bottom left;
+  transform: skew(-30deg, 0deg);
+}
+
+.section-tab p{
+  transform: skew(30deg);
+}
+
+.tab-background{
+  height: 60px;
+  width: 311px;
+  transform-origin: bottom left;
+  transform: skew(-50deg, 0deg);
+}
+
+/* section tab */
