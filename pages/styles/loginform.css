@@ -1,0 +1,49 @@
+
+body{
+  background-image: linear-gradient(to right, #800020, #B72D6F, #EE5ABD);
+}
+
+.form_container{
+  width: 970px;
+  height: auto;
+  border-radius: 25px;
+  background-color: black;
+  margin:auto;
+  margin-top: 10%;
+  padding: 50px;
+}
+
+.form_container input[type=text]{
+    height: 59px;
+    width: 820px;
+    border-radius: 15px;
+    outline:none;
+}
+
+.form_container input[type=password]{
+    height: 59px;
+    width: 820px;
+    border-radius: 15px;
+    outline: none;
+}
+
+.form_container a{
+    text-decoration: none;
+    color:#EE5ABD;
+}
+
+.submit{
+    border: none;
+    border-radius: 15px;
+    background-color: #EE5ABD;
+    height: 59px;
+    width: 830px;
+}
+
+.submit:hover{
+    background-color: #B72D6F;
+}
+
+.acknowledge{
+    border-top: white solid 1px;
+}
