@@ -7410,6 +7410,10 @@ textarea.form-control-lg {
   top: 28px !important;
 }
 
+.top-20px {
+  top: 20px !important;
+}
+
 .top-0 {
   top: 0 !important;
 }
@@ -7432,6 +7436,10 @@ textarea.form-control-lg {
 
 .bottom-28px {
   bottom: 28px !important;
+}
+
+.bottom-20px {
+  bottom: 20px !important;
 }
 
 .bottom-0 {
@@ -7458,6 +7466,10 @@ textarea.form-control-lg {
   left: 28px !important;
 }
 
+.start-20px {
+  left: 20px !important;
+}
+
 .start-0 {
   left: 0 !important;
 }
@@ -7480,6 +7492,10 @@ textarea.form-control-lg {
 
 .end-28px {
   right: 28px !important;
+}
+
+.end-20px {
+  right: 20px !important;
 }
 
 .end-0 {
