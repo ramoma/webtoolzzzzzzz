@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A's Gym Login</title>
+    <style>
+        /* --- CSS STYLES --- */
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial Black', Gadget, sans-serif; /* Thick font to match your image */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* Gradient Overlay + Background Image */
+        .page-wrapper {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Replace the URL below with your actual gym photo */
+            background: linear-gradient(to right, rgba(235, 87, 87, 0.7), rgba(214, 51, 132, 0.7)), 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* The Main Card */
+        .login-card {
+            background-color: #D6D6D6; /* Light grey */
+            padding: 40px 50px;
+            width: 420px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* Logo Placeholder */
+        .logo-area {
+            margin-bottom: 30px;
+        }
+        
+        .logo-text {
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Form Elements */
+        .form-group {
+            text-align: left;
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #777;
+            background-color: #E0E0E0;
+            outline: none;
+        }
+
+        /* Remember Me Row */
+        .remember-row {
+            display: flex;
+            align-items: center;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .remember-row input {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        /* Pink Button */
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #F851BA; /* Hot pink */
+            border: none;
+            color: #000;
+            font-weight: 900;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #C54194; /* Simple 3D effect */
+            transition: transform 0.1s;
+        }
+
+        .login-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px #C54194;
+        }
+
+        /* Footer Links */
+        .footer-links {
+            margin-top: 15px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: #000;
+            margin: 0 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-wrapper">
+        <div class="login-card">
+            
+            <div class="logo-area">
+                <div style="background-image: url(C:\Users\Bianca Dave Baltazar\OneDrive\Desktop\webtools\images\image-removebg-preview.png)"></div>
+            </div>
+
+            <form action="#">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" required>
+                </div>
+
+                <div class="remember-row">
+                    <input type="radio" id="rem">
+                    <label for="rem">Remember Me</label>
+                </div>
+
+                <button type="submit" class="login-btn">Log In</button>
+            </form>
+
+            <div class="footer-links">
+                <a href="#">Forgot Password?</a>
+                <a href="#">Forgot Password</a>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
