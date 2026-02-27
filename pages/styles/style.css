@@ -66,3 +66,65 @@
 }
 
 /* section tab */
+
+/* responsive shit */
+
+.logo_banner{
+  height: 401px;
+  width: auto;
+  background-image: url("../../media/hero_banner_inage.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.logo_overlay{
+  position: absolute;
+  top: 0;
+  height: 401px;
+  width: 100%;
+  background-image: linear-gradient(to right, #EE5ABD,#ED6E52);
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  background-size: 100%;
+}
+
+.logo{
+  z-index: 1000;
+  position:absolute;
+  height: 204px; 
+  width: 611px; 
+  background-image: url("../../images/image-removebg-preview.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+.logo_text{
+  position:fixed;
+  top: 200px;
+}
+
+@media screen and (max-width: 428px){
+    .logo_banner {
+        height: 101px;
+    }
+    .logo_overlay{
+      height: 101px;
+    }
+    .logo{
+      z-index: 1000;
+      position:absolute;
+      height: 53px; 
+      width: 151px; 
+      background-image: url("../../images/image-removebg-preview.png");
+      background-size: contain;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 6px;
+    }
+    .logo_text{
+      top: 50px;
+    }
+}
