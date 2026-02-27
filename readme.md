@@ -44,3 +44,11 @@ create table user_transaction_log(
     amount int,
     FOREIGN KEY (id) REFERENCES user_accounts(id)
 );
+
+#this is not finished yet because i forgot to add this initially sorry
+
+create table user_activity(
+    id int,
+    day date,
+    activity enum()
+);

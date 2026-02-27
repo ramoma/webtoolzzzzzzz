@@ -26,11 +26,13 @@
 }
 
 .hero_banner{
-  position: relative;
-  left: 0;
-  top: 0;
+  background-image: url('../../images/hero_banner_2.jpg');
+  background-repeat: no-repeat; 
+  background-size:100%; 
+  background-position: top; 
+  background-attachment: scroll; 
+  height: 728px;
   width: 100%;
-  z-index: 100;
 }
 
 /* nav items */
@@ -106,7 +108,9 @@
   top: 200px;
 }
 
+/* responsivity */
 @media screen and (max-width: 428px){
+  /* logo header section  */
     .logo_banner {
         height: 101px;
     }
@@ -127,4 +131,18 @@
     .logo_text{
       top: 50px;
     }
+    /* end of logo responsivity section */
+
+    /* hero banner responsive start */
+    .hero_banner{
+      background-image: url('../../images/hero_banner_2.jpg');
+      background-repeat: no-repeat; 
+      background-size:100%; 
+      background-position: top; 
+      background-attachment: scroll; 
+      height: 218px;
+      width: 100%;
+    }
+
+    /* end of her banner responsivity */
 }
