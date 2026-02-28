@@ -1,0 +1,148 @@
+.lalezar-regular {
+  font-family: "Lalezar", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
+}
+/* navbar items */
+.nav-item{
+  color:black;
+  height: 50px;
+}
+
+.navbar{
+  font-size: 24;
+}
+
+.nav-item:hover{
+  background-color: rgb(190, 190, 190);
+  cursor: pointer;
+}
+
+.hero_banner{
+  background-image: url('../../images/hero_banner_2.jpg');
+  background-repeat: no-repeat; 
+  background-size:cover; 
+  background-position: top; 
+  background-attachment: scroll; 
+  height: 443px;
+  width: 100%;
+}
+
+/* nav items */
+
+
+/* header icon */
+.logobackground{
+  transform: skew(-12deg);
+}
+.logobackground img{
+  transform: skew(12deg);
+}
+/* header icon */
+
+/* section tab */
+
+.section-tab{
+  height: 88px;
+  width: 351px;
+  transform-origin: bottom left;
+  transform: skew(-30deg, 0deg);
+}
+
+.section-tab p{
+  transform: skew(30deg);
+}
+
+.tab-background{
+  height: 60px;
+  width: 311px;
+  transform-origin: bottom left;
+  transform: skew(-50deg, 0deg);
+}
+
+/* section tab */
+
+/* responsive shit */
+
+.logo_banner{
+  height: 401px;
+  width: auto;
+  background-image: url("../../media/hero_banner_inage.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.logo_overlay{
+  position: absolute;
+  top: 0;
+  height: 401px;
+  width: 100%;
+  background-image: linear-gradient(to right, #EE5ABD,#ED6E52);
+  background-repeat: no-repeat;
+  opacity: 0.5;
+  background-size: 100%;
+}
+
+.logo{
+  z-index: 1000;
+  position:absolute;
+  height: 204px; 
+  width: 611px; 
+  background-image: url("../../images/image-removebg-preview.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+.logo_text{
+  position:fixed;
+  top: 200px;
+}
+
+/* responsivity */
+@media screen and (max-width: 428px){
+  /* logo header section  */
+    .logo_banner {
+        height: 101px;
+    }
+    .logo_overlay{
+      height: 101px;
+    }
+    .logo{
+      z-index: 1000;
+      position:absolute;
+      height: 53px; 
+      width: 151px; 
+      background-image: url("../../images/image-removebg-preview.png");
+      background-size: contain;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 6px;
+    }
+    .logo_text{
+      top: 50px;
+    }
+    /* end of logo responsivity section */
+
+    /* hero banner responsive start */
+    .hero_banner{
+      background-image: url('../../images/hero_banner_2.jpg');
+      background-repeat: no-repeat; 
+      background-size:100%; 
+      background-position: top; 
+      background-attachment: scroll; 
+      height: 218px;
+      width: 100%;
+    }
+
+    /* end of her banner responsivity */
+}
