@@ -62,7 +62,7 @@
 
 .tab-background{
   height: 60px;
-  width: 311px;
+  width: 90%;
   transform-origin: bottom left;
   transform: skew(-50deg, 0deg);
 }
