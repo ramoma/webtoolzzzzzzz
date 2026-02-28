@@ -69,6 +69,23 @@
 
 /* section tab */
 
+/* footer section because i dont want to do it in bootstrap that shit is scary */
+
+.footer_body{
+  display: grid;
+  padding-left: 50px;
+  grid-template: 300px /auto auto auto auto auto;
+  width: 100%;
+  height: 25%;
+}
+
+.footer_components{
+  width: 300px;
+  height: auto;
+}
+
+/* end of footer section because uwu ako uwu :3 */
+
 /* responsive shit */
 
 .logo_banner{
