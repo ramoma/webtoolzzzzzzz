@@ -9,6 +9,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <title>A'S GYM</title>
+    <style> 
+        .sidebar-link {
+            color: #FFFFFF;
+            font-family: 'Lalezar', sans-serif;
+            font-size: 32px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            line-height: 1;
+            padding: 4px 8px;
+            border-radius: 5px;
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+        .sidebar-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+        }
+        .sidebar-link:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
 </head>
 <body class="bg-altblack lalezar-regular">
 
@@ -43,6 +65,31 @@
         </nav>
     </div>
     <!-- end of navbar -->
+
+    <!-- sidebar -->
+    <!-- sidebar (not buttons) appearance-->
+    <div style="
+        position: absolute;
+        left: 20px;
+        top: 708px;
+        width: 180px;
+        height: 367px;
+        background-color: #9E9E9E;
+        border-radius: 7px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        padding: 10px 0;
+    "> <!-- sidebar linking to respective webpages **SUBJECT TO CHANGES DEPENDING ON FILES**-->
+        <a href="dashboard.html" class="sidebar-link">Dashboard</a>
+        <a href="workouts.html" class="sidebar-link">Workouts</a>
+        <a href="schedule.html" class="sidebar-link">Schedule</a>
+        <a href="progress.html" class="sidebar-link">Progress</a>
+        <a href="nutrition.html" class="sidebar-link">Nutrition</a>
+        <a href="payment.html" class="sidebar-link">Payment</a>
+        <a href="settings.html" class="sidebar-link">Settings</a>
+    </div>
+    <!-- end of sidebar -->
 
 </body>
 </html>
