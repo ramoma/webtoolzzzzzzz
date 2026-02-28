@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A's Gym - Registration</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Arial Black', Gadget, sans-serif;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px 20px;
+            background: linear-gradient(to right, rgba(235, 87, 87, 0.7), rgba(214, 51, 132, 0.7)), 
+                        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-card {
+            background-color: #D6D6D6;
+            padding: 40px 50px;
+            width: 480px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .logo-area {
+            margin-bottom: 20px;
+        }
+
+        .logo-area div {
+            background-image: url(../images/image-removebg-preview.png);
+            height: 100px;
+            width: 300px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 13px;
+            font-weight: 900;
+            color: #555;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .section-label {
+            font-size: 13px;
+            font-weight: 900;
+            color: #000;
+            display: block;
+            margin-bottom: 7px;
+            margin-top: 14px;
+            text-align: left;
+        }
+
+        .section-label-main {
+            font-size: 22px;
+            font-weight: 900;
+            color: #000;
+            display: block;
+            margin-bottom: 7px;
+            margin-top: 16px;
+            text-align: left;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 4px;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #777;
+            background-color: #E0E0E0;
+            outline: none;
+            font-family: 'Arial', sans-serif;
+            font-size: 13px;
+            color: #000;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="email"]::placeholder {
+            color: #999;
+            font-weight: normal;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            text-align: left;
+        }
+
+        .radio-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .radio-row input[type="radio"] {
+            cursor: pointer;
+            accent-color: #F851BA;
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .radio-label {
+            font-size: 13px;
+            font-weight: normal;
+            color: #888;
+            flex: 1;
+        }
+
+        .radio-price {
+            font-size: 13px;
+            font-weight: 900;
+            color: #555;
+            margin-left: auto;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #F851BA;
+            border: none;
+            color: #000;
+            font-weight: 900;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 4px 0px #C54194;
+            transition: transform 0.1s;
+            margin-top: 24px;
+            font-family: 'Arial Black', Gadget, sans-serif;
+        }
+
+        .login-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0px #C54194;
+        }
+
+        .skip-link {
+            display: block;
+            text-align: center;
+            margin-top: 14px;
+            font-size: 15px;
+            font-weight: 900;
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .skip-link:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #bbb;
+            margin: 12px 0 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+    <div class="login-card">
+
+        <!-- Logo -->
+        <div class="logo-area">
+            <div></div>
+        </div>
+
+        <div class="page-title">Sign-up</div>
+
+        <form action="#">
+
+            <!-- Name -->
+            <label class="section-label">Name</label>
+            <div class="input-row">
+                <input type="text" placeholder="First name">
+                <input type="text" placeholder="Last name">
+            </div>
+
+            <hr class="divider">
+
+            <!-- Email -->
+            <label class="section-label">Email</label>
+            <input type="email" placeholder="Enter your email">
+
+            <hr class="divider">
+
+            <!-- Gender -->
+            <label class="section-label">Gender</label>
+            <div class="radio-group">
+                <label class="radio-row">
+                    <input type="radio" name="gender" value="male">
+                    <span class="radio-label">Male</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" name="gender" value="female">
+                    <span class="radio-label">Female</span>
+                </label>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Membership -->
+            <label class="section-label-main">Membership</label>
+            <div class="radio-group">
+                <label class="radio-row">
+                    <input type="radio" name="membership" value="daily">
+                    <span class="radio-label">Daily</span>
+                    <span class="radio-price">PHP 60</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" name="membership" value="10days">
+                    <span class="radio-label">10 Days</span>
+                    <span class="radio-price">PHP 250</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" name="membership" value="2weeks">
+                    <span class="radio-label">2 Weeks</span>
+                    <span class="radio-price">PHP 350</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" name="membership" value="monthly">
+                    <span class="radio-label">Monthly</span>
+                    <span class="radio-price">PHP 6,000</span>
+                </label>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Payment -->
+            <label class="section-label-main">Payment</label>
+            <div class="radio-group">
+                <label class="radio-row">
+                    <input type="radio" name="payment" value="cash">
+                    <span class="radio-label">Cash</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" name="payment" value="gcash">
+                    <span class="radio-label">GCash</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" name="payment" value="card">
+                    <span class="radio-label">Card</span>
+                </label>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Account Name -->
+            <label class="section-label">Account Name</label>
+            <input type="text" placeholder="Enter account name">
+
+            <hr class="divider">
+
+            <!-- Reference Number -->
+            <label class="section-label">Reference Number</label>
+            <input type="text" placeholder="Enter reference number">
+
+            <button type="submit" class="login-btn">Done</button>
+
+        </form>
+
+        <a href="#" class="skip-link">Skip</a>
+
+    </div>
+</div>
+
+</body>
+</html>
