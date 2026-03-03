@@ -92,7 +92,7 @@
         }
 
         input[type="text"],
-        input[type="email"], {
+        input[type="email"]{
             width: 100%;
             padding: 10px;
             border: 1px solid #777;
@@ -198,20 +198,20 @@
 
         <div class="page-title">Sign-up</div>
 
-        <form action="#">
+        <form action="#" method="post">
 
             <!-- Name -->
             <label class="section-label">Name</label>
             <div class="input-row">
-                <input type="text" name="firstname" placeholder="First name">
-                <input type="text" name="lastname" placeholder="Last name">
+                <input type="text" name="firstname" id="firstname" placeholder="First name">
+                <input type="text" name="lastname" id="lastname" placeholder="Last name">
             </div>
 
             <hr class="divider">
 
             <!-- Email -->
             <label class="section-label">Email</label>
-            <input type="email" name="email" placeholder="Enter your email">
+            <input type="email" name="email" id="email" placeholder="Enter your email">
 
             <hr class="divider">
 
@@ -219,11 +219,11 @@
             <label class="section-label">Gender</label>
             <div class="radio-group">
                 <label class="radio-row">
-                    <input type="radio" name="gender" value="male">
+                    <input type="radio" name="gender" id="gender" value="male">
                     <span class="radio-label">Male</span>
                 </label>
                 <label class="radio-row">
-                    <input type="radio" name="gender" value="female">
+                    <input type="radio" name="gender" id="gender" value="female">
                     <span class="radio-label">Female</span>
                 </label>
             </div>
@@ -234,22 +234,22 @@
             <label class="section-label-main">Membership</label>
             <div class="radio-group">
                 <label class="radio-row">
-                    <input type="radio" name="membership" value="daily">
+                    <input type="radio" id="membership" name="membership" value="daily">
                     <span class="radio-label">Daily</span>
                     <span class="radio-price">PHP 60</span>
                 </label>
                 <label class="radio-row">
-                    <input type="radio" name="membership" value="10days">
+                    <input type="radio" id="membership" name="membership" value="10days">
                     <span class="radio-label">10 Days</span>
                     <span class="radio-price">PHP 250</span>
                 </label>
                 <label class="radio-row">
-                    <input type="radio" name="membership" value="2weeks">
+                    <input type="radio" id="membership" name="membership" value="2weeks">
                     <span class="radio-label">2 Weeks</span>
                     <span class="radio-price">PHP 350</span>
                 </label>
                 <label class="radio-row">
-                    <input type="radio" name="membership" value="monthly">
+                    <input type="radio" id="membership" name="membership" value="monthly">
                     <span class="radio-label">Monthly</span>
                     <span class="radio-price">PHP 6,000</span>
                 </label>
@@ -257,36 +257,23 @@
 
             <hr class="divider">
 
-            <!-- Payment -->
-            <label class="section-label-main">Payment</label>
-            <div class="radio-group">
-                <label class="radio-row">
-                    <input type="radio" name="payment" value="cash">
-                    <span class="radio-label">Cash</span>
-                </label>
-                <label class="radio-row">
-                    <input type="radio" name="payment" value="gcash">
-                    <span class="radio-label">GCash</span>
-                </label>
-                <label class="radio-row">
-                    <input type="radio" name="payment" value="card">
-                    <span class="radio-label">Card</span>
-                </label>
-            </div>
+            <label class="section-label-main">Password</label>
+            <input type="password" name="password" id="password">
+            
 
             <hr class="divider">
 
-            <!-- Account Name -->
+            <!-- Account Name
             <label class="section-label">Account Name</label>
             <input type="text" name="acc_num" placeholder="Enter account name">
 
             <hr class="divider">
 
-            <!-- Reference Number -->
+             Reference Number
             <label class="section-label">Reference Number</label>
-            <input type="text" name="ref_num" placeholder="Enter reference number">
+            <input type="text" name="ref_num" placeholder="Enter reference number"> -->
 
-            <button type="submit" class="login-btn">Done</button>
+            <input type="submit" id="register_submit" value="Done">
 
         </form>
 
@@ -295,5 +282,6 @@
     </div>
 </div>
 
+<script src="../Scripts/register_script.js"></script>
 </body>
 </html>
