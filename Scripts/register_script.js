@@ -5,22 +5,29 @@ document.getElementById("register_submit").addEventListener("click", function(e)
         let email = document.getElementById("email").value;
         let gender = document.getElementById("gender").value;
         let membership =  document.getElementById("membership").value;
+        let password = document.getElementById("password").value;
 
 
         let data = {
-            "fullname": fullName,
-            "email": email,
-            "gender": gender,
-            "membership": membership
+            fullname: fullName
+            // email: email,
+            // gender: gender,
+            // membership: membership
         };
         
         let json = JSON.stringify(data);
 
         fetch("../Api/register.php", {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
             body: json
         }).then(res=>res.json())
-        .catch("err");
+        .then(data => {
+            console.log(data.message);
+        })
+        .catch(err => console.error("something went wrong", err));
 
 
     });
