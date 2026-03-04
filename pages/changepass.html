@@ -88,6 +88,8 @@
 </head>
 <body>
 
+        <form method="POST" action="changepass.php">
+
     <div class="bg-wrapper">
         <img src="../images/hero_banner_2.jpg" class="bg-image-tag" alt="Gym Background Image">
         <div class="gradient-overlay"></div>
@@ -141,6 +143,16 @@
         function showStep(step) {
             document.querySelectorAll('.card-custom').forEach(card => card.classList.add('hidden'));
             document.getElementById('step' + step).classList.remove('hidden');
+        }
+
+        function checkpassword() {
+            const newPass = document.querySelector('input[name="new_password"]').value;
+            const conNewPass = document.querySelector('input[name="con_new_pass"]').value;
+            if (newPass !== conNewPass) {
+                alert("Passwords do not match!");
+                return false; // Prevent form submission
+            }
+            return true; // Allow form submission
         }
     </script>
 </body>
