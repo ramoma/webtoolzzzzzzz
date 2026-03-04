@@ -17,8 +17,15 @@
 
         // setcookie("fullname", $fullname, time() + (86400 * 1), "/");
 
+        mail(
+            "monecraftisgood@gmail.com",
+            "wassup",
+            "pussy"
+        );
+        
+
         echo json_encode([
-            "message" => "the api is successfull!" // this will output in the console dont worry
+            "message" => "the api is successfull!: username {$fullname}" // this will output in the console dont worry
         ]);
         exit;
 
