@@ -100,7 +100,7 @@
             <p class="mt-2 fw-bold text-black">Forgot Password</p>
             <div class="mb-3 text-start">
                 <label class="form-label small fw-bold text-black mb-1">Enter Email</label>
-                <input type="email" name="email" class="form-control">
+                <input type="email" name="email" class="form-control" required>
             </div>
             <button onclick="showStep(2)" class="btn btn-pink">Submit</button>
         </div>
@@ -110,12 +110,12 @@
             <p class="mt-2 fw-bold text-black">Account Verification</p>
             <p class="small text-secondary">Enter Code Here</p>
             <div class="d-flex justify-content-center mb-4">
-                <input type="text" maxlength="1" class="otp-input">
-                <input type="text" maxlength="1" class="otp-input">
-                <input type="text" maxlength="1" class="otp-input">
-                <input type="text" maxlength="1" class="otp-input">
-                <input type="text" maxlength="1" class="otp-input">
-                <input type="text" maxlength="1" class="otp-input">
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
+                <input type="text" maxlength="1" class="otp-input" required>
             </div>
             <button onclick="showStep(3)" class="btn btn-pink mb-2">Verify Code</button>
             <a href="#" class="d-block small text-dark text-decoration-none fw-bold">Resend Code</a>
@@ -126,11 +126,11 @@
             <p class="mt-2 fw-bold text-black">Reset Password</p>
             <div class="mb-3 text-start">
                 <label class="form-label small fw-bold text-black mb-1">New Password</label>
-                <input type="password" name="new_password" class="form-control">
+                <input type="password" name="new_password" class="form-control" required>
             </div>
             <div class="mb-3 text-start">
                 <label class="form-label small fw-bold text-black mb-1">Confirm New Password</label>
-                <input type="password" name="con_new_pass" class="form-control">
+                <input type="password" name="con_new_pass" class="form-control" required>
             </div>
             <button onclick="alert('Password Updated!')" class="btn btn-pink">Reset Password</button>
         </div>
