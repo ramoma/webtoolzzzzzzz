@@ -1,8 +1,12 @@
 <?php
-$host = 'localhost';
-$db   = 'gym_db';
-$user = 'root';
-$pass = '';
-$conn = new mysql($host, $user, $pass, $db);
+    $host = 'localhost';
+    $db   = 'gym_database';
+    $user = 'root';
+    $pass = '';
+    $conn = mysqli_connect($host, $user, $pass, $db);
+
+    if(!$conn){
+        die("error");
+    }
 
 ?>
