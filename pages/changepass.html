@@ -128,15 +128,18 @@
             <p class="mt-2 fw-bold text-black">Reset Password</p>
             <div class="mb-3 text-start">
                 <label class="form-label small fw-bold text-black mb-1">New Password</label>
-                <input type="password" name="new_password" class="form-control" required>
-            </div>
-            <div class="mb-3 text-start">
-                <label class="form-label small fw-bold text-black mb-1">Confirm New Password</label>
-                <input type="password" name="con_new_pass" class="form-control" required>
-            </div>
-            <button onclick="alert('Password Updated!')" class="btn btn-pink">Reset Password</button>
-        </div>
-
+    <div class="input-group">
+        <input type="password" name="new_password" id="newPass" class="form-control" required>
+        <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('newPass', this)">👁️</button>
+    </div>
+</div>
+<div class="mb-3 text-start">
+    <label class="form-label small fw-bold text-black mb-1">Confirm New Password</label>
+    <div class="input-group">
+        <input type="password" name="con_new_pass" id="conPass" class="form-control" required>
+        <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('conPass', this)">👁️</button>
+    </div>
+        <button onclick="return checkpassword();" class="btn btn-pink">Reset Password</button>
     </div>
 
     <script>
@@ -148,12 +151,41 @@
         function checkpassword() {
             const newPass = document.querySelector('input[name="new_password"]').value;
             const conNewPass = document.querySelector('input[name="con_new_pass"]').value;
-            if (newPass !== conNewPass) {
+            if (newPass != conNewPass) {
                 alert("Passwords do not match!");
                 return false; // Prevent form submission
+            } else{
+                alert("Password Updated!");
+                window.location.href = "login_page.html"; // redirect after success
+                return true; // Allow form submission
             }
-            return true; // Allow form submission
         }
+
+        function togglePassword(fieldId, btn) {
+            const input = document.getElementById(fieldId);
+            if (input.type === "password") {
+                input.type = "text";
+                btn.textContent = "🙈";
+            } else {
+                input.type = "password";
+                btn.textContent = "👁️";
+            }
+    }
+
+    document.querySelectorAll('.otp-input').forEach((input, index, inputs) => {
+    input.addEventListener('input', function () {
+        if (this.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+    });
+
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Backspace' && this.value === '' && index > 0) {
+            inputs[index - 1].focus();
+        }
+    });
+});
+    
     </script>
 </body>
 </html>
