@@ -18,27 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
     }
-
-    // Action: Verify OTP
-    if (isset($_POST['verify_otp'])) {
-        $user_otp = implode('', $_POST['otp_code']);
-        if ($user_otp == $_SESSION['generated_otp']) {
-            $_SESSION['step'] = 3;
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit;
-        } else {
-            $message = "Invalid Verification Code.";
-        }
-    }
-
-    // Action: Reset Password
-    if (isset($_POST['update_password'])) {
-        $new_pass = $_POST['password'];
-        // Update your database here: UPDATE users SET password = '$new_pass' WHERE email = '...'
-        $message = "Password updated successfully!";
-        session_destroy();
-        $_SESSION['step'] = 1; 
-    }
 }
 ?>
 
