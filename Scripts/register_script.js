@@ -113,10 +113,7 @@ document.getElementById("register_submit").addEventListener("click", function(e)
         let membership =  document.querySelector("input[name = 'membership']:checked").value;
         let password = document.getElementById("password").value;
         let register = document.getElementById("register_submit").value;
-
         
-
-
         let data = {
             fullname: fullName,
             email: email,

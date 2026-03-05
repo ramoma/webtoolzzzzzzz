@@ -21,29 +21,31 @@ n5px for -5px
 
 # database
 
+sa xampp press the shell sa right hand side
+then in that terminal type:
+    cd mysql/bin
+    mysql -u root -p
+
+when it asks for your password just press enter
+
+then do the following V
+
 create database gym_database;
+
+
+# first table in the database
 
 create table user_accounts(
     id int NOT NULL AUTO_INCREMENT,
-    full_name varchar(100) NOT NULL,
-    email varchar(100) NOT NULL,
+    full_name varchar(100) NOT NULL UNIQUE,
+    email varchar(100) NOT NULL UNIQUE,
     password varchar(100) NOT NULL,
-    mode_of_payment ENUMS("cash","GCash","Card)
+    gender enums("Male", "Female"),
+    membership enums("Daily","10_Days","2_Weeks","Monthly"),
     PRIMARY KEY (id)
 );
 
-create table user_banking_information(
-    id int,
-    acc_name varchar(100),
-    acc_num int,
-    FOREIGN KEY(id) REFERENCES user_acccounts(id)
-);
 
-create table user_transaction_log(
-    id int,
-    amount int,
-    FOREIGN KEY (id) REFERENCES user_accounts(id)
-);
 
 #this is not finished yet because i forgot to add this initially sorry
 
