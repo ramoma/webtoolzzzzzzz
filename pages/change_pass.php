@@ -12,14 +12,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Action: Request OTP
     if (isset($_POST['send_otp'])) {
-        $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-        // In a real app, verify email exists in DB here
-        $_SESSION['reset_email'] = $email;
-        $_SESSION['generated_otp'] = 12345; // rand(100000, 999999);
-        $_SESSION['step'] = 2;
+    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
+
+    // Check if email exists
+    $stmt = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $email);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+
+    if (mysqli_stmt_num_rows($stmt) === 0) {
+        $_SESSION['error'] = "No account found with that email.";
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
     }
+
+    $_SESSION['reset_email'] = $email;
+    $_SESSION['generated_otp'] = 12345; // rand(100000, 999999);
+    $_SESSION['step'] = 2;
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
 
     // Action: Verify OTP
     if (isset($_POST['verify_otp'])) {  
@@ -35,12 +47,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Action: Reset Password
     if (isset($_POST['update_password'])) {
-        $new_pass = $_POST['password'];
-        // Update your database here: UPDATE users SET password = '$new_pass' WHERE email = '...'
-        $message = "Password updated successfully!";
+    $new_pass = $_POST['new_password'];
+    $confirm  = $_POST['con_new_pass'];
+
+    if ($new_pass === $confirm) {
+        $hashed = password_hash($new_pass, PASSWORD_BCRYPT);
+        $email  = $_SESSION['reset_email'];
+
+        $stmt = mysqli_prepare($conn, "UPDATE users SET password = ? WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, "ss", $hashed, $email);
+        mysqli_stmt_execute($stmt);
+
+        $_SESSION['error'] = "Password updated successfully!";
         session_destroy();
-        $_SESSION['step'] = 1; 
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        $_SESSION['error'] = "Passwords do not match!";
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
     }
+}
 }
 ?>
 
