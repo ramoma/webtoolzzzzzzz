@@ -2,7 +2,8 @@
 session_start();
 require_once '../Api/connection.php';
 
-$message = "";
+header("Content-Type: application/json");
+
 $current_step = $_SESSION['step'] ?? 1;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -17,30 +18,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_store_result($stmt);
 
         if (mysqli_stmt_num_rows($stmt) === 0) {
-            $_SESSION['error'] = "No account found with that email.";
-            header("Location: changepass.php");
+            echo json_encode(["success" => false, "message" => "No account found with that email."]);
             exit;
         }
 
         $_SESSION['reset_email'] = $email;
         $_SESSION['generated_otp'] = 123456; // swap to rand(100000, 999999) when going live
         $_SESSION['step'] = 2;
-        header("Location: changepass.php");
+        echo json_encode(["success" => true, "step" => 2]);
         exit;
     }
 
     // Step 2 — Verify OTP
     if (isset($_POST['verify_otp'])) {
         $user_otp = implode('', $_POST['otp_code']);
+
         if ($user_otp == $_SESSION['generated_otp']) {
             $_SESSION['step'] = 3;
-            header("Location: changepass.php");
-            exit;
+            echo json_encode(["success" => true, "step" => 3]);
         } else {
-            $_SESSION['error'] = "Invalid Verification Code.";
-            header("Location: changepass.php");
-            exit;
+            echo json_encode(["success" => false, "message" => "Invalid Verification Code."]);
         }
+        exit;
     }
 
     // Step 3 — Reset Password
@@ -65,13 +64,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: changepass.php");
             exit;
         }
+
+        $hashed = password_hash($new_pass, PASSWORD_BCRYPT);
+        $email  = $_SESSION['reset_email'];
+
+        $stmt = mysqli_prepare($conn, "UPDATE users SET password = ? WHERE email = ?");
+        mysqli_stmt_bind_param($stmt, "ss", $hashed, $email);
+        mysqli_stmt_execute($stmt);
+
+        session_destroy();
+        echo json_encode(["success" => true, "message" => "Password updated successfully!", "redirect" => "login_page.php"]);
+        exit;
     }
 }
 
-// Handle Resend Code
+// Resend OTP
 if (isset($_GET['resend'])) {
     session_destroy();
-    header("Location: changepass.php");
+    echo json_encode(["success" => true, "step" => 1]);
     exit;
 }
 ?>
