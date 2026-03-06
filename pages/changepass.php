@@ -1,7 +1,7 @@
 <?php
 // Load the backend logic first
 require_once 'connection.php';
-header("Content-Type: application/json");
+header("Content-Type: text/html; charset=UTF-8");
 ?>
 <!DOCTYPE html>
 <html lang="en">
