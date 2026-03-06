@@ -10,6 +10,16 @@
     $username = $data["username"] ?? "";
     $password = $data["password"] ?? "";
 
+    if(isset($data["logout"])){
+        
+        session_destroy();
+
+        echo json_encode([
+            "message" => "something testing testing"
+        ]);
+        
+        exit;
+    }
     if(isset($_SESSION['username'])){
 
         echo json_encode([
@@ -35,7 +45,7 @@
         $stmt2->close();
 
         if($check_password > 0 && $check_username > 0){
-            
+
             $_SESSION["username"] = $username;
 
             echo json_encode([
@@ -60,6 +70,7 @@
         ]);
         exit;
     }
+    
 
     
 ?>
