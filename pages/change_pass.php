@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['send_otp'])) {
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
-        $stmt = mysqli_prepare($conn, "SELECT id FROM users WHERE email = ?");
+        $stmt = mysqli_prepare($conn, "SELECT id FROM user_accounts WHERE email = ?");
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_store_result($stmt);
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         $_SESSION['reset_email'] = $email;
-        $_SESSION['generated_otp'] = 12345; // swap to rand(100000, 999999) when going live
+        $_SESSION['generated_otp'] = 123456; // swap to rand(100000, 999999) when going live
         $_SESSION['step'] = 2;
         header("Location: changepass.php");
         exit;
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hashed = password_hash($new_pass, PASSWORD_BCRYPT);
             $email  = $_SESSION['reset_email'];
 
-            $stmt = mysqli_prepare($conn, "UPDATE users SET password = ? WHERE email = ?");
+            $stmt = mysqli_prepare($conn, "UPDATE user_accounts SET password = ? WHERE email = ?");
             mysqli_stmt_bind_param($stmt, "ss", $hashed, $email);
             mysqli_stmt_execute($stmt);
 

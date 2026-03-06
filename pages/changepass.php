@@ -1,4 +1,4 @@
-<?php require_once 'change_pass.php'; ?>
+<?php require_once('change_pass.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
