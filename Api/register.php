@@ -9,20 +9,43 @@
     if(isset($data["c_submit"])){
 
         $email = $data["email"];
+        $username = $data["username"];
         
 
         $stmt = $conn->prepare("select count(*) from user_accounts where email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $stmt->bind_result($resulting_email);
+        $stmt->fetch();
+        $stmt->close();
 
-        $result = $stmt->fetch();
+        $stmt2 = $conn->prepare("select count(*) from user_accounts where username = ?");
+        $stmt2->bind_param("s",$username);
+        $stmt2->execute();
+        $stmt2->bind_result($resulting_username);
+        $stmt2->fetch();
+        $stmt2->close();
 
-        if($resulting_email > 0){
+
+        if($resulting_email > 0 && $resulting_username > 0){
            echo json_encode([
-            "Status" => "error",
-            "message" => "Email already in use"
+            "Status" => "account error",
+            "message" => "account already exists"
             ]); 
+            exit;
+        }
+        else if($resulting_username > 0){
+            echo json_encode([
+                "Status" => "user error",
+                "message" => "username is already in use"
+            ]);
+            exit;
+        }
+        else if($resulting_email > 0){
+            echo json_encode([
+                "Status" => "email error",
+                "message" => "email already in use"
+            ]);
             exit;
         }
         else{
@@ -33,71 +56,47 @@
             exit;
         }
     }
-    // else{
-
-        
-    // }
-
 
     if(isset($data["status"])){
 
+        $fullname = $data["fullname"];
         $username = $data["username"];
         $password = $data["password"];
         $email = $data["email"];
+        $gender = $data["gender"];
 
-        // $stmt = $conn->prepare("select * from user_accounts where email = ?");
-        // $stmt->bind_param("s", $email);
-        // $stmt->execute();
 
-        // $result = $stmt->fetch();
-
-        // if($result){
-        //    echo json_encode([
-        //     "Status" => "error",
-        //     "message" => "Email already in use!"
-        //     ]); 
-        //     exit;
-        // }
-        // else{
-            $stmt = $conn->prepare("insert into user_accounts(full_name, username, email, password) values(?,?,?,?)");
-            $stmt->bind_param("ssss",$username, $username, $email, $password);
-            $stmt->execute();
-            
-
-            echo json_encode([
-                "Status" => "successful",
-                "message" => "the api is successfull!: username {$username}, {$password}, {$email}" // this will output in the console dont worry
-            ]); 
-            exit;
-        // }
+        $stmt = $conn->prepare("insert into user_accounts(full_name, username, email, password, gender) values(?,?,?,?,?)");
+        $stmt->bind_param("sssss",$fullname, $username, $email, $password, $gender);
+        $stmt->execute();
+        $stmt->close();
         
 
-    }
-    else{
-         echo json_encode([
-            "message" => "sorry what?"
-        ]);
+        echo json_encode([
+            "Status" => "success",
+            "message" => "the api is successfull!: username" // this will output in the console dont worry
+        ]); 
         exit;
     }
 
-    // function check_indexes($username, $email){
-    //     $stmt = $conn->prepare("select username from user_accounts where username = (?)");
-    //     $stmt->bind_param("s", $username);
-    //     $stmt->execute();
+    if(isset($data["register"])){
+        $fullname = $data["fullname"];
+        $username = $data["username"];
+        $password = $data["password"];
+        $email = $data["email"];
+        $gender = $data["gender"];
+        $membership = $data["membership"];
 
-    //     $result = $stmt->get_result();
+        $stmt = $conn->prepare("insert into user_accounts(full_name, username, email, password, gender, membership) values(?,?,?,?,?,?)");
+        $stmt->bind_param("ssssss",$fullname, $username, $email, $password, $gender, $membership);
+        $stmt->execute();
+        $stmt->close();
+        
 
-    //     if(!empty($result)){
-    //         echo json_encode([
-    //             "message" => "user already exists"
-    //         ]);
-    //     }
-    //     else{
-    //         echo json_encode([
-    //             "message" => "okay"
-    //         ]);
-    //     }
-    // }
-
-
+        echo json_encode([
+            "Status" => "success",
+            "message" => "the api is successfull!: username" // this will output in the console dont worry
+        ]); 
+        exit;
+    }
 ?>
