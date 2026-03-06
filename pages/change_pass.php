@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once '../Api/connection.php';
-header("Content-Type: application/json");
-
 // --- 1. PHP BACKEND LOGIC ---
 // This part handles the form submissions when the page reloads
 $message = "";
