@@ -137,25 +137,25 @@
             <form action="../Api/login.php" method="POST">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" name="username" required>
+                    <input type="text" name="username" id="username" required>
                 </div>
 
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" required>
+                    <input type="password" name="password" id="password" required>
                 </div>
 
                 <div class="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" name="con_pass" required>
+                    <input type="password" name="con_pass" id="con_pass" required>
                 </div>
 
                 <div class="remember-row">
-                    <input type="radio" name="rem" id="rem">
+                    <input type="radio" name="rem" id="rem" value="true">
                     <label for="rem">Remember Me</label>
                 </div>
 
-                <button type="submit" class="login-btn">Log In</button>
+                <input type="submit" class="login-btn" id="login" value="Log In">
             </form>
 
             <div class="footer-links">
