@@ -6,6 +6,7 @@
     <link rel="icon" href="../images/aonlylogo.png">
     <title>A's Gym - Registration</title>
     <link rel="stylesheet" href="styles/register_page.css">
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
 
         <form action="../Api/register.php" method="post" id="card1" class="card1 ">
 
-            <label class="section-label">Username</label>
+            <label class="section-label">Username <span class="hidden text-danger" id="user_error">* username is already taken</span></label>
             <div class="input-row">
                 <input type="text" name="username" id="username" placeholder="Username" required>
             </div>

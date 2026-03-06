@@ -34,6 +34,7 @@ document.getElementById("c_submit").addEventListener("click", function(e){
                 if(data.Status === "user error"){
                     console.log(data.Status);
                     window.alert(data.message);
+                    document.getElementById("user_error").classList.remove("hidden");
                 }
                 else if(data.Status === "email error"){
                     console.log(data.Status);
