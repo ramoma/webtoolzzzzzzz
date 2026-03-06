@@ -88,7 +88,7 @@
 </head>
 <body>
 
-        <form method="POST" action="login_page.html">
+        <form method="POST" action="changepass.php">
 
     <div class="bg-wrapper">
         <img src="../images/hero_banner_2.jpg" class="bg-image-tag" alt="Gym Background Image">

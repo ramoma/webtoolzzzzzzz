@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once '../Api/connection.php';
+header("Content-Type: application/json");
 
 // --- 1. PHP BACKEND LOGIC ---
 // This part handles the form submissions when the page reloads
@@ -13,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
         // In a real app, verify email exists in DB here
         $_SESSION['reset_email'] = $email;
-        $_SESSION['generated_otp'] = rand(100000, 999999);
+        $_SESSION['generated_otp'] = 12345; // rand(100000, 999999);
         $_SESSION['step'] = 2;
         header("Location: " . $_SERVER['PHP_SELF']);
         exit;
