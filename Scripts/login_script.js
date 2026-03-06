@@ -54,6 +54,7 @@ document.getElementById("login").addEventListener("click", function(e){
             }
         })
     }
-
-
+    else{
+        window.alert("Passwords don't match");
+    }
 });
