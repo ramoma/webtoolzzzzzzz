@@ -4,1222 +4,692 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>A's Gym — Trainer Dashboard</title>
-<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <style>
-  :root {
-    --bg: #1B1B1B;
-    --surface: #222222;
-    --surface2: #292929;
-    --border: #333333;
-    --accent: #00F5FF;
-    --accent2: #EE5ABD;
-    --accent3: #FF2A26;
-    --accent4: #ED6E52;
-    --accent5: #B72D6F;
-    --accent6: #800020;
-    --text: #D9D9D9;
-    --muted: #777777;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+:root {
+  --bg:#1B1B1B; --surface:#222; --surface2:#292929; --border:#333;
+  --accent:#00F5FF; --accent2:#EE5ABD; --accent3:#FF2A26;
+  --accent4:#ED6E52; --accent5:#B72D6F; --text:#D9D9D9; --muted:#777;
+}
+body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text); }
 
-  /* ── TOPBAR ── */
-  .topbar {
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    height:56px; display:flex; align-items:center; justify-content:space-between;
-    padding:0 28px;
-    background:rgba(27,27,27,0.97); backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--border);
-  }
-  .brand { font-family:'Lalezar',cursive; font-size:20px; letter-spacing:0.5px; color:var(--text); }
-  .brand em { color:var(--accent); font-style:normal; }
-  .role-tag {
-    background:rgba(0,245,255,0.1); color:var(--accent);
-    border:1px solid rgba(0,245,255,0.25);
-    border-radius:6px; padding:4px 12px;
-    font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
-  }
-  .topbar-right { display:flex; align-items:center; gap:10px; }
-  .icon-btn {
-    width:36px; height:36px; border-radius:8px;
-    background:var(--surface2); border:1px solid var(--border);
-    display:flex; align-items:center; justify-content:center;
-    cursor:pointer; font-size:15px; color:var(--muted);
-    transition:color 0.15s, border-color 0.15s, background 0.15s; position:relative;
-  }
-  .icon-btn:hover { color:var(--text); border-color:var(--muted); background:var(--surface); }
-  .notif-dot { position:absolute; top:7px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--accent3); border:2px solid var(--bg); }
-  .avatar {
-    width:36px; height:36px; border-radius:8px;
-    background:linear-gradient(135deg,var(--accent),var(--accent2));
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Lalezar',cursive; font-size:13px; color:#1B1B1B; cursor:pointer;
-  }
+/* ── TOPBAR ── */
+.fc-topbar { position:fixed; top:0; left:0; right:0; z-index:1040; height:56px; background:rgba(27,27,27,0.97); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 20px; }
+.fc-brand { font-family:'Lalezar',cursive; font-size:20px; color:var(--text); text-decoration:none; }
+.fc-brand em { color:var(--accent); font-style:normal; }
+.role-tag { background:rgba(238,90,189,.1); color:var(--accent2); border:1px solid rgba(238,90,189,.25); border-radius:6px; padding:3px 10px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.ic-btn { width:36px; height:36px; border-radius:8px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; color:var(--muted); transition:.15s; position:relative; }
+.ic-btn:hover { color:var(--text); border-color:var(--muted); }
+.ndot { position:absolute; top:7px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--accent3); border:2px solid var(--bg); }
+.fc-avatar { width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; color:#1B1B1B; cursor:pointer; }
+.hamburger { background:none; border:none; color:var(--text); font-size:20px; cursor:pointer; padding:4px 8px; }
 
-  /* ── LAYOUT ── */
-  .layout { display:flex; padding-top:56px; min-height:100vh; }
+/* ── SIDEBAR ── */
+.fc-sidebar { position:fixed; top:56px; left:0; bottom:0; width:216px; z-index:1035; background:var(--surface); border-right:1px solid var(--border); overflow-y:auto; padding:12px; transition:transform .25s ease; }
+@media(max-width:991px){ .fc-sidebar { transform:translateX(-216px); } .fc-sidebar.open { transform:translateX(0); } }
+.profile-card { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px; margin-bottom:10px; text-align:center; }
+.profile-av { width:52px; height:52px; border-radius:12px; background:linear-gradient(135deg,rgba(0,245,255,.3),rgba(238,90,189,.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:18px; color:var(--accent); margin:0 auto 10px; }
+.profile-name { font-family:'Lalezar',cursive; font-size:15px; }
+.profile-spec { font-size:11px; color:var(--muted); margin-top:3px; }
+.profile-rating { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:8px; font-size:12px; color:var(--accent4); font-weight:600; }
+.nav-sec { font-size:10px; font-weight:600; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; padding:14px 10px 5px; }
+.nav-lnk { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; font-size:13.5px; color:var(--muted); cursor:pointer; transition:.15s; position:relative; user-select:none; border:none; background:none; width:100%; text-align:left; }
+.nav-lnk:hover { background:var(--surface2); color:var(--text); }
+.nav-lnk.active { background:var(--surface2); color:var(--text); font-weight:600; }
+.nav-lnk.active::before { content:''; position:absolute; left:0; top:6px; bottom:6px; width:3px; border-radius:2px; background:var(--accent); }
+.sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1034; }
+.sidebar-overlay.show { display:block; }
 
-  /* ── SIDEBAR ── */
-  .sidebar {
-    width:216px; position:fixed; top:56px; left:0; bottom:0;
-    background:var(--surface); border-right:1px solid var(--border);
-    padding:20px 14px; display:flex; flex-direction:column; gap:2px; overflow-y:auto;
-  }
-  .nav-section { font-size:10px; font-weight:600; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; padding:16px 10px 6px; }
-  .nav-item {
-    display:flex; align-items:center; gap:10px;
-    padding:9px 12px; border-radius:8px;
-    font-size:13.5px; color:var(--muted); cursor:pointer;
-    transition:all 0.15s; position:relative; user-select:none;
-  }
-  .nav-item:hover { background:var(--surface2); color:var(--text); }
-  .nav-item.active { background:var(--surface2); color:var(--text); font-weight:600; }
-  .nav-item.active::before {
-    content:''; position:absolute; left:0; top:6px; bottom:6px;
-    width:3px; border-radius:2px; background:var(--accent);
-  }
-  .nav-icon { font-size:16px; width:20px; text-align:center; }
-  .nav-badge { margin-left:auto; background:var(--accent3); color:#fff; font-size:10px; font-weight:700; padding:1px 6px; border-radius:10px; }
+/* ── MAIN ── */
+.fc-main { margin-left:216px; padding-top:56px; min-height:100vh; }
+@media(max-width:991px){ .fc-main { margin-left:0; } }
+.fc-content { padding:24px 20px 48px; }
+@media(max-width:575px){ .fc-content { padding:16px 12px 40px; } }
 
-  .profile-card {
-    background:var(--surface2); border:1px solid var(--border);
-    border-radius:10px; padding:14px; margin-bottom:8px; text-align:center;
-  }
-  .profile-av {
-    width:52px; height:52px; border-radius:12px;
-    background:linear-gradient(135deg,rgba(0,245,255,0.3),rgba(238,90,189,0.2));
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Lalezar',cursive; font-size:18px; color:var(--accent);
-    margin:0 auto 10px;
-  }
-  .profile-name { font-family:'Lalezar',cursive; font-size:15px; }
-  .profile-spec { font-size:11px; color:var(--muted); margin-top:3px; }
-  .profile-rating { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:8px; font-size:12px; color:var(--accent4); font-weight:600; }
+/* ── PAGE ── */
+.fc-page { display:none; }
+.fc-page.active { display:block; animation:fadeUp .3s ease both; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-  /* ── MAIN ── */
-  .main { margin-left:216px; flex:1; padding:28px 28px 40px; }
-  .page { display:none; }
-  .page.active { display:block; animation:fadeUp 0.3s ease both; }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+/* ── CARDS ── */
+.fc-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:16px; }
+.fc-card-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--border); flex-wrap:wrap; gap:8px; }
+.fc-card-title { font-family:'Lalezar',cursive; font-size:15px; margin:0; }
+.fc-card-link { font-size:12px; color:var(--accent); cursor:pointer; font-weight:500; border:none; background:none; padding:0; }
 
-  /* ── COMMON ── */
-  .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; }
-  .page-title { font-family:'Lalezar',cursive; font-size:26px; letter-spacing:0.3px; }
-  .page-sub { font-size:13px; color:var(--muted); margin-top:3px; }
-  .page-actions { display:flex; gap:10px; }
-  .btn { padding:9px 18px; border-radius:8px; font-family:'Lalezar',cursive; font-size:14px; letter-spacing:0.3px; cursor:pointer; border:none; transition:all 0.15s; }
-  .btn-primary { background:var(--accent); color:#1B1B1B; }
-  .btn-primary:hover { filter:brightness(1.1); }
-  .btn-ghost { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
-  .btn-ghost:hover { border-color:var(--muted); }
-  .btn-danger { background:rgba(255,42,38,0.15); color:var(--accent3); border:1px solid rgba(255,42,38,0.3); }
-  .btn-danger:hover { background:rgba(255,42,38,0.25); }
+/* ── STAT CARDS ── */
+.mstat { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; transition:.2s; }
+.mstat:hover { transform:translateY(-2px); }
+.mstat-val { font-family:'Lalezar',cursive; font-size:28px; letter-spacing:-1px; margin-bottom:5px; }
+.mstat-lbl { font-size:11px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:.5px; }
 
-  .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
-  .card-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px 14px; border-bottom:1px solid var(--border); }
-  .card-title { font-family:'Lalezar',cursive; font-size:15px; }
-  .card-link { font-size:12px; color:var(--accent); cursor:pointer; font-weight:500; }
-  .card-link:hover { text-decoration:underline; }
+/* ── BADGES ── */
+.fc-badge { display:inline-flex; align-items:center; padding:3px 8px; border-radius:6px; font-size:11px; font-weight:600; }
+.b-teal{background:rgba(0,245,255,.12);color:var(--accent)} .b-pink{background:rgba(255,42,38,.12);color:var(--accent3)}
+.b-orange{background:rgba(237,110,82,.15);color:var(--accent4)} .b-purple{background:rgba(238,90,189,.15);color:var(--accent2)}
+.b-gray{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
 
-  .badge { display:inline-flex; align-items:center; padding:3px 8px; border-radius:6px; font-size:11px; font-weight:600; }
-  .b-teal { background:rgba(0,245,255,0.12); color:var(--accent); }
-  .b-pink { background:rgba(255,42,38,0.12); color:var(--accent3); }
-  .b-orange { background:rgba(237,110,82,0.15); color:var(--accent4); }
-  .b-purple { background:rgba(238,90,189,0.15); color:var(--accent2); }
-  .b-gray { background:var(--surface2); color:var(--muted); border:1px solid var(--border); }
+/* ── TABLE ── */
+.fc-table { width:100%; border-collapse:collapse; }
+.fc-table th { text-align:left; font-size:10.5px; font-weight:600; color:var(--muted); letter-spacing:.8px; text-transform:uppercase; padding:10px 16px; border-bottom:1px solid var(--border); white-space:nowrap; }
+.fc-table td { padding:10px 16px; font-size:13px; border-bottom:1px solid rgba(51,51,51,.5); vertical-align:middle; }
+.fc-table tr:last-child td { border-bottom:none; }
+.fc-table tbody tr { transition:background .12s; cursor:pointer; }
+.fc-table tbody tr:hover td { background:var(--surface2); }
+.tbl-wrap { overflow-x:auto; }
 
-  .g31 { display:grid; grid-template-columns:1.7fr 1fr; gap:16px; margin-bottom:16px; }
-  .g2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-  .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:16px; }
-  .flex-col { display:flex; flex-direction:column; gap:16px; }
+/* ── BUTTONS ── */
+.fc-btn { padding:8px 16px; border-radius:8px; font-family:'Lalezar',cursive; font-size:14px; cursor:pointer; border:none; transition:.15s; }
+.fc-btn-primary { background:var(--accent); color:#1B1B1B; }
+.fc-btn-primary:hover { filter:brightness(1.1); }
+.fc-btn-ghost { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+.fc-btn-ghost:hover { border-color:var(--muted); }
+.fc-btn-danger { background:rgba(255,42,38,.15); color:var(--accent3); border:1px solid rgba(255,42,38,.3); }
+.fc-btn-sm { padding:5px 12px; font-size:12px; }
 
-  /* ── MINI STATS ── */
-  .mini-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
-  .mstat { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; transition:border-color 0.15s,transform 0.15s; }
-  .mstat:hover { border-color:var(--muted); transform:translateY(-1px); }
-  .mstat-val { font-family:'Lalezar',cursive; font-size:30px; letter-spacing:-1px; margin-bottom:5px; }
-  .mstat-lbl { font-size:11px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:0.5px; }
+/* ── PAGE HEADER ── */
+.pg-header { display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:20px; }
+.pg-title { font-family:'Lalezar',cursive; font-size:26px; letter-spacing:.3px; margin:0; }
+.pg-sub { font-size:13px; color:var(--muted); margin-top:3px; }
 
-  /* ── NEXT SESSION HERO ── */
-  .next-session-hero {
-    margin:16px 20px;
-    background:linear-gradient(135deg,rgba(0,245,255,0.08),rgba(238,90,189,0.04));
-    border:1px solid rgba(0,245,255,0.2); border-radius:10px; padding:18px;
-  }
-  .next-tag { font-size:10px; color:var(--accent); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-  .next-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 1.5s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
-  .next-name { font-family:'Lalezar',cursive; font-size:20px; margin-bottom:3px; }
-  .next-meta { font-size:12px; color:var(--muted); }
-  .next-time-row { display:flex; align-items:center; gap:8px; margin-top:12px; }
-  .next-time-badge { background:rgba(0,245,255,0.15); color:var(--accent); padding:5px 12px; border-radius:7px; font-size:12px; font-weight:700; font-family:'Lalezar',cursive; }
-  .next-type-badge { background:var(--surface2); color:var(--muted); padding:5px 12px; border-radius:7px; font-size:11.5px; }
+/* ── FORM ── */
+.fc-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:6px; display:block; }
+.fc-input, .fc-select, .fc-textarea { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-family:'Barlow',sans-serif; font-size:13.5px; color:var(--text); outline:none; transition:border-color .15s; }
+.fc-input:focus, .fc-select:focus, .fc-textarea:focus { border-color:var(--accent); }
+.fc-select option { background:var(--surface2); }
+.fc-textarea { resize:vertical; min-height:80px; }
+::placeholder { color:var(--muted); }
 
-  /* ── SESSION ITEMS ── */
-  .session-item { display:flex; align-items:center; gap:14px; padding:14px 20px; border-bottom:1px solid rgba(51,51,51,0.8); transition:background 0.12s; cursor:pointer; }
-  .session-item:hover { background:var(--surface2); }
-  .session-item:last-child { border-bottom:none; }
-  .session-item.next-up { background:rgba(0,245,255,0.04); border-left:2px solid var(--accent); }
-  .sess-time { font-family:'Lalezar',cursive; font-size:12px; color:var(--accent); width:46px; text-align:center; flex-shrink:0; line-height:1.4; }
-  .sess-line { width:1px; height:36px; background:var(--border); flex-shrink:0; }
-  .sess-info { flex:1; }
-  .sess-name { font-weight:500; font-size:13.5px; }
-  .sess-detail { font-size:11.5px; color:var(--muted); margin-top:2px; }
-  .sess-actions { display:flex; gap:6px; }
-  .sess-btn { padding:4px 10px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; border:none; transition:all 0.12s; }
-  .sess-btn-done { background:rgba(0,245,255,0.12); color:var(--accent); }
-  .sess-btn-done:hover { background:rgba(0,245,255,0.22); }
-  .sess-btn-ns { background:rgba(255,42,38,0.12); color:var(--accent3); }
-  .sess-btn-ns:hover { background:rgba(255,42,38,0.22); }
+/* ── SETTINGS TOGGLE ── */
+.fc-toggle { width:40px; height:22px; border-radius:11px; background:var(--border); position:relative; cursor:pointer; transition:.2s; flex-shrink:0; }
+.fc-toggle.on { background:var(--accent); }
+.fc-toggle::after { content:''; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#1B1B1B; transition:transform .2s; }
+.fc-toggle.on::after { transform:translateX(18px); }
+.settings-row { display:flex; align-items:center; justify-content:space-between; padding:13px 0; border-bottom:1px solid rgba(51,51,51,.5); }
+.settings-row:last-child { border-bottom:none; }
 
-  /* ── EARNINGS ── */
-  .earn-hero { padding:20px; text-align:center; border-bottom:1px solid var(--border); }
-  .earn-amt { font-family:'Lalezar',cursive; font-size:34px; letter-spacing:-1px; color:var(--accent); }
-  .earn-lbl { font-size:12px; color:var(--muted); margin-top:3px; }
-  .earn-rows { padding:14px 20px; display:flex; flex-direction:column; gap:10px; }
-  .earn-row { display:flex; justify-content:space-between; align-items:center; }
-  .earn-row-lbl { font-size:12px; color:var(--muted); }
-  .earn-row-val { font-weight:600; font-size:13px; }
-  .earn-divider { border-top:1px solid var(--border); margin-top:2px; padding-top:10px; }
+/* ── NOTIFICATION PANEL ── */
+.notif-panel { position:fixed; top:64px; right:12px; width:320px; max-width:95vw; z-index:1050; background:var(--surface); border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,.4); display:none; overflow:hidden; animation:fadeUp .2s ease; }
+.notif-panel.open { display:block; }
+.notif-hdr { padding:13px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.notif-hdr-title { font-family:'Lalezar',cursive; font-size:15px; }
+.notif-item { display:flex; gap:10px; padding:12px 16px; border-bottom:1px solid rgba(51,51,51,.6); cursor:pointer; transition:.12s; }
+.notif-item:hover { background:var(--surface2); }
+.notif-item:last-child { border-bottom:none; }
+.notif-item.unread { border-left:3px solid var(--accent3); }
+.notif-ico { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.notif-msg { font-size:12.5px; font-weight:500; line-height:1.4; }
+.notif-time { font-size:11px; color:var(--muted); margin-top:2px; }
 
-  /* ── MEMBER ROWS ── */
-  .member-row { display:flex; align-items:center; gap:12px; padding:13px 20px; border-bottom:1px solid rgba(51,51,51,0.8); transition:background 0.12s; cursor:pointer; }
-  .member-row:hover { background:var(--surface2); }
-  .member-row:last-child { border-bottom:none; }
-  .mav { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; flex-shrink:0; }
-  .minfo { flex:1; }
-  .mname { font-size:13px; font-weight:500; }
-  .mdetail { font-size:11px; color:var(--muted); }
-  .msess { font-size:12px; color:var(--accent); font-weight:600; }
+/* ── MEMBER ROWS ── */
+.member-row { display:flex; align-items:center; gap:12px; padding:13px 18px; border-bottom:1px solid rgba(51,51,51,.8); transition:background .12s; cursor:pointer; }
+.member-row:hover { background:var(--surface2); }
+.member-row:last-child { border-bottom:none; }
+.mav { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; flex-shrink:0; }
 
-  /* ── ACTIVITY FEED ── */
-  .activity-feed { padding:14px 20px; display:flex; flex-direction:column; }
-  .act-item { display:flex; gap:12px; padding-bottom:16px; position:relative; }
-  .act-item:not(:last-child)::after { content:''; position:absolute; left:13px; top:28px; bottom:0; width:1px; background:var(--border); }
-  .act-dot { width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; position:relative; z-index:1; }
-  .act-body { flex:1; padding-top:3px; }
-  .act-title { font-size:13px; font-weight:500; }
-  .act-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
-  .act-time { font-size:11px; color:var(--muted); margin-top:3px; }
+/* ── SESSION ITEMS ── */
+.session-item { display:flex; align-items:center; gap:12px; padding:13px 18px; border-bottom:1px solid rgba(51,51,51,.8); transition:background .12s; cursor:pointer; }
+.session-item:hover { background:var(--surface2); }
+.session-item:last-child { border-bottom:none; }
+.session-item.next-up { background:rgba(0,245,255,.04); border-left:2px solid var(--accent); }
+.sess-time { font-family:'Lalezar',cursive; font-size:12px; color:var(--accent); width:44px; text-align:center; flex-shrink:0; line-height:1.4; }
+.sess-line { width:1px; height:34px; background:var(--border); flex-shrink:0; }
+.sess-name { font-weight:500; font-size:13px; }
+.sess-detail { font-size:11.5px; color:var(--muted); margin-top:2px; }
+.sess-btn { padding:4px 10px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; border:none; transition:.12s; }
+.sess-btn-done { background:rgba(0,245,255,.12); color:var(--accent); }
+.sess-btn-done:hover { background:rgba(0,245,255,.22); }
+.sess-btn-ns { background:rgba(255,42,38,.12); color:var(--accent3); }
+.sess-btn-ns:hover { background:rgba(255,42,38,.22); }
 
-  /* ── WEEK CALENDAR ── */
-  .week-cal { padding:16px 20px; }
-  .week-days { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-  .wday { text-align:center; }
-  .wday-name { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
-  .wday-num { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; margin:0 auto; cursor:pointer; transition:all 0.12s; }
-  .wday-num:hover { background:var(--surface2); }
-  .wday-num.today { background:var(--accent); color:#1B1B1B; }
-  .wday-num.has-session { position:relative; }
-  .wday-num.has-session::after { content:''; position:absolute; bottom:2px; left:50%; transform:translateX(-50%); width:4px; height:4px; border-radius:50%; background:var(--accent3); }
-  .wday-num.today.has-session::after { background:#1B1B1B; }
+/* ── NEXT SESSION HERO ── */
+.next-session-hero { margin:14px 18px; background:linear-gradient(135deg,rgba(0,245,255,.08),rgba(238,90,189,.04)); border:1px solid rgba(0,245,255,.2); border-radius:10px; padding:16px; }
+.next-tag { font-size:10px; color:var(--accent); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+.next-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+.next-name { font-family:'Lalezar',cursive; font-size:19px; margin-bottom:3px; }
+.next-meta { font-size:12px; color:var(--muted); }
 
-  /* ── MODAL OVERLAY ── */
-  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; display:none; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
-  .modal-overlay.open { display:flex; }
-  .modal { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:28px; width:480px; max-width:95vw; max-height:90vh; overflow-y:auto; animation:fadeUp 0.25s ease; position:relative; }
-  .modal-title { font-family:'Lalezar',cursive; font-size:20px; margin-bottom:4px; }
-  .modal-sub { font-size:12px; color:var(--muted); margin-bottom:20px; }
-  .modal-close { position:absolute; top:16px; right:16px; width:28px; height:28px; border-radius:7px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px; color:var(--muted); }
-  .modal-close:hover { color:var(--text); }
+/* ── EARNINGS ── */
+.earn-hero { padding:18px; text-align:center; border-bottom:1px solid var(--border); }
+.earn-amt { font-family:'Lalezar',cursive; font-size:32px; letter-spacing:-1px; color:var(--accent); }
+.earn-lbl { font-size:12px; color:var(--muted); margin-top:3px; }
 
-  /* ── FORM ELEMENTS ── */
-  .form-group { margin-bottom:16px; }
-  .form-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:7px; display:block; }
-  .form-input, .form-select, .form-textarea {
-    width:100%; background:var(--surface2); border:1px solid var(--border);
-    border-radius:8px; padding:10px 14px; font-family:'Barlow',sans-serif; font-size:13.5px;
-    color:var(--text); outline:none; transition:border-color 0.15s;
-  }
-  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--accent); }
-  .form-select option { background:var(--surface2); }
-  .form-textarea { resize:vertical; min-height:80px; }
-  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .form-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; padding-top:16px; border-top:1px solid var(--border); }
+/* ── CHART BARS ── */
+.chart-wrap { padding:16px 18px; display:flex; flex-direction:column; gap:10px; }
+.bar-row { display:flex; align-items:center; gap:8px; }
+.bar-lbl { width:28px; font-size:11px; color:var(--muted); }
+.bar-track { flex:1; height:8px; background:var(--surface2); border-radius:4px; overflow:hidden; }
+.bar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--accent2),var(--accent)); }
+.bar-val { width:44px; text-align:right; font-size:11px; color:var(--muted); }
 
-  /* ── INPUT PLACEHOLDER ── */
-  ::placeholder { color:var(--muted); }
+/* ── PROFILE HERO ── */
+.profile-hero { display:flex; align-items:center; gap:18px; padding:20px; background:linear-gradient(135deg,rgba(0,245,255,.06),rgba(238,90,189,.03)); border:1px solid var(--border); border-radius:12px; margin-bottom:16px; flex-wrap:wrap; }
+.profile-hero-av { width:64px; height:64px; border-radius:14px; background:linear-gradient(135deg,rgba(0,245,255,.3),rgba(238,90,189,.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:22px; color:var(--accent); flex-shrink:0; }
+.profile-hero-name { font-family:'Lalezar',cursive; font-size:22px; }
+.profile-hero-spec { font-size:13px; color:var(--muted); margin-top:3px; }
+.profile-hero-stats { display:flex; gap:16px; margin-top:12px; flex-wrap:wrap; }
+.phs { text-align:center; }
+.phs-val { font-family:'Lalezar',cursive; font-size:18px; color:var(--accent); }
+.phs-lbl { font-size:10px; color:var(--muted); text-transform:uppercase; }
 
-  /* ── DIVIDER ── */
-  .divider { border-top:1px solid var(--border); margin:16px 0; }
+/* ── AVAIL GRID ── */
+.avail-day { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); margin-bottom:6px; cursor:pointer; transition:.15s; font-size:13px; }
+.avail-day.on { background:rgba(0,245,255,.08); border-color:rgba(0,245,255,.3); color:var(--accent); }
+.avail-dot { width:8px; height:8px; border-radius:50%; background:var(--border); }
+.avail-day.on .avail-dot { background:var(--accent); }
 
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-track { background:transparent; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+/* ── PAYOUT HISTORY ── */
+.payout-row { display:flex; align-items:center; justify-content:space-between; padding:12px 18px; border-bottom:1px solid rgba(51,51,51,.5); font-size:13px; }
+.payout-row:last-child { border-bottom:none; }
 
-  /* ── NOTIFICATION PANEL ── */
-  .notif-panel {
-    position:fixed; top:64px; right:16px; width:340px; z-index:150;
-    background:var(--surface); border:1px solid var(--border); border-radius:12px;
-    box-shadow:0 8px 32px rgba(0,0,0,0.4); display:none; overflow:hidden;
-    animation:fadeUp 0.2s ease;
-  }
-  .notif-panel.open { display:block; }
-  .notif-header { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
-  .notif-header-title { font-family:'Lalezar',cursive; font-size:15px; }
-  .notif-clear { font-size:11px; color:var(--accent); cursor:pointer; font-weight:500; }
-  .notif-item { display:flex; gap:12px; padding:13px 18px; border-bottom:1px solid rgba(51,51,51,0.6); transition:background 0.12s; cursor:pointer; }
-  .notif-item:hover { background:var(--surface2); }
-  .notif-item:last-child { border-bottom:none; }
-  .notif-item.unread { border-left:3px solid var(--accent); }
-  .notif-dot-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
-  .notif-body { flex:1; }
-  .notif-msg { font-size:12.5px; font-weight:500; line-height:1.4; }
-  .notif-time { font-size:11px; color:var(--muted); margin-top:3px; }
+/* ── MODAL ── */
+.modal-content { background:var(--surface); border:1px solid var(--border); border-radius:14px; color:var(--text); }
+.modal-header { border-bottom:1px solid var(--border); padding:18px 22px; }
+.modal-title { font-family:'Lalezar',cursive; font-size:20px; color:var(--text); }
+.btn-close { filter:invert(1); opacity:.5; }
+.modal-body { padding:20px 22px; }
+.modal-footer { border-top:1px solid var(--border); padding:14px 22px; }
+.modal-sub { font-size:12px; color:var(--muted); margin-top:2px; }
 
-  /* ── CALENDAR FULL ── */
-  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
-  .cal-day-name { text-align:center; font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; padding-bottom:8px; }
-  .cal-cell { min-height:80px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:8px; cursor:pointer; transition:border-color 0.12s; }
-  .cal-cell:hover { border-color:var(--muted); }
-  .cal-cell.today { border-color:var(--accent); }
-  .cal-cell.other-month { opacity:0.35; }
-  .cal-num { font-family:'Lalezar',cursive; font-size:14px; margin-bottom:4px; }
-  .cal-cell.today .cal-num { color:var(--accent); }
-  .cal-event { background:rgba(0,245,255,0.12); color:var(--accent); font-size:10px; padding:2px 5px; border-radius:4px; margin-bottom:2px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .cal-event.pink { background:rgba(238,90,189,0.15); color:var(--accent2); }
-  .cal-event.orange { background:rgba(237,110,82,0.15); color:var(--accent4); }
-  .cal-month-nav { display:flex; align-items:center; gap:16px; }
-  .cal-nav-btn { width:30px; height:30px; border-radius:7px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px; color:var(--muted); transition:all 0.12s; }
-  .cal-nav-btn:hover { color:var(--text); border-color:var(--muted); }
+/* ── ACTIVITY FEED ── */
+.act-item { display:flex; gap:12px; padding-bottom:14px; position:relative; }
+.act-item:not(:last-child)::before { content:''; position:absolute; left:13px; top:28px; bottom:0; width:1px; background:var(--border); }
+.act-dot { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.act-title { font-size:13px; font-weight:500; }
+.act-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
+.act-time { font-size:11px; color:var(--muted); margin-top:2px; }
 
-  /* ── SESSION HISTORY TABLE ── */
-  .history-table { width:100%; border-collapse:collapse; }
-  .history-table th { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; padding:10px 16px; text-align:left; border-bottom:1px solid var(--border); }
-  .history-table td { padding:13px 16px; font-size:13px; border-bottom:1px solid rgba(51,51,51,0.5); }
-  .history-table tr:hover td { background:var(--surface2); }
-  .history-table tr:last-child td { border-bottom:none; }
+/* ── STAR RATING ── */
+.rating-stars { display:flex; gap:4px; }
+.star { font-size:24px; color:var(--border); cursor:pointer; transition:color .1s; }
+.star.lit { color:var(--accent4); }
 
-  /* ── PROFILE PAGE ── */
-  .profile-hero { background:linear-gradient(135deg,rgba(0,245,255,0.07),rgba(238,90,189,0.04)); border:1px solid rgba(0,245,255,0.15); border-radius:12px; padding:28px; display:flex; align-items:center; gap:24px; margin-bottom:16px; }
-  .profile-hero-av { width:80px; height:80px; border-radius:16px; background:linear-gradient(135deg,rgba(0,245,255,0.3),rgba(238,90,189,0.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:28px; color:var(--accent); flex-shrink:0; }
-  .profile-hero-info { flex:1; }
-  .profile-hero-name { font-family:'Lalezar',cursive; font-size:24px; }
-  .profile-hero-spec { font-size:13px; color:var(--muted); margin-top:3px; }
-  .profile-hero-stats { display:flex; gap:24px; margin-top:14px; }
-  .phs { text-align:center; }
-  .phs-val { font-family:'Lalezar',cursive; font-size:20px; color:var(--accent); }
-  .phs-lbl { font-size:11px; color:var(--muted); }
-  .tag-list { display:flex; flex-wrap:wrap; gap:8px; }
-  .skill-tag { background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--text); }
-  .skill-tag.active-tag { background:rgba(0,245,255,0.1); border-color:rgba(0,245,255,0.3); color:var(--accent); }
-  .availability-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
-  .avail-day { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px 6px; text-align:center; cursor:pointer; transition:all 0.15s; }
-  .avail-day.on { background:rgba(0,245,255,0.1); border-color:rgba(0,245,255,0.3); }
-  .avail-day-name { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; }
-  .avail-day.on .avail-day-name { color:var(--accent); }
-  .avail-dot { width:8px; height:8px; border-radius:50%; background:var(--border); margin:0 auto; }
-  .avail-day.on .avail-dot { background:var(--accent); }
+/* ── CALENDAR ── */
+.cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
+.cal-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center; border-radius:7px; font-size:13px; cursor:pointer; transition:.12s; position:relative; }
+.cal-cell:hover { background:var(--surface2); }
+.cal-cell.today { background:rgba(0,245,255,.12); color:var(--accent); font-weight:700; }
+.cal-cell.has-session::after { content:''; position:absolute; bottom:4px; left:50%; transform:translateX(-50%); width:4px; height:4px; border-radius:50%; background:var(--accent2); }
+.cal-cell.muted-day { color:var(--muted); }
+.cal-day-hdr { font-size:10px; color:var(--muted); font-weight:600; text-transform:uppercase; text-align:center; padding-bottom:8px; }
 
-  /* ── EARNINGS PAGE ── */
-  .earnings-big { font-family:'Lalezar',cursive; font-size:48px; letter-spacing:-2px; color:var(--accent); line-height:1; }
-  .earnings-period { font-size:13px; color:var(--muted); margin-top:4px; }
-  .bar-chart { display:flex; align-items:flex-end; gap:8px; height:120px; padding:0 4px; }
-  .bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
-  .bar { width:100%; border-radius:4px 4px 0 0; transition:height 0.3s ease; min-height:4px; }
-  .bar-lbl { font-size:10px; color:var(--muted); }
-  .payout-row { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid rgba(51,51,51,0.5); }
-  .payout-row:last-child { border-bottom:none; }
-  .payout-date { font-size:12px; color:var(--muted); }
-  .payout-name { font-size:13px; font-weight:500; }
-  .payout-amount { font-family:'Lalezar',cursive; font-size:16px; }
-  .payout-status { font-size:11px; font-weight:600; }
+/* ── CLIENT SELECT (mark session modal) ── */
+.client-select-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); cursor:pointer; transition:.15s; margin-bottom:6px; font-size:13px; }
+.client-select-item:hover { border-color:var(--muted); }
+.client-select-item.selected { border-color:var(--accent); background:rgba(0,245,255,.07); color:var(--accent); }
 
-  /* ── SETTINGS ── */
-  .settings-section { margin-bottom:24px; }
-  .settings-section-title { font-family:'Lalezar',cursive; font-size:16px; margin-bottom:12px; color:var(--text); }
-  .settings-row { display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid rgba(51,51,51,0.5); }
-  .settings-row:last-child { border-bottom:none; }
-  .settings-row-info { flex:1; }
-  .settings-row-label { font-size:13.5px; font-weight:500; }
-  .settings-row-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
-  .toggle { width:40px; height:22px; border-radius:11px; background:var(--border); position:relative; cursor:pointer; transition:background 0.2s; flex-shrink:0; }
-  .toggle.on { background:var(--accent); }
-  .toggle::after { content:''; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#1B1B1B; transition:transform 0.2s; }
-  .toggle.on::after { transform:translateX(18px); }
-  .danger-zone { background:rgba(255,42,38,0.05); border:1px solid rgba(255,42,38,0.2); border-radius:10px; padding:16px 20px; }
+/* ── REVIEW ROW ── */
+.review-row { padding:14px 18px; border-bottom:1px solid rgba(51,51,51,.5); }
+.review-row:last-child { border-bottom:none; }
+.review-stars { color:var(--accent4); font-size:13px; margin-bottom:4px; }
+.review-text { font-size:12.5px; color:var(--text); line-height:1.5; margin-bottom:4px; }
+.review-meta { font-size:11px; color:var(--muted); }
 
-  /* ── MARK SESSION MODAL ── */
-  .client-select-list { display:flex; flex-direction:column; gap:6px; max-height:200px; overflow-y:auto; }
-  .client-select-item { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); cursor:pointer; transition:all 0.12s; }
-  .client-select-item:hover { border-color:var(--muted); background:var(--surface2); }
-  .client-select-item.selected { border-color:var(--accent); background:rgba(0,245,255,0.07); }
-  .rating-stars { display:flex; gap:4px; }
-  .star { font-size:20px; cursor:pointer; color:var(--border); transition:color 0.12s; }
-  .star.lit { color:var(--accent4); }
-
-  /* ── RESPONSIVE ADJUSTMENTS ── */
-  .mini-stats-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; }
+::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <div style="display:flex;align-items:center;gap:14px;">
-            <img src="../images/image-removebg-preview.png" alt="A'S GYM" class="logo-img" style="max-width: 15%; height: auto;">
-    <div class="role-tag">Trainer</div>
+<!-- ── TOPBAR ── -->
+<div class="fc-topbar">
+  <div class="d-flex align-items-center gap-2">
+    <button class="hamburger d-lg-none" id="sidebarToggle">☰</button>
+    <a class="fc-brand" href="#"><em>FIT</em>CORE</a>
+    <span class="role-tag d-none d-sm-inline">Trainer</span>
   </div>
-  <div class="topbar-right">
-    <div class="icon-btn" id="notifBtn">🔔<span class="notif-dot"></span></div>
-    <div class="icon-btn" id="calBtn">📅</div>
-    <div class="avatar">CM</div>
+  <div class="d-flex align-items-center gap-2">
+    <div class="ic-btn" id="calBtn" title="Calendar">📅</div>
+    <div class="ic-btn" id="notifBtn">🔔<span class="ndot"></span></div>
+    <div class="fc-avatar">CM</div>
   </div>
 </div>
 
-<!-- NOTIFICATION PANEL -->
+<!-- Notification Panel -->
 <div class="notif-panel" id="notifPanel">
-  <div class="notif-header">
-    <div class="notif-header-title">Notifications</div>
-    <div class="notif-clear">Mark all read</div>
-  </div>
-  <div class="notif-item unread">
-    <div class="notif-dot-icon" style="background:rgba(0,245,255,0.15)">📋</div>
-    <div class="notif-body"><div class="notif-msg">New booking from <strong>Marco Lim</strong> — Today at 9:00 AM</div><div class="notif-time">2 hours ago</div></div>
-  </div>
-  <div class="notif-item unread">
-    <div class="notif-dot-icon" style="background:rgba(255,42,38,0.15)">✗</div>
-    <div class="notif-body"><div class="notif-msg"><strong>Luis Torres</strong> missed yesterday's 5PM session</div><div class="notif-time">Yesterday, 5:12 PM</div></div>
-  </div>
-  <div class="notif-item unread">
-    <div class="notif-dot-icon" style="background:rgba(238,90,189,0.15)">⭐</div>
-    <div class="notif-body"><div class="notif-msg"><strong>Rica Bautista</strong> left you a 5-star review</div><div class="notif-time">Yesterday, 3:40 PM</div></div>
-  </div>
-  <div class="notif-item">
-    <div class="notif-dot-icon" style="background:rgba(237,110,82,0.15)">💰</div>
-    <div class="notif-body"><div class="notif-msg">Payout of <strong>₱8,200</strong> processed successfully</div><div class="notif-time">Mar 5, 10:00 AM</div></div>
-  </div>
-  <div class="notif-item">
-    <div class="notif-dot-icon" style="background:rgba(0,245,255,0.15)">📅</div>
-    <div class="notif-body"><div class="notif-msg"><strong>Ana Santos</strong> rescheduled to Friday 3PM</div><div class="notif-time">Mar 5, 3:45 PM</div></div>
-  </div>
+  <div class="notif-hdr"><div class="notif-hdr-title">Notifications</div><span style="font-size:11px;color:var(--accent);cursor:pointer;">Mark all read</span></div>
+  <div class="notif-item unread"><div class="notif-ico" style="background:rgba(0,245,255,.15)">📅</div><div><div class="notif-msg"><strong>Jake Dela Cruz</strong> booked Sat Mar 8 · 8AM</div><div class="notif-time">Just now</div></div></div>
+  <div class="notif-item unread"><div class="notif-ico" style="background:rgba(255,42,38,.15)">💳</div><div><div class="notif-msg">Marco Lim hasn't paid for today's 11AM session</div><div class="notif-time">Today</div></div></div>
+  <div class="notif-item"><div class="notif-ico" style="background:rgba(237,110,82,.15)">⭐</div><div><div class="notif-msg"><strong>Rica Bautista</strong> left you a 5-star review</div><div class="notif-time">Yesterday</div></div></div>
+  <div class="notif-item"><div class="notif-ico" style="background:rgba(238,90,189,.15)">💰</div><div><div class="notif-msg">Payout of ₱14,280 processed</div><div class="notif-time">Mar 5</div></div></div>
 </div>
 
-<!-- LAYOUT -->
-<div class="layout">
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="profile-card">
-      <div class="profile-av">CM</div>
-      <div class="profile-name">Coach Marco</div>
-      <div class="profile-spec">Strength & Conditioning</div>
-      <div class="profile-rating">★ 4.9 <span style="color:var(--muted);font-weight:400">(42 reviews)</span></div>
-    </div>
-    <div class="nav-section">My Work</div>
-    <div class="nav-item active" data-page="dashboard"><span class="nav-icon">⬡</span>Dashboard</div>
-    <div class="nav-item" data-page="sessions"><span class="nav-icon">📅</span>My Sessions<span class="nav-badge">6</span></div>
-    <div class="nav-item" data-page="members"><span class="nav-icon">👥</span>My Members</div>
-    <div class="nav-section">Account</div>
-    <div class="nav-item" data-page="profile"><span class="nav-icon">✏️</span>My Profile</div>
-    <div class="nav-item" data-page="earnings"><span class="nav-icon">💰</span>Earnings</div>
-    <div class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span>Settings</div>
+<!-- Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ── SIDEBAR ── -->
+<nav class="fc-sidebar" id="sidebar">
+  <div class="profile-card">
+    <div class="profile-av">CM</div>
+    <div class="profile-name">Coach Marco</div>
+    <div class="profile-spec">Strength & Conditioning</div>
+    <div class="profile-rating">★ 4.9 <span style="color:var(--muted);font-size:11px;">(42 reviews)</span></div>
   </div>
+  <div class="nav-sec">Main</div>
+  <button class="nav-lnk active" data-page="dashboard"><span>⬡</span>Dashboard</button>
+  <button class="nav-lnk" data-page="sessions"><span>📅</span>My Sessions</button>
+  <button class="nav-lnk" data-page="members"><span>👥</span>My Members</button>
+  <div class="nav-sec">Personal</div>
+  <button class="nav-lnk" data-page="profile"><span>👤</span>My Profile</button>
+  <button class="nav-lnk" data-page="earnings"><span>💰</span>Earnings</button>
+  <button class="nav-lnk" data-page="settings"><span>⚙️</span>Settings</button>
+  <div class="nav-sec">View</div>
+  <button class="nav-lnk" data-page="calendar"><span>🗓️</span>Calendar</button>
+</nav>
 
-  <!-- MAIN CONTENT -->
-  <div class="main">
+<!-- ── MAIN ── -->
+<div class="fc-main">
+<div class="fc-content">
 
-    <!-- ══════════════════════════════════════
-         PAGE: DASHBOARD
-    ══════════════════════════════════════ -->
-    <div class="page active" id="page-dashboard">
-      <div class="page-header">
-        <div>
-          <div class="page-title">My Dashboard</div>
-          <div class="page-sub">Friday, March 7 2026 &nbsp;·&nbsp; You have 6 sessions today</div>
+<!-- ════ DASHBOARD ════ -->
+<div class="fc-page active" id="page-dashboard">
+  <div class="pg-header">
+    <div><div class="pg-title">Good morning, Coach Marco 👋</div><div class="pg-sub">Friday, March 7 · You have 6 sessions today</div></div>
+    <div class="d-flex gap-2 flex-wrap">
+      <button class="fc-btn fc-btn-ghost" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button>
+      <button class="fc-btn fc-btn-primary" data-bs-toggle="modal" data-bs-target="#markSessionModal">✓ Mark Session</button>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent)">6</div><div class="mstat-lbl">Today's Sessions</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent2)">34</div><div class="mstat-lbl">This Month</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent4)">4.9★</div><div class="mstat-lbl">Avg Rating</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent)">₱24k</div><div class="mstat-lbl">Earnings (Mar)</div></div></div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-12 col-lg-5">
+      <div class="fc-card">
+        <div class="fc-card-header"><span class="fc-card-title">Today — Mar 7</span><span class="fc-badge b-teal">6 sessions</span></div>
+        <div class="next-session-hero">
+          <div class="next-tag"><span class="next-dot"></span>Up Next · 11:00 AM</div>
+          <div class="next-name">Kevin Reyes</div>
+          <div class="next-meta">Cardio Conditioning · 1 hour · Member Rate</div>
         </div>
-        <div class="page-actions">
-          <button class="btn btn-ghost" id="historyBtn">📋 Session History</button>
-          <button class="btn btn-primary" id="markSessionBtn">✓ Mark Session</button>
-        </div>
-      </div>
-
-      <div class="mini-stats">
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent)">6</div><div class="mstat-lbl">Sessions Today</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent2)">34</div><div class="mstat-lbl">This Month</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent4)">₱18.4k</div><div class="mstat-lbl">Earnings (Mar)</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent3)">2</div><div class="mstat-lbl">No-shows (Mar)</div></div>
-      </div>
-
-      <div class="g31">
-        <div class="card">
-          <div class="card-header"><div class="card-title">Today's Sessions</div><span class="badge b-teal">6 bookings</span></div>
-          <div class="next-session-hero">
-            <div class="next-tag"><span class="next-dot"></span>Up Next</div>
-            <div class="next-name">Kevin Reyes</div>
-            <div class="next-meta">Cardio Conditioning · Member · 1 hour</div>
-            <div class="next-time-row"><span class="next-time-badge">11:00 AM</span><span class="next-type-badge">Member Rate</span></div>
-          </div>
-          <div class="session-item"><div class="sess-time">7:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · Member · 1hr</div></div><span class="badge b-teal">Done ✓</span></div>
-          <div class="session-item"><div class="sess-time">9:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · Non-member · 1hr</div></div><span class="badge b-orange">Pending</span></div>
-          <div class="session-item next-up">
-            <div class="sess-time" style="color:var(--accent)">11:00<br>AM</div>
-            <div class="sess-line" style="background:rgba(0,245,255,0.3)"></div>
-            <div class="sess-info"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · Member · 1hr</div></div>
-            <div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div>
-          </div>
-          <div class="session-item"><div class="sess-time">1:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · Member · 1hr</div></div><span class="badge b-teal">Confirmed</span></div>
-          <div class="session-item"><div class="sess-time">3:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · Member · 1hr</div></div><span class="badge b-teal">Confirmed</span></div>
-          <div class="session-item"><div class="sess-time">5:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · Member · 1hr</div></div><span class="badge b-teal">Confirmed</span></div>
-        </div>
-        <div class="flex-col">
-          <div class="card">
-            <div class="card-header"><div class="card-title">My Earnings</div><div class="card-link" data-goto="earnings">History →</div></div>
-            <div class="earn-hero"><div class="earn-amt">₱18,400</div><div class="earn-lbl">March 2026</div></div>
-            <div class="earn-rows">
-              <div class="earn-row"><span class="earn-row-lbl">Member sessions</span><span class="earn-row-val" style="color:var(--accent2)">₱14,200</span></div>
-              <div class="earn-row"><span class="earn-row-lbl">Non-member sessions</span><span class="earn-row-val" style="color:var(--accent)">₱4,200</span></div>
-              <div class="earn-row earn-divider"><span class="earn-row-lbl">Completed / Total</span><span class="earn-row-val">28 / 34</span></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header"><div class="card-title">This Week</div><div class="card-link" id="dashCalLink">Full schedule →</div></div>
-            <div class="week-cal">
-              <div class="week-days">
-                <div class="wday"><div class="wday-name">Mon</div><div class="wday-num has-session">3</div></div>
-                <div class="wday"><div class="wday-name">Tue</div><div class="wday-num has-session">4</div></div>
-                <div class="wday"><div class="wday-name">Wed</div><div class="wday-num has-session">5</div></div>
-                <div class="wday"><div class="wday-name">Thu</div><div class="wday-num has-session">6</div></div>
-                <div class="wday"><div class="wday-name">Fri</div><div class="wday-num today has-session">7</div></div>
-                <div class="wday"><div class="wday-name">Sat</div><div class="wday-num has-session">8</div></div>
-                <div class="wday"><div class="wday-name">Sun</div><div class="wday-num">9</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="g2">
-        <div class="card">
-          <div class="card-header"><div class="card-title">My Members</div><div class="card-link" data-goto="members">View all →</div></div>
-          <div class="member-row"><div class="mav" style="background:rgba(238,90,189,0.15);color:#EE5ABD">JD</div><div class="minfo"><div class="mname">Jake Dela Cruz</div><div class="mdetail">Strength Training · Member</div></div><div class="msess">6 sessions</div></div>
-          <div class="member-row"><div class="mav" style="background:rgba(0,245,255,0.15);color:#00F5FF">RB</div><div class="minfo"><div class="mname">Rica Bautista</div><div class="mdetail">Body Sculpting · Member</div></div><div class="msess">7 sessions</div></div>
-          <div class="member-row"><div class="mav" style="background:rgba(237,110,82,0.15);color:#ED6E52">KR</div><div class="minfo"><div class="mname">Kevin Reyes</div><div class="mdetail">Cardio Conditioning · Member</div></div><div class="msess">4 sessions</div></div>
-          <div class="member-row"><div class="mav" style="background:rgba(255,42,38,0.15);color:#FF2A26">LT</div><div class="minfo"><div class="mname">Luis Torres</div><div class="mdetail">Strength Training · Member</div></div><div class="msess">9 sessions</div></div>
-          <div class="member-row"><div class="mav" style="background:rgba(183,45,111,0.15);color:#B72D6F">ML</div><div class="minfo"><div class="mname">Marco Lim</div><div class="mdetail">Weight Loss · Non-member</div></div><div class="msess" style="color:var(--muted)">2 sessions</div></div>
-        </div>
-        <div class="card">
-          <div class="card-header"><div class="card-title">Recent Activity</div></div>
-          <div class="activity-feed">
-            <div class="act-item"><div class="act-dot" style="background:rgba(0,245,255,0.15)">✓</div><div class="act-body"><div class="act-title">Session completed</div><div class="act-sub">Jake Dela Cruz · Strength Training</div><div class="act-time">Today, 8:05 AM</div></div></div>
-            <div class="act-item"><div class="act-dot" style="background:rgba(238,90,189,0.15)">📋</div><div class="act-body"><div class="act-title">New booking received</div><div class="act-sub">Marco Lim · Today at 9AM</div><div class="act-time">Yesterday, 9:32 PM</div></div></div>
-            <div class="act-item"><div class="act-dot" style="background:rgba(255,42,38,0.15)">✗</div><div class="act-body"><div class="act-title">No-show recorded</div><div class="act-sub">Luis Torres · 5PM session</div><div class="act-time">Yesterday, 5:10 PM</div></div></div>
-            <div class="act-item"><div class="act-dot" style="background:rgba(237,110,82,0.15)">💬</div><div class="act-body"><div class="act-title">Booking cancelled</div><div class="act-sub">Ana Santos · Rescheduled to Fri</div><div class="act-time">Mar 5, 3:45 PM</div></div></div>
-          </div>
-        </div>
+        <div class="session-item"><div class="sess-time">7AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training</div></div><span class="fc-badge b-teal">Done ✓</span></div>
+        <div class="session-item"><div class="sess-time">9AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss</div></div><span class="fc-badge b-orange">Pending</span></div>
+        <div class="session-item next-up"><div class="sess-time" style="color:var(--accent)">11AM</div><div class="sess-line" style="background:rgba(0,245,255,.3)"></div><div class="flex-fill"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓</button><button class="sess-btn sess-btn-ns">✗</button></div></div>
+        <div class="session-item"><div class="sess-time">1PM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓</button><button class="sess-btn sess-btn-ns">✗</button></div></div>
+        <div class="session-item"><div class="sess-time">3PM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓</button><button class="sess-btn sess-btn-ns">✗</button></div></div>
+        <div class="session-item"><div class="sess-time">5PM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓</button><button class="sess-btn sess-btn-ns">✗</button></div></div>
       </div>
     </div>
-
-    <!-- ══════════════════════════════════════
-         PAGE: MY SESSIONS
-    ══════════════════════════════════════ -->
-    <div class="page" id="page-sessions">
-      <div class="page-header">
-        <div><div class="page-title">My Sessions</div><div class="page-sub">All your bookings · March 2026</div></div>
-        <div class="page-actions">
-          <button class="btn btn-ghost" id="sessHistoryBtn">📋 History</button>
-          <button class="btn btn-primary" id="sessMarkBtn">✓ Mark Session</button>
-        </div>
-      </div>
-
-      <div class="mini-stats">
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent)">6</div><div class="mstat-lbl">Today</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent2)">34</div><div class="mstat-lbl">This Month</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent4)">28</div><div class="mstat-lbl">Completed</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent3)">2</div><div class="mstat-lbl">No-shows</div></div>
-      </div>
-
-      <div class="g2" style="margin-bottom:16px;">
-        <!-- TODAY -->
-        <div class="card">
-          <div class="card-header"><div class="card-title">Today — Mar 7</div><span class="badge b-teal">6 sessions</span></div>
-          <div class="next-session-hero">
-            <div class="next-tag"><span class="next-dot"></span>Up Next · 11:00 AM</div>
-            <div class="next-name">Kevin Reyes</div>
-            <div class="next-meta">Cardio Conditioning · 1 hour · Member Rate</div>
-          </div>
-          <div class="session-item"><div class="sess-time">7:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · 1hr</div></div><span class="badge b-teal">Done ✓</span></div>
-          <div class="session-item"><div class="sess-time">9:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · 1hr</div></div><span class="badge b-orange">Pending</span></div>
-          <div class="session-item next-up">
-            <div class="sess-time" style="color:var(--accent)">11:00<br>AM</div><div class="sess-line" style="background:rgba(0,245,255,0.3)"></div>
-            <div class="sess-info"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · 1hr</div></div>
-            <div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div>
-          </div>
-          <div class="session-item"><div class="sess-time">1:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · 1hr</div></div><div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
-          <div class="session-item"><div class="sess-time">3:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · 1hr</div></div><div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
-          <div class="session-item"><div class="sess-time">5:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · 1hr</div></div><div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
-        </div>
-
-        <!-- UPCOMING -->
-        <div class="card">
-          <div class="card-header"><div class="card-title">Upcoming</div><span class="badge b-gray">This week</span></div>
-          <div style="padding:6px 0;">
-            <div style="padding:10px 20px; font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px;">Saturday, Mar 8</div>
-            <div class="session-item"><div class="sess-time">8:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
-            <div class="session-item"><div class="sess-time">10:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
-            <div class="session-item"><div class="sess-time">12:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
-            <div style="padding:10px 20px; font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; border-top:1px solid var(--border); margin-top:4px;">Monday, Mar 10</div>
-            <div class="session-item"><div class="sess-time">7:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
-            <div class="session-item"><div class="sess-time">9:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
-            <div class="session-item"><div class="sess-time">11:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · 1hr</div></div><span class="badge b-orange">Tentative</span></div>
+    <div class="col-12 col-lg-7">
+      <div class="row g-3">
+        <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+          <div class="fc-card">
+            <div class="fc-card-header"><span class="fc-card-title">Earnings (Mar)</span></div>
+            <div class="earn-hero"><div class="earn-amt">₱24,150</div><div class="earn-lbl">Current month · 34 sessions</div></div>
+            <div style="padding:14px 18px;display:flex;flex-direction:column;gap:8px;">
+              <div class="d-flex justify-content-between align-items-center"><span style="font-size:12px;color:var(--muted)">Member sessions (28)</span><span style="font-weight:600">₱16,800</span></div>
+              <div class="d-flex justify-content-between align-items-center"><span style="font-size:12px;color:var(--muted)">Non-member sessions (6)</span><span style="font-weight:600">₱7,350</span></div>
+              <div class="d-flex justify-content-between align-items-center" style="border-top:1px solid var(--border);padding-top:8px;"><span style="font-size:12px;color:var(--muted)">Next payout</span><span style="font-family:'Lalezar',cursive;color:var(--accent)">Mar 15</span></div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════
-         PAGE: MY MEMBERS
-    ══════════════════════════════════════ -->
-    <div class="page" id="page-members">
-      <div class="page-header">
-        <div><div class="page-title">My Members</div><div class="page-sub">5 clients · 4 active members</div></div>
-        <div class="page-actions">
-          <button class="btn btn-ghost">🔍 Search</button>
-          <button class="btn btn-primary">+ Add Client</button>
+        <div class="col-12 col-md-6 col-lg-12 col-xl-6">
+          <div class="fc-card">
+            <div class="fc-card-header"><span class="fc-card-title">My Members</span><button class="fc-card-link" data-goto="members">All →</button></div>
+            <div class="member-row"><div class="mav" style="background:rgba(238,90,189,.15);color:#EE5ABD">JD</div><div class="flex-fill"><div style="font-size:13px;font-weight:500">Jake Dela Cruz</div><div style="font-size:11px;color:var(--muted)">Strength Training</div></div><span class="fc-badge b-teal">Active</span></div>
+            <div class="member-row"><div class="mav" style="background:rgba(0,245,255,.15);color:#00F5FF">RB</div><div class="flex-fill"><div style="font-size:13px;font-weight:500">Rica Bautista</div><div style="font-size:11px;color:var(--muted)">Body Sculpting</div></div><span class="fc-badge b-teal">Active</span></div>
+            <div class="member-row"><div class="mav" style="background:rgba(237,110,82,.15);color:#ED6E52">KR</div><div class="flex-fill"><div style="font-size:13px;font-weight:500">Kevin Reyes</div><div style="font-size:11px;color:var(--muted)">Cardio Conditioning</div></div><span class="fc-badge b-teal">Active</span></div>
+            <div class="member-row"><div class="mav" style="background:rgba(255,42,38,.15);color:#FF2A26">LT</div><div class="flex-fill"><div style="font-size:13px;font-weight:500">Luis Torres</div><div style="font-size:11px;color:var(--muted)">Strength Training</div></div><span class="fc-badge b-teal">Active</span></div>
+            <div class="member-row"><div class="mav" style="background:rgba(183,45,111,.15);color:#B72D6F">ML</div><div class="flex-fill"><div style="font-size:13px;font-weight:500">Marco Lim</div><div style="font-size:11px;color:var(--muted)">Weight Loss</div></div><span class="fc-badge b-gray">Non-member</span></div>
+          </div>
         </div>
-      </div>
-
-      <div class="mini-stats-3" style="grid-template-columns:repeat(3,1fr)">
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent)">5</div><div class="mstat-lbl">Total Clients</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent2)">4</div><div class="mstat-lbl">Active Members</div></div>
-        <div class="mstat"><div class="mstat-val" style="color:var(--accent4)">28</div><div class="mstat-lbl">Sessions This Month</div></div>
-      </div>
-
-      <div class="g2">
-        <!-- MEMBER CARDS -->
-        <div style="display:flex;flex-direction:column;gap:12px;">
-
-          <div class="card" style="overflow:visible;">
-            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
-              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(238,90,189,0.15);color:#EE5ABD;font-size:16px;">JD</div>
-              <div style="flex:1">
-                <div style="font-weight:600;font-size:15px;">Jake Dela Cruz</div>
-                <div style="font-size:12px;color:var(--muted);margin-top:2px;">Strength Training · Active Member</div>
-              </div>
-              <span class="badge b-teal">Active</span>
-            </div>
-            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">6</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">3 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
-            </div>
-            <div style="padding:12px 20px;display:flex;gap:8px;">
-              <button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button>
-              <button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button>
-            </div>
-          </div>
-
-          <div class="card">
-            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
-              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(0,245,255,0.15);color:#00F5FF;font-size:16px;">RB</div>
-              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Rica Bautista</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Body Sculpting · Active Member</div></div>
-              <span class="badge b-teal">Active</span>
-            </div>
-            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">7</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">4 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
-            </div>
-            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
-          </div>
-
-          <div class="card">
-            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
-              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(237,110,82,0.15);color:#ED6E52;font-size:16px;">KR</div>
-              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Kevin Reyes</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Cardio Conditioning · Active Member</div></div>
-              <span class="badge b-teal">Active</span>
-            </div>
-            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">4</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">2 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
-            </div>
-            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
-          </div>
-
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:12px;">
-
-          <div class="card">
-            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
-              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(255,42,38,0.15);color:#FF2A26;font-size:16px;">LT</div>
-              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Luis Torres</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Strength Training · Active Member</div></div>
-              <span class="badge b-teal">Active</span>
-            </div>
-            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">9</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">6 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
-            </div>
-            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
-          </div>
-
-          <div class="card">
-            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
-              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(183,45,111,0.15);color:#B72D6F;font-size:16px;">ML</div>
-              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Marco Lim</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Weight Loss · Non-member</div></div>
-              <span class="badge b-gray">Non-member</span>
-            </div>
-            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">2</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
-              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">1 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
-            </div>
-            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
-          </div>
-
-          <!-- NOTES CARD -->
-          <div class="card">
-            <div class="card-header"><div class="card-title">Quick Notes</div><div class="card-link">+ Add</div></div>
-            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:10px;">
-              <div style="background:rgba(0,245,255,0.07);border:1px solid rgba(0,245,255,0.15);border-radius:8px;padding:10px 12px;">
-                <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:3px;">Jake Dela Cruz</div>
-                <div style="font-size:12px;color:var(--text)">Focus on deadlift form — knees caving in. Increase bench to 80kg next session.</div>
-              </div>
-              <div style="background:rgba(238,90,189,0.07);border:1px solid rgba(238,90,189,0.15);border-radius:8px;padding:10px 12px;">
-                <div style="font-size:12px;font-weight:600;color:var(--accent2);margin-bottom:3px;">Rica Bautista</div>
-                <div style="font-size:12px;color:var(--text)">Consistent progress. Down 2kg this month. Keep current program.</div>
-              </div>
+        <div class="col-12">
+          <div class="fc-card">
+            <div class="fc-card-header"><span class="fc-card-title">Activity</span></div>
+            <div style="padding:14px 18px;">
+              <div class="act-item"><div class="act-dot" style="background:rgba(0,245,255,.12)">✓</div><div><div class="act-title">Session completed — Jake Dela Cruz</div><div class="act-sub">Strength Training · 7AM</div><div class="act-time">Today, 8:05 AM</div></div></div>
+              <div class="act-item"><div class="act-dot" style="background:rgba(237,110,82,.12)">⭐</div><div><div class="act-title">New 5-star review from Rica Bautista</div><div class="act-sub">"Amazing trainer, highly recommend!"</div><div class="act-time">Yesterday</div></div></div>
+              <div class="act-item"><div class="act-dot" style="background:rgba(255,42,38,.12)">✗</div><div><div class="act-title">No-show — Luis Torres 5PM</div><div class="act-time">Yesterday</div></div></div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- ══════════════════════════════════════
-         PAGE: MY PROFILE
-    ══════════════════════════════════════ -->
-    <div class="page" id="page-profile">
-      <div class="page-header">
-        <div><div class="page-title">My Profile</div><div class="page-sub">How clients see you</div></div>
-        <div class="page-actions">
-          <button class="btn btn-ghost">👁 Preview</button>
-          <button class="btn btn-primary" id="saveProfileBtn">💾 Save Changes</button>
-        </div>
-      </div>
-
-      <div class="profile-hero">
-        <div class="profile-hero-av">CM</div>
-        <div class="profile-hero-info">
-          <div class="profile-hero-name">Coach Marco</div>
-          <div class="profile-hero-spec">Strength & Conditioning Specialist</div>
-          <div class="profile-hero-stats">
-            <div class="phs"><div class="phs-val">4.9</div><div class="phs-lbl">Rating</div></div>
-            <div class="phs"><div class="phs-val">42</div><div class="phs-lbl">Reviews</div></div>
-            <div class="phs"><div class="phs-val">5</div><div class="phs-lbl">Clients</div></div>
-            <div class="phs"><div class="phs-val">2 yr</div><div class="phs-lbl">Experience</div></div>
-          </div>
-        </div>
-        <button class="btn btn-ghost" style="font-size:12px;padding:8px 14px;">📷 Change Photo</button>
-      </div>
-
-      <div class="g2">
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div class="card">
-            <div class="card-header"><div class="card-title">Personal Info</div></div>
-            <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
-              <div class="form-group" style="margin:0"><label class="form-label">Full Name</label><input class="form-input" value="Marco Reyes" /></div>
-              <div class="form-group" style="margin:0"><label class="form-label">Specialization</label><input class="form-input" value="Strength & Conditioning" /></div>
-              <div class="form-row">
-                <div class="form-group" style="margin:0"><label class="form-label">Phone</label><input class="form-input" value="+63 917 555 0123" /></div>
-                <div class="form-group" style="margin:0"><label class="form-label">Years Experience</label><input class="form-input" value="2" /></div>
-              </div>
-              <div class="form-group" style="margin:0"><label class="form-label">Bio</label><textarea class="form-textarea">Certified strength coach specializing in progressive overload and functional movement. I help clients build real strength and lasting habits.</textarea></div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><div class="card-title">Certifications</div><div class="card-link">+ Add</div></div>
-            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:8px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border-radius:8px;">
-                <div><div style="font-size:13px;font-weight:500;">NSCA-CSCS</div><div style="font-size:11px;color:var(--muted);">Expires Dec 2026</div></div>
-                <span class="badge b-teal">Active</span>
-              </div>
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border-radius:8px;">
-                <div><div style="font-size:13px;font-weight:500;">First Aid / CPR</div><div style="font-size:11px;color:var(--muted);">Expires Jun 2025</div></div>
-                <span class="badge b-pink">Expired</span>
-              </div>
-              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border-radius:8px;">
-                <div><div style="font-size:13px;font-weight:500;">ACSM Personal Trainer</div><div style="font-size:11px;color:var(--muted);">Expires Mar 2027</div></div>
-                <span class="badge b-teal">Active</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div class="card">
-            <div class="card-header"><div class="card-title">Skills & Services</div></div>
-            <div style="padding:16px 20px;">
-              <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Training Types</div>
-              <div class="tag-list">
-                <span class="skill-tag active-tag">Strength Training</span>
-                <span class="skill-tag active-tag">Conditioning</span>
-                <span class="skill-tag active-tag">Weight Loss</span>
-                <span class="skill-tag active-tag">Body Sculpting</span>
-                <span class="skill-tag">CrossFit</span>
-                <span class="skill-tag">Sports Performance</span>
-                <span class="skill-tag">Rehabilitation</span>
-                <span class="skill-tag active-tag">Flexibility</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><div class="card-title">Availability</div></div>
-            <div style="padding:16px 20px;">
-              <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Days Available</div>
-              <div class="availability-grid">
-                <div class="avail-day on"><div class="avail-day-name">Mon</div><div class="avail-dot"></div></div>
-                <div class="avail-day on"><div class="avail-day-name">Tue</div><div class="avail-dot"></div></div>
-                <div class="avail-day on"><div class="avail-day-name">Wed</div><div class="avail-dot"></div></div>
-                <div class="avail-day on"><div class="avail-day-name">Thu</div><div class="avail-dot"></div></div>
-                <div class="avail-day on"><div class="avail-day-name">Fri</div><div class="avail-dot"></div></div>
-                <div class="avail-day on"><div class="avail-day-name">Sat</div><div class="avail-dot"></div></div>
-                <div class="avail-day"><div class="avail-day-name">Sun</div><div class="avail-dot"></div></div>
-              </div>
-              <div style="margin-top:14px;">
-                <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Hours</div>
-                <div class="form-row">
-                  <div class="form-group" style="margin:0"><label class="form-label">From</label><input class="form-input" value="6:00 AM" /></div>
-                  <div class="form-group" style="margin:0"><label class="form-label">To</label><input class="form-input" value="7:00 PM" /></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-header"><div class="card-title">Recent Reviews</div></div>
-            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:12px;">
-              <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="font-size:13px;font-weight:500;">Rica Bautista</span><span style="color:var(--accent4);font-size:12px;">★★★★★</span></div>
-                <div style="font-size:12px;color:var(--muted);">"Best trainer I've had. Really pushes me but knows when to back off."</div>
-              </div>
-              <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
-                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="font-size:13px;font-weight:500;">Jake Dela Cruz</span><span style="color:var(--accent4);font-size:12px;">★★★★★</span></div>
-                <div style="font-size:12px;color:var(--muted);">"Hit my first 100kg squat this month. Coach Marco is the real deal."</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════
-         PAGE: EARNINGS
-    ══════════════════════════════════════ -->
-    <div class="page" id="page-earnings">
-      <div class="page-header">
-        <div><div class="page-title">Earnings</div><div class="page-sub">Your income overview</div></div>
-        <div class="page-actions">
-          <button class="btn btn-ghost">📊 Export</button>
-          <button class="btn btn-primary">💳 Request Payout</button>
-        </div>
-      </div>
-
-      <div class="g31" style="margin-bottom:16px;">
-        <div class="card">
-          <div class="card-header">
-            <div style="display:flex;align-items:center;gap:14px;">
-              <div class="card-title">Monthly Overview</div>
-              <div style="display:flex;gap:6px;">
-                <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px;" id="prevMonth">‹</button>
-                <span style="font-size:12px;color:var(--muted);padding:4px 8px;">March 2026</span>
-                <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px;" id="nextMonth">›</button>
-              </div>
-            </div>
-            <span class="badge b-teal">+12% vs Feb</span>
-          </div>
-          <div style="padding:24px 20px 8px;display:flex;align-items:flex-end;gap:20px;border-bottom:1px solid var(--border)">
-            <div>
-              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Total Earned</div>
-              <div class="earnings-big">₱18,400</div>
-              <div class="earnings-period">34 sessions · 28 completed</div>
-            </div>
-            <div style="flex:1;text-align:right">
-              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Pending payout</div>
-              <div style="font-family:'Lalezar',cursive;font-size:22px;color:var(--accent4)">₱6,200</div>
-            </div>
-          </div>
-          <div style="padding:16px 20px;">
-            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;">Daily Earnings — March</div>
-            <div class="bar-chart">
-              <div class="bar-wrap"><div class="bar" style="height:40%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">3</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:60%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">4</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:50%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">5</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:70%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">6</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:100%;background:var(--accent)"></div><div class="bar-lbl" style="color:var(--accent)">7</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:80%;background:rgba(0,245,255,0.25)"></div><div class="bar-lbl">8</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:0%;background:rgba(0,245,255,0.2)"></div><div class="bar-lbl">9</div></div>
-              <div class="bar-wrap"><div class="bar" style="height:55%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">10</div></div>
-            </div>
-          </div>
-          <div style="padding:0 20px 4px;">
-            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;padding:10px 0;border-top:1px solid var(--border)">Breakdown</div>
-          </div>
-          <div class="earn-rows" style="padding-top:0">
-            <div class="earn-row"><span class="earn-row-lbl">Member sessions (24)</span><span class="earn-row-val" style="color:var(--accent2)">₱14,200</span></div>
-            <div class="earn-row"><span class="earn-row-lbl">Non-member sessions (4)</span><span class="earn-row-val" style="color:var(--accent)">₱4,200</span></div>
-            <div class="earn-row earn-divider"><span class="earn-row-lbl">Platform fee (5%)</span><span class="earn-row-val" style="color:var(--accent3)">−₱920</span></div>
-            <div class="earn-row"><span class="earn-row-lbl" style="font-weight:600;color:var(--text)">Net Earnings</span><span class="earn-row-val" style="font-family:'Lalezar',cursive;font-size:17px;color:var(--accent)">₱17,480</span></div>
-          </div>
-        </div>
-
-        <div class="flex-col">
-          <div class="card">
-            <div class="card-header"><div class="card-title">This Year</div></div>
-            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:10px;">
-              <div class="earn-row"><span class="earn-row-lbl">January</span><span class="earn-row-val">₱12,800</span></div>
-              <div class="earn-row"><span class="earn-row-lbl">February</span><span class="earn-row-val">₱16,400</span></div>
-              <div class="earn-row" style="background:rgba(0,245,255,0.05);padding:6px 8px;border-radius:6px;"><span class="earn-row-lbl" style="color:var(--accent);font-weight:600;">March (current)</span><span class="earn-row-val" style="color:var(--accent)">₱18,400</span></div>
-              <div class="earn-row earn-divider"><span class="earn-row-lbl" style="font-weight:600;">YTD Total</span><span class="earn-row-val" style="font-family:'Lalezar',cursive;color:var(--accent2)">₱47,600</span></div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header"><div class="card-title">Payout History</div></div>
-            <div class="payout-row">
-              <div><div class="payout-name">Feb Payout</div><div class="payout-date">Mar 1, 2026</div></div>
-              <div style="text-align:right"><div class="payout-amount" style="color:var(--accent2)">₱15,580</div><div class="payout-status" style="color:var(--accent2)">Paid ✓</div></div>
-            </div>
-            <div class="payout-row">
-              <div><div class="payout-name">Jan Payout</div><div class="payout-date">Feb 1, 2026</div></div>
-              <div style="text-align:right"><div class="payout-amount" style="color:var(--accent2)">₱12,160</div><div class="payout-status" style="color:var(--accent2)">Paid ✓</div></div>
-            </div>
-            <div class="payout-row">
-              <div><div class="payout-name">Mar Pending</div><div class="payout-date">Due Apr 1, 2026</div></div>
-              <div style="text-align:right"><div class="payout-amount" style="color:var(--accent4)">₱6,200</div><div class="payout-status" style="color:var(--accent4)">Pending</div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════
-         PAGE: SETTINGS
-    ══════════════════════════════════════ -->
-    <div class="page" id="page-settings">
-      <div class="page-header">
-        <div><div class="page-title">Settings</div><div class="page-sub">Manage your account preferences</div></div>
-        <div class="page-actions"><button class="btn btn-primary">💾 Save All</button></div>
-      </div>
-
-      <div class="g2">
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div class="card" style="padding:20px;">
-            <div class="settings-section-title">Notifications</div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">New bookings</div><div class="settings-row-sub">Get notified when a client books a session</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Session reminders</div><div class="settings-row-sub">30-minute reminder before each session</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">No-show alerts</div><div class="settings-row-sub">Alert when a client doesn't show up</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Payout notifications</div><div class="settings-row-sub">Notify when a payout is processed</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Review alerts</div><div class="settings-row-sub">Notify when a client leaves a review</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-          </div>
-
-          <div class="card" style="padding:20px;">
-            <div class="settings-section-title">Session Defaults</div>
-            <div style="display:flex;flex-direction:column;gap:14px;">
-              <div class="form-group" style="margin:0"><label class="form-label">Default Session Duration</label>
-                <select class="form-select"><option>1 hour</option><option>45 minutes</option><option>90 minutes</option></select>
-              </div>
-              <div class="form-group" style="margin:0"><label class="form-label">Buffer Time Between Sessions</label>
-                <select class="form-select"><option>15 minutes</option><option>None</option><option>30 minutes</option></select>
-              </div>
-              <div class="form-group" style="margin:0"><label class="form-label">Max Sessions Per Day</label>
-                <input class="form-input" value="8" /></div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:16px;">
-          <div class="card" style="padding:20px;">
-            <div class="settings-section-title">Rates</div>
-            <div style="display:flex;flex-direction:column;gap:14px;">
-              <div class="form-group" style="margin:0"><label class="form-label">Member Rate (per session)</label><input class="form-input" value="₱600" /></div>
-              <div class="form-group" style="margin:0"><label class="form-label">Non-member Rate (per session)</label><input class="form-input" value="₱1,050" /></div>
-              <div class="form-group" style="margin:0"><label class="form-label">Package Rate (10 sessions)</label><input class="form-input" value="₱5,500" /></div>
-            </div>
-          </div>
-
-          <div class="card" style="padding:20px;">
-            <div class="settings-section-title">Privacy</div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Public profile</div><div class="settings-row-sub">Allow clients to find your profile</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Show earnings to gym admin</div><div class="settings-row-sub">Admin can view your earnings report</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
-            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Show availability publicly</div><div class="settings-row-sub">Clients can see your open time slots</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
-          </div>
-
-          <div class="danger-zone">
-            <div style="font-family:'Lalezar',cursive;font-size:15px;color:var(--accent3);margin-bottom:10px;">Danger Zone</div>
-            <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px;">These actions are permanent and cannot be undone.</div>
-            <div style="display:flex;flex-direction:column;gap:8px;">
-              <button class="btn btn-danger" style="width:100%;text-align:left;font-size:13px;">🗑 Delete All Session History</button>
-              <button class="btn btn-danger" style="width:100%;text-align:left;font-size:13px;">⚠️ Deactivate Account</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ══════════════════════════════════════
-         PAGE: CALENDAR (full)
-    ══════════════════════════════════════ -->
-    <div class="page" id="page-calendar">
-      <div class="page-header">
-        <div><div class="page-title">Schedule</div><div class="page-sub">Your full calendar view</div></div>
-        <div class="page-actions">
-          <div class="cal-month-nav">
-            <button class="cal-nav-btn">‹</button>
-            <div style="font-family:'Lalezar',cursive;font-size:16px;">March 2026</div>
-            <button class="cal-nav-btn">›</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" style="overflow:visible;">
-        <div style="padding:16px 16px 0;">
-          <div class="cal-grid" style="margin-bottom:6px;">
-            <div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div><div class="cal-day-name">Thu</div><div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div><div class="cal-day-name">Sun</div>
-          </div>
-          <div class="cal-grid">
-            <!-- Row 1 -->
-            <div class="cal-cell other-month"><div class="cal-num">24</div></div>
-            <div class="cal-cell other-month"><div class="cal-num">25</div></div>
-            <div class="cal-cell other-month"><div class="cal-num">26</div></div>
-            <div class="cal-cell other-month"><div class="cal-num">27</div></div>
-            <div class="cal-cell other-month"><div class="cal-num">28</div></div>
-            <div class="cal-cell other-month"><div class="cal-num">1</div><div class="cal-event">Jake 7AM</div></div>
-            <div class="cal-cell other-month"><div class="cal-num">2</div></div>
-            <!-- Row 2 -->
-            <div class="cal-cell"><div class="cal-num">3</div><div class="cal-event">Jake 7AM</div><div class="cal-event pink">Rica 1PM</div></div>
-            <div class="cal-cell"><div class="cal-num">4</div><div class="cal-event">Kevin 9AM</div><div class="cal-event orange">Luis 5PM</div></div>
-            <div class="cal-cell"><div class="cal-num">5</div><div class="cal-event">Marco 9AM</div></div>
-            <div class="cal-cell"><div class="cal-num">6</div><div class="cal-event">Ana 3PM</div><div class="cal-event orange">Luis 5PM</div></div>
-            <div class="cal-cell today"><div class="cal-num">7</div><div class="cal-event">Jake 7AM</div><div class="cal-event">Kevin 11AM</div><div class="cal-event pink">Rica 1PM</div></div>
-            <div class="cal-cell"><div class="cal-num">8</div><div class="cal-event">Jake 8AM</div><div class="cal-event orange">Luis 10AM</div></div>
-            <div class="cal-cell"><div class="cal-num">9</div></div>
-            <!-- Row 3 -->
-            <div class="cal-cell"><div class="cal-num">10</div><div class="cal-event">Kevin 7AM</div><div class="cal-event">Ana 9AM</div></div>
-            <div class="cal-cell"><div class="cal-num">11</div><div class="cal-event">Marco 11AM</div></div>
-            <div class="cal-cell"><div class="cal-num">12</div><div class="cal-event">Jake 7AM</div></div>
-            <div class="cal-cell"><div class="cal-num">13</div><div class="cal-event orange">Luis 5PM</div></div>
-            <div class="cal-cell"><div class="cal-num">14</div><div class="cal-event pink">Rica 1PM</div><div class="cal-event">Ana 3PM</div></div>
-            <div class="cal-cell"><div class="cal-num">15</div><div class="cal-event">Jake 8AM</div></div>
-            <div class="cal-cell"><div class="cal-num">16</div></div>
-            <!-- Row 4 -->
-            <div class="cal-cell"><div class="cal-num">17</div><div class="cal-event">Kevin 9AM</div></div>
-            <div class="cal-cell"><div class="cal-num">18</div></div>
-            <div class="cal-cell"><div class="cal-num">19</div><div class="cal-event">Jake 7AM</div></div>
-            <div class="cal-cell"><div class="cal-num">20</div><div class="cal-event orange">Luis 5PM</div></div>
-            <div class="cal-cell"><div class="cal-num">21</div><div class="cal-event pink">Rica 1PM</div></div>
-            <div class="cal-cell"><div class="cal-num">22</div></div>
-            <div class="cal-cell"><div class="cal-num">23</div></div>
-          </div>
-        </div>
-        <div style="padding:14px 16px;display:flex;align-items:center;gap:16px;border-top:1px solid var(--border);margin-top:10px;">
-          <span style="font-size:12px;color:var(--muted)">Legend:</span>
-          <span style="font-size:11px;" class="cal-event">Member</span>
-          <span style="font-size:11px;" class="cal-event pink">Body Sculpt</span>
-          <span style="font-size:11px;" class="cal-event orange">Strength</span>
-        </div>
-      </div>
-    </div>
-
-  </div><!-- /main -->
-</div><!-- /layout -->
-
-<!-- ══════════════════════════════════════
-     MODAL: SESSION HISTORY
-══════════════════════════════════════ -->
-<div class="modal-overlay" id="historyModal">
-  <div class="modal" style="width:640px;">
-    <div class="modal-close" onclick="closeModal('historyModal')">✕</div>
-    <div class="modal-title">Session History</div>
-    <div class="modal-sub">All completed sessions · March 2026</div>
-    <div style="display:flex;gap:10px;margin-bottom:16px;">
-      <input class="form-input" placeholder="Search client..." style="flex:1;" />
-      <select class="form-select" style="width:140px;"><option>All sessions</option><option>Completed</option><option>No-shows</option></select>
-    </div>
-    <div class="card" style="overflow:hidden;">
-      <table class="history-table">
-        <thead><tr><th>Date</th><th>Client</th><th>Type</th><th>Duration</th><th>Rate</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td style="color:var(--muted)">Mar 7</td><td>Jake Dela Cruz</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
-          <tr><td style="color:var(--muted)">Mar 6</td><td>Ana Santos</td><td>Flexibility</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
-          <tr><td style="color:var(--muted)">Mar 6</td><td>Luis Torres</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-pink">No-show</span></td></tr>
-          <tr><td style="color:var(--muted)">Mar 5</td><td>Rica Bautista</td><td>Body Sculpting</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
-          <tr><td style="color:var(--muted)">Mar 5</td><td>Marco Lim</td><td>Weight Loss</td><td>1hr</td><td style="color:var(--accent)">₱1,050</td><td><span class="badge b-teal">Done ✓</span></td></tr>
-          <tr><td style="color:var(--muted)">Mar 4</td><td>Kevin Reyes</td><td>Cardio</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
-          <tr><td style="color:var(--muted)">Mar 4</td><td>Luis Torres</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-pink">No-show</span></td></tr>
-          <tr><td style="color:var(--muted)">Mar 3</td><td>Jake Dela Cruz</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
-      <span style="font-size:12px;color:var(--muted)">Showing 8 of 28 completed sessions</span>
-      <button class="btn btn-ghost" style="font-size:12px;padding:7px 14px;">Load more</button>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════
-     MODAL: MARK SESSION
-══════════════════════════════════════ -->
-<div class="modal-overlay" id="markSessionModal">
-  <div class="modal">
-    <div class="modal-close" onclick="closeModal('markSessionModal')">✕</div>
-    <div class="modal-title">Mark Session</div>
-    <div class="modal-sub">Record the outcome of a completed session</div>
-
-    <div class="form-group">
-      <label class="form-label">Select Client</label>
-      <div class="client-select-list">
-        <div class="client-select-item selected" onclick="selectClient(this)">
-          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(0,245,255,0.15);color:#00F5FF;font-size:11px;">KR</div>
-          <div><div style="font-size:13px;font-weight:500;">Kevin Reyes</div><div style="font-size:11px;color:var(--muted)">Cardio Conditioning · 11:00 AM</div></div>
-        </div>
-        <div class="client-select-item" onclick="selectClient(this)">
-          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(238,90,189,0.15);color:#EE5ABD;font-size:11px;">RB</div>
-          <div><div style="font-size:13px;font-weight:500;">Rica Bautista</div><div style="font-size:11px;color:var(--muted)">Body Sculpting · 1:00 PM</div></div>
-        </div>
-        <div class="client-select-item" onclick="selectClient(this)">
-          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(237,110,82,0.15);color:#ED6E52;font-size:11px;">AS</div>
-          <div><div style="font-size:13px;font-weight:500;">Ana Santos</div><div style="font-size:11px;color:var(--muted)">Flexibility · 3:00 PM</div></div>
-        </div>
-        <div class="client-select-item" onclick="selectClient(this)">
-          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(255,42,38,0.15);color:#FF2A26;font-size:11px;">LT</div>
-          <div><div style="font-size:13px;font-weight:500;">Luis Torres</div><div style="font-size:11px;color:var(--muted)">Strength Training · 5:00 PM</div></div>
-        </div>
+<!-- ════ MY SESSIONS ════ -->
+<div class="fc-page" id="page-sessions">
+  <div class="pg-header">
+    <div><div class="pg-title">My Sessions</div><div class="pg-sub">All bookings · March 2026</div></div>
+    <div class="d-flex gap-2 flex-wrap">
+      <button class="fc-btn fc-btn-ghost" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button>
+      <button class="fc-btn fc-btn-primary" data-bs-toggle="modal" data-bs-target="#markSessionModal">✓ Mark Session</button>
+    </div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent)">6</div><div class="mstat-lbl">Today</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent2)">34</div><div class="mstat-lbl">This Month</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent4)">28</div><div class="mstat-lbl">Completed</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent3)">2</div><div class="mstat-lbl">No-shows</div></div></div>
+  </div>
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <div class="fc-card">
+        <div class="fc-card-header"><span class="fc-card-title">Today — Mar 7</span><span class="fc-badge b-teal">6 sessions</span></div>
+        <div class="next-session-hero"><div class="next-tag"><span class="next-dot"></span>Up Next · 11:00 AM</div><div class="next-name">Kevin Reyes</div><div class="next-meta">Cardio Conditioning · 1 hour</div></div>
+        <div class="session-item"><div class="sess-time">7AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · 1hr</div></div><span class="fc-badge b-teal">Done ✓</span></div>
+        <div class="session-item"><div class="sess-time">9AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · 1hr</div></div><span class="fc-badge b-orange">Pending</span></div>
+        <div class="session-item next-up"><div class="sess-time" style="color:var(--accent)">11AM</div><div class="sess-line" style="background:rgba(0,245,255,.3)"></div><div class="flex-fill"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio · 1hr</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
+        <div class="session-item"><div class="sess-time">1PM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · 1hr</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
+        <div class="session-item"><div class="sess-time">3PM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility · 1hr</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
+        <div class="session-item"><div class="sess-time">5PM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · 1hr</div></div><div class="d-flex gap-1"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
       </div>
     </div>
-
-    <div class="form-row">
-      <div class="form-group">
-        <label class="form-label">Outcome</label>
-        <select class="form-select">
-          <option>✓ Completed</option>
-          <option>✗ No-show</option>
-          <option>↩ Cancelled</option>
-          <option>⟳ Rescheduled</option>
-        </select>
+    <div class="col-12 col-md-6">
+      <div class="fc-card">
+        <div class="fc-card-header"><span class="fc-card-title">Upcoming This Week</span></div>
+        <div style="padding:8px 0 2px;font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:10px 18px 5px">Saturday, Mar 8</div>
+        <div class="session-item"><div class="sess-time">8AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training</div></div><span class="fc-badge b-gray">Confirmed</span></div>
+        <div class="session-item"><div class="sess-time">10AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training</div></div><span class="fc-badge b-gray">Confirmed</span></div>
+        <div class="session-item"><div class="sess-time">12PM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting</div></div><span class="fc-badge b-gray">Confirmed</span></div>
+        <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:10px 18px 5px;border-top:1px solid var(--border)">Monday, Mar 10</div>
+        <div class="session-item"><div class="sess-time">7AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Kevin Reyes</div><div class="sess-detail">Cardio</div></div><span class="fc-badge b-gray">Confirmed</span></div>
+        <div class="session-item"><div class="sess-time">9AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility</div></div><span class="fc-badge b-gray">Confirmed</span></div>
+        <div class="session-item"><div class="sess-time">11AM</div><div class="sess-line"></div><div class="flex-fill"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss</div></div><span class="fc-badge b-orange">Tentative</span></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Duration</label>
-        <select class="form-select"><option>1 hour</option><option>45 min</option><option>90 min</option></select>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Rate your session</label>
-      <div class="rating-stars" id="stars">
-        <span class="star lit" data-i="1">★</span>
-        <span class="star lit" data-i="2">★</span>
-        <span class="star lit" data-i="3">★</span>
-        <span class="star lit" data-i="4">★</span>
-        <span class="star lit" data-i="5">★</span>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label class="form-label">Session Notes (optional)</label>
-      <textarea class="form-textarea" placeholder="e.g. Great session — increased squat weight. Work on hip mobility next time."></textarea>
-    </div>
-
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal('markSessionModal')">Cancel</button>
-      <button class="btn btn-primary" onclick="closeModal('markSessionModal')">✓ Save Session</button>
     </div>
   </div>
 </div>
 
+<!-- ════ MY MEMBERS ════ -->
+<div class="fc-page" id="page-members">
+  <div class="pg-header">
+    <div><div class="pg-title">My Members</div><div class="pg-sub">5 clients · 4 active members</div></div>
+    <button class="fc-btn fc-btn-primary">+ Add Client</button>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-4"><div class="mstat"><div class="mstat-val" style="color:var(--accent)">5</div><div class="mstat-lbl">Total Clients</div></div></div>
+    <div class="col-4"><div class="mstat"><div class="mstat-val" style="color:var(--accent2)">4</div><div class="mstat-lbl">Active</div></div></div>
+    <div class="col-4"><div class="mstat"><div class="mstat-val" style="color:var(--accent4)">28</div><div class="mstat-lbl">Sessions (Mar)</div></div></div>
+  </div>
+  <div class="row g-3">
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(238,90,189,.15);color:#EE5ABD;font-size:16px">JD</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Jake Dela Cruz</div><div style="font-size:12px;color:var(--muted)">Strength Training · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">6</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">3mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(0,245,255,.15);color:#00F5FF;font-size:16px">RB</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Rica Bautista</div><div style="font-size:12px;color:var(--muted)">Body Sculpting · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">7</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">4mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(237,110,82,.15);color:#ED6E52;font-size:16px">KR</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Kevin Reyes</div><div style="font-size:12px;color:var(--muted)">Cardio · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">4</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">2mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(255,42,38,.15);color:#FF2A26;font-size:16px">LT</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Luis Torres</div><div style="font-size:12px;color:var(--muted)">Strength Training · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">9</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">6mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+    </div>
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(183,45,111,.15);color:#B72D6F;font-size:16px">ML</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Marco Lim</div><div style="font-size:12px;color:var(--muted)">Weight Loss · Non-member</div></div><span class="fc-badge b-gray">Non-member</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">2</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">1mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ PROFILE ════ -->
+<div class="fc-page" id="page-profile">
+  <div class="pg-header">
+    <div><div class="pg-title">My Profile</div><div class="pg-sub">How clients see you</div></div>
+    <div class="d-flex gap-2"><button class="fc-btn fc-btn-ghost">👁 Preview</button><button class="fc-btn fc-btn-primary" id="saveProfileBtn">💾 Save</button></div>
+  </div>
+  <div class="profile-hero">
+    <div class="profile-hero-av">CM</div>
+    <div class="flex-fill">
+      <div class="profile-hero-name">Coach Marco</div>
+      <div class="profile-hero-spec">Strength & Conditioning Specialist</div>
+      <div class="profile-hero-stats">
+        <div class="phs"><div class="phs-val">4.9</div><div class="phs-lbl">Rating</div></div>
+        <div class="phs"><div class="phs-val">42</div><div class="phs-lbl">Reviews</div></div>
+        <div class="phs"><div class="phs-val">5</div><div class="phs-lbl">Clients</div></div>
+        <div class="phs"><div class="phs-val">2yr</div><div class="phs-lbl">Experience</div></div>
+      </div>
+    </div>
+    <button class="fc-btn fc-btn-ghost fc-btn-sm">📷 Photo</button>
+  </div>
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <div class="fc-card mb-3" style="padding:18px"><div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:14px">Personal Info</div>
+        <div class="mb-3"><label class="fc-label">Full Name</label><input class="fc-input" value="Marco Reyes"/></div>
+        <div class="mb-3"><label class="fc-label">Specialization</label><input class="fc-input" value="Strength & Conditioning"/></div>
+        <div class="mb-3"><label class="fc-label">Bio</label><textarea class="fc-textarea">Certified strength coach with 2 years experience. Passionate about helping clients achieve their fitness goals.</textarea></div>
+        <div class="mb-3"><label class="fc-label">Email</label><input class="fc-input" value="marco@fitcore.com"/></div>
+        <div><label class="fc-label">Phone</label><input class="fc-input" value="+63 917 123 4567"/></div>
+      </div>
+      <div class="fc-card" style="padding:18px"><div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:14px">Availability</div>
+        <div class="avail-day on" onclick="this.classList.toggle('on')"><span>Monday</span><div class="avail-dot"></div></div>
+        <div class="avail-day on" onclick="this.classList.toggle('on')"><span>Tuesday</span><div class="avail-dot"></div></div>
+        <div class="avail-day on" onclick="this.classList.toggle('on')"><span>Wednesday</span><div class="avail-dot"></div></div>
+        <div class="avail-day on" onclick="this.classList.toggle('on')"><span>Thursday</span><div class="avail-dot"></div></div>
+        <div class="avail-day on" onclick="this.classList.toggle('on')"><span>Friday</span><div class="avail-dot"></div></div>
+        <div class="avail-day on" onclick="this.classList.toggle('on')"><span>Saturday</span><div class="avail-dot"></div></div>
+        <div class="avail-day" onclick="this.classList.toggle('on')"><span>Sunday</span><div class="avail-dot"></div></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="fc-card mb-3" style="padding:18px"><div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:14px">Skills & Certifications</div>
+        <div class="mb-3"><label class="fc-label">Certifications</label><input class="fc-input" value="NSCA-CPT, CrossFit L1"/></div>
+        <div><label class="fc-label">Specialties</label>
+          <div class="d-flex flex-wrap gap-2 mt-1">
+            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">Powerlifting</span>
+            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">Weight Loss</span>
+            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">Muscle Building</span>
+            <span style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">+ Add</span>
+          </div>
+        </div>
+      </div>
+      <div class="fc-card"><div class="fc-card-header"><span class="fc-card-title">Reviews</span><span class="fc-badge b-orange">★ 4.9</span></div>
+        <div class="review-row"><div class="review-stars">★★★★★</div><div class="review-text">"Best trainer I've ever had. Always pushes me to my limits!"</div><div class="review-meta">Rica Bautista · Mar 5</div></div>
+        <div class="review-row"><div class="review-stars">★★★★★</div><div class="review-text">"My form has improved so much. Highly recommend!"</div><div class="review-meta">Jake Dela Cruz · Feb 28</div></div>
+        <div class="review-row"><div class="review-stars">★★★★☆</div><div class="review-text">"Great sessions, very knowledgeable and patient."</div><div class="review-meta">Kevin Reyes · Feb 20</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ EARNINGS ════ -->
+<div class="fc-page" id="page-earnings">
+  <div class="pg-header">
+    <div><div class="pg-title">Earnings</div><div class="pg-sub">Your payout history and breakdown</div></div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent)">₱24k</div><div class="mstat-lbl">This Month</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent2)">₱14.3k</div><div class="mstat-lbl">Last Payout</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent4)">₱87k</div><div class="mstat-lbl">YTD Total</div></div></div>
+    <div class="col-6 col-xl-3"><div class="mstat"><div class="mstat-val" style="color:var(--accent)">Mar 15</div><div class="mstat-lbl">Next Payout</div></div></div>
+  </div>
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <div class="fc-card">
+        <div class="earn-hero"><div class="earn-amt">₱24,150</div><div class="earn-lbl">March 2026 · 34 sessions</div></div>
+        <div style="padding:14px 18px;display:flex;flex-direction:column;gap:10px;">
+          <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Member sessions (28 × ₱600)</span><span style="font-weight:600">₱16,800</span></div>
+          <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Non-member (6 × ₱1,050)</span><span style="font-weight:600">₱6,300</span></div>
+          <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Bonuses</span><span style="font-weight:600">₱1,050</span></div>
+          <div class="d-flex justify-content-between" style="border-top:1px solid var(--border);padding-top:10px"><span style="font-size:12px;color:var(--muted)">Platform fee (5%)</span><span style="color:var(--accent3)">−₱1,207</span></div>
+          <div class="d-flex justify-content-between"><span style="font-weight:600">Net payout</span><span style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">₱22,943</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="fc-card mb-3"><div class="fc-card-header"><span class="fc-card-title">Monthly Revenue</span></div>
+        <div class="chart-wrap">
+          <div class="bar-row"><div class="bar-lbl">Oct</div><div class="bar-track"><div class="bar-fill" style="width:55%"></div></div><div class="bar-val">₱18k</div></div>
+          <div class="bar-row"><div class="bar-lbl">Nov</div><div class="bar-track"><div class="bar-fill" style="width:62%"></div></div><div class="bar-val">₱20k</div></div>
+          <div class="bar-row"><div class="bar-lbl">Dec</div><div class="bar-track"><div class="bar-fill" style="width:72%"></div></div><div class="bar-val">₱23k</div></div>
+          <div class="bar-row"><div class="bar-lbl">Jan</div><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div><div class="bar-val">₱21k</div></div>
+          <div class="bar-row"><div class="bar-lbl">Feb</div><div class="bar-track"><div class="bar-fill" style="width:85%"></div></div><div class="bar-val">₱27k</div></div>
+          <div class="bar-row"><div class="bar-lbl">Mar</div><div class="bar-track"><div class="bar-fill" style="width:75%"></div></div><div class="bar-val">₱24k</div></div>
+        </div>
+      </div>
+      <div class="fc-card"><div class="fc-card-header"><span class="fc-card-title">Payout History</span></div>
+        <div class="payout-row"><div><div style="font-size:13px;font-weight:500">February 2026</div><div style="font-size:11px;color:var(--muted)">Processed Mar 5</div></div><div style="font-family:'Lalezar',cursive;color:var(--accent)">₱14,280</div></div>
+        <div class="payout-row"><div><div style="font-size:13px;font-weight:500">January 2026</div><div style="font-size:11px;color:var(--muted)">Processed Feb 5</div></div><div style="font-family:'Lalezar',cursive;color:var(--accent)">₱11,900</div></div>
+        <div class="payout-row"><div><div style="font-size:13px;font-weight:500">December 2025</div><div style="font-size:11px;color:var(--muted)">Processed Jan 5</div></div><div style="font-family:'Lalezar',cursive;color:var(--accent)">₱13,650</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SETTINGS ════ -->
+<div class="fc-page" id="page-settings">
+  <div class="pg-header">
+    <div><div class="pg-title">Settings</div></div>
+    <button class="fc-btn fc-btn-primary" id="saveSettingsBtn">💾 Save</button>
+  </div>
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+      <div class="fc-card" style="padding:18px"><div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:14px">Session Defaults</div>
+        <div class="mb-3"><label class="fc-label">Default Duration</label><select class="fc-select"><option>1 hour</option><option>45 min</option><option>90 min</option></select></div>
+        <div class="mb-3"><label class="fc-label">Member Rate (₱)</label><input class="fc-input" value="600"/></div>
+        <div><label class="fc-label">Non-member Rate (₱)</label><input class="fc-input" value="1,050"/></div>
+      </div>
+    </div>
+    <div class="col-12 col-md-6">
+      <div class="fc-card" style="padding:18px"><div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:14px">Notifications</div>
+        <div class="settings-row"><div><div style="font-size:13.5px;font-weight:500">New booking alerts</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="settings-row"><div><div style="font-size:13.5px;font-weight:500">Cancellation alerts</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="settings-row"><div><div style="font-size:13.5px;font-weight:500">Payout notifications</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="settings-row"><div><div style="font-size:13.5px;font-weight:500">Review notifications</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ CALENDAR ════ -->
+<div class="fc-page" id="page-calendar">
+  <div class="pg-header">
+    <div><div class="pg-title">Calendar</div><div class="pg-sub">March 2026</div></div>
+    <div class="d-flex gap-2">
+      <button class="fc-btn fc-btn-ghost fc-btn-sm">← Feb</button>
+      <button class="fc-btn fc-btn-ghost fc-btn-sm">Apr →</button>
+    </div>
+  </div>
+  <div class="fc-card">
+    <div style="padding:18px;">
+      <div class="cal-grid mb-2">
+        <div class="cal-day-hdr">Sun</div><div class="cal-day-hdr">Mon</div><div class="cal-day-hdr">Tue</div><div class="cal-day-hdr">Wed</div><div class="cal-day-hdr">Thu</div><div class="cal-day-hdr">Fri</div><div class="cal-day-hdr">Sat</div>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-cell muted-day">23</div><div class="cal-cell muted-day">24</div><div class="cal-cell muted-day">25</div><div class="cal-cell muted-day">26</div><div class="cal-cell muted-day">27</div><div class="cal-cell muted-day">28</div><div class="cal-cell has-session">1</div>
+        <div class="cal-cell">2</div><div class="cal-cell has-session">3</div><div class="cal-cell has-session">4</div><div class="cal-cell has-session">5</div><div class="cal-cell has-session">6</div><div class="cal-cell today">7</div><div class="cal-cell has-session">8</div>
+        <div class="cal-cell">9</div><div class="cal-cell has-session">10</div><div class="cal-cell has-session">11</div><div class="cal-cell has-session">12</div><div class="cal-cell has-session">13</div><div class="cal-cell has-session">14</div><div class="cal-cell has-session">15</div>
+        <div class="cal-cell">16</div><div class="cal-cell has-session">17</div><div class="cal-cell has-session">18</div><div class="cal-cell has-session">19</div><div class="cal-cell has-session">20</div><div class="cal-cell has-session">21</div><div class="cal-cell has-session">22</div>
+        <div class="cal-cell">23</div><div class="cal-cell has-session">24</div><div class="cal-cell">25</div><div class="cal-cell has-session">26</div><div class="cal-cell has-session">27</div><div class="cal-cell has-session">28</div><div class="cal-cell has-session">29</div>
+        <div class="cal-cell">30</div><div class="cal-cell has-session">31</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /fc-content -->
+</div><!-- /fc-main -->
+
+<!-- ════════════ MODALS ════════════ -->
+
+<!-- Session History -->
+<div class="modal fade" id="historyModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header"><div class="modal-title">Session History</div><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="mb-3"><input class="fc-input" placeholder="Search by client name…"/></div><div class="tbl-wrap"><table class="fc-table"><thead><tr><th>Date</th><th>Client</th><th class="d-none d-sm-table-cell">Type</th><th class="d-none d-md-table-cell">Duration</th><th>Status</th><th class="d-none d-sm-table-cell">Rating</th></tr></thead><tbody><tr><td>Mar 7</td><td>Jake Dela Cruz</td><td class="d-none d-sm-table-cell">Strength Training</td><td class="d-none d-md-table-cell">1hr</td><td><span class="fc-badge b-teal">Done ✓</span></td><td class="d-none d-sm-table-cell">★★★★★</td></tr><tr><td>Mar 6</td><td>Rica Bautista</td><td class="d-none d-sm-table-cell">Body Sculpting</td><td class="d-none d-md-table-cell">1hr</td><td><span class="fc-badge b-teal">Done ✓</span></td><td class="d-none d-sm-table-cell">★★★★★</td></tr><tr><td>Mar 5</td><td>Luis Torres</td><td class="d-none d-sm-table-cell">Strength Training</td><td class="d-none d-md-table-cell">1hr</td><td><span class="fc-badge b-pink">No-show</span></td><td class="d-none d-sm-table-cell">—</td></tr><tr><td>Mar 4</td><td>Kevin Reyes</td><td class="d-none d-sm-table-cell">Cardio</td><td class="d-none d-md-table-cell">1hr</td><td><span class="fc-badge b-teal">Done ✓</span></td><td class="d-none d-sm-table-cell">★★★★☆</td></tr><tr><td>Mar 3</td><td>Jake Dela Cruz</td><td class="d-none d-sm-table-cell">Strength Training</td><td class="d-none d-md-table-cell">1hr</td><td><span class="fc-badge b-teal">Done ✓</span></td><td class="d-none d-sm-table-cell">★★★★★</td></tr></tbody></table></div></div><div class="modal-footer"><button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Close</button></div></div></div></div>
+
+<!-- Mark Session -->
+<div class="modal fade" id="markSessionModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><div class="modal-title">Mark Session</div><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body">
+  <div class="mb-3"><label class="fc-label">Select Client</label>
+    <div class="client-select-item selected" onclick="selectClient(this)"><div class="mav" style="background:rgba(238,90,189,.15);color:#EE5ABD;width:28px;height:28px;border-radius:7px;font-size:11px">JD</div>Jake Dela Cruz</div>
+    <div class="client-select-item" onclick="selectClient(this)"><div class="mav" style="background:rgba(0,245,255,.15);color:#00F5FF;width:28px;height:28px;border-radius:7px;font-size:11px">RB</div>Rica Bautista</div>
+    <div class="client-select-item" onclick="selectClient(this)"><div class="mav" style="background:rgba(237,110,82,.15);color:#ED6E52;width:28px;height:28px;border-radius:7px;font-size:11px">KR</div>Kevin Reyes</div>
+  </div>
+  <div class="row g-3 mb-3">
+    <div class="col-6"><label class="fc-label">Outcome</label><select class="fc-select"><option>Done ✓</option><option>No-show ✗</option><option>Cancelled</option></select></div>
+    <div class="col-6"><label class="fc-label">Duration</label><select class="fc-select"><option>1 hour</option><option>45 min</option><option>90 min</option></select></div>
+  </div>
+  <div class="mb-3"><label class="fc-label">Rate Your Session</label><div class="rating-stars" id="stars"><span class="star lit" data-i="1">★</span><span class="star lit" data-i="2">★</span><span class="star lit" data-i="3">★</span><span class="star lit" data-i="4">★</span><span class="star lit" data-i="5">★</span></div></div>
+  <div><label class="fc-label">Session Notes</label><textarea class="fc-textarea" placeholder="e.g. Great session — increased squat weight…"></textarea></div>
+</div><div class="modal-footer"><button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Cancel</button><button class="fc-btn fc-btn-primary" data-bs-dismiss="modal">✓ Save Session</button></div></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  // ── NAVIGATION ──
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    const page = document.getElementById('page-' + id);
-    if (page) page.classList.add('active');
-    const nav = document.querySelector(`.nav-item[data-page="${id}"]`);
-    if (nav) nav.classList.add('active');
+// ── NAV ──
+document.querySelectorAll('.nav-lnk[data-page]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fc-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-lnk').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + btn.dataset.page).classList.add('active');
+    btn.classList.add('active');
+    if (window.innerWidth < 992) closeSidebar();
+  });
+});
+
+document.querySelectorAll('[data-goto]').forEach(el => {
+  el.addEventListener('click', () => {
+    const id = el.dataset.goto;
+    document.querySelectorAll('.fc-page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-lnk').forEach(n => n.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelector(`.nav-lnk[data-page="${id}"]`)?.classList.add('active');
+  });
+});
+
+// Calendar button
+document.getElementById('calBtn').addEventListener('click', () => {
+  document.querySelectorAll('.fc-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-lnk').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-calendar').classList.add('active');
+  document.querySelector('.nav-lnk[data-page="calendar"]').classList.add('active');
+});
+
+// ── SIDEBAR ──
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
+document.getElementById('sidebarToggle').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+});
+document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
+
+// ── NOTIFICATIONS ──
+const notifBtn = document.getElementById('notifBtn');
+const notifPanel = document.getElementById('notifPanel');
+notifBtn.addEventListener('click', e => { e.stopPropagation(); notifPanel.classList.toggle('open'); });
+document.addEventListener('click', () => notifPanel.classList.remove('open'));
+notifPanel.addEventListener('click', e => e.stopPropagation());
+
+// ── SESSION DONE / NO-SHOW ──
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('sess-btn-done')) {
+    const row = e.target.closest('.session-item');
+    row.querySelector('.d-flex')?.replaceWith(Object.assign(document.createElement('span'), { className:'fc-badge b-teal', textContent:'Done ✓' }));
+    row.classList.remove('next-up');
   }
-
-  document.querySelectorAll('.nav-item[data-page]').forEach(item => {
-    item.addEventListener('click', () => showPage(item.dataset.page));
-  });
-
-  document.querySelectorAll('[data-goto]').forEach(el => {
-    el.addEventListener('click', () => showPage(el.dataset.goto));
-  });
-
-  document.getElementById('dashCalLink').addEventListener('click', () => showPage('calendar'));
-
-  // ── NOTIFICATIONS ──
-  const notifBtn = document.getElementById('notifBtn');
-  const notifPanel = document.getElementById('notifPanel');
-  notifBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    notifPanel.classList.toggle('open');
-  });
-  document.addEventListener('click', () => notifPanel.classList.remove('open'));
-  notifPanel.addEventListener('click', e => e.stopPropagation());
-
-  // ── CALENDAR BUTTON ──
-  document.getElementById('calBtn').addEventListener('click', () => showPage('calendar'));
-
-  // ── MODALS ──
-  function openModal(id) { document.getElementById(id).classList.add('open'); }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-  document.getElementById('historyBtn').addEventListener('click', () => openModal('historyModal'));
-  document.getElementById('sessHistoryBtn') && document.getElementById('sessHistoryBtn').addEventListener('click', () => openModal('historyModal'));
-  document.getElementById('markSessionBtn').addEventListener('click', () => openModal('markSessionModal'));
-  document.getElementById('sessMarkBtn') && document.getElementById('sessMarkBtn').addEventListener('click', () => openModal('markSessionModal'));
-
-  document.querySelectorAll('.modal-overlay').forEach(overlay => {
-    overlay.addEventListener('click', function(e) {
-      if (e.target === this) this.classList.remove('open');
-    });
-  });
-
-  // ── CLIENT SELECT ──
-  function selectClient(el) {
-    document.querySelectorAll('.client-select-item').forEach(i => i.classList.remove('selected'));
-    el.classList.add('selected');
+  if (e.target.classList.contains('sess-btn-ns')) {
+    const row = e.target.closest('.session-item');
+    row.querySelector('.d-flex')?.replaceWith(Object.assign(document.createElement('span'), { className:'fc-badge b-pink', textContent:'No-show' }));
+    row.classList.remove('next-up');
   }
+});
 
-  // ── STAR RATING ──
-  document.querySelectorAll('.star').forEach(star => {
-    star.addEventListener('click', function() {
-      const val = parseInt(this.dataset.i);
-      document.querySelectorAll('.star').forEach((s, i) => {
-        s.classList.toggle('lit', i < val);
-      });
-    });
-  });
+// ── CLIENT SELECT ──
+function selectClient(el) {
+  document.querySelectorAll('.client-select-item').forEach(i => i.classList.remove('selected'));
+  el.classList.add('selected');
+}
 
-  // ── SESSION DONE/NO-SHOW BUTTONS ──
-  document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('sess-btn-done')) {
-      const row = e.target.closest('.session-item');
-      const actions = row.querySelector('.sess-actions');
-      if (actions) actions.innerHTML = '<span class="badge b-teal">Done ✓</span>';
-      row.classList.remove('next-up');
-    }
-    if (e.target.classList.contains('sess-btn-ns')) {
-      const row = e.target.closest('.session-item');
-      const actions = row.querySelector('.sess-actions');
-      if (actions) actions.innerHTML = '<span class="badge b-pink">No-show</span>';
-      row.classList.remove('next-up');
-    }
+// ── STAR RATING ──
+document.querySelectorAll('.star').forEach(star => {
+  star.addEventListener('click', function() {
+    const val = parseInt(this.dataset.i);
+    document.querySelectorAll('.star').forEach((s, i) => s.classList.toggle('lit', i < val));
   });
+});
 
-  // ── AVAILABILITY TOGGLE ──
-  document.querySelectorAll('.avail-day').forEach(d => {
-    d.addEventListener('click', () => d.classList.toggle('on'));
-  });
-
-  // ── SAVE PROFILE FEEDBACK ──
-  document.getElementById('saveProfileBtn') && document.getElementById('saveProfileBtn').addEventListener('click', function() {
-    this.textContent = '✓ Saved!';
-    this.style.background = 'rgba(0,245,255,0.2)';
-    setTimeout(() => { this.textContent = '💾 Save Changes'; this.style.background = ''; }, 2000);
-  });
+// ── SAVE FEEDBACK ──
+document.getElementById('saveProfileBtn').addEventListener('click', function() {
+  this.textContent = '✓ Saved!';
+  setTimeout(() => this.textContent = '💾 Save', 2000);
+});
+document.getElementById('saveSettingsBtn').addEventListener('click', function() {
+  this.textContent = '✓ Saved!';
+  setTimeout(() => this.textContent = '💾 Save', 2000);
+});
 </script>
 </body>
 </html>
