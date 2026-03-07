@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FitCore — Trainer Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0b1512;
+    --surface: #101a16;
+    --surface2: #162019;
+    --border: #1f2e27;
+    --accent: #4af0c8;
+    --accent2: #c8f04a;
+    --accent3: #f04a8a;
+    --accent4: #f0a44a;
+    --text: #e0ede8;
+    --muted: #5e7a6e;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
+
+  /* TOPBAR */
+  .topbar {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    height:56px; display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px;
+    background:rgba(11,21,18,0.97); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  .brand { font-family:'Syne',sans-serif; font-weight:800; font-size:18px; letter-spacing:-0.5px; }
+  .brand em { color:var(--accent); font-style:normal; }
+  .role-tag {
+    background:rgba(74,240,200,0.1); color:var(--accent);
+    border:1px solid rgba(74,240,200,0.25);
+    border-radius:6px; padding:4px 12px;
+    font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+  }
+  .topbar-right { display:flex; align-items:center; gap:10px; }
+  .icon-btn {
+    width:36px; height:36px; border-radius:8px;
+    background:var(--surface2); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:15px; color:var(--muted);
+    transition:color 0.15s, border-color 0.15s; position:relative;
+  }
+  .icon-btn:hover { color:var(--text); border-color:var(--muted); }
+  .notif-dot { position:absolute; top:7px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--accent3); border:2px solid var(--bg); }
+  .avatar {
+    width:36px; height:36px; border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Syne',sans-serif; font-weight:700; font-size:12px; color:#0b1512; cursor:pointer;
+  }
+
+  /* LAYOUT */
+  .layout { display:flex; padding-top:56px; min-height:100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width:216px; position:fixed; top:56px; left:0; bottom:0;
+    background:var(--surface); border-right:1px solid var(--border);
+    padding:20px 14px; display:flex; flex-direction:column; gap:2px; overflow-y:auto;
+  }
+  .nav-section { font-size:10px; font-weight:600; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; padding:16px 10px 6px; }
+  .nav-item {
+    display:flex; align-items:center; gap:10px;
+    padding:9px 12px; border-radius:8px;
+    font-size:13.5px; color:var(--muted); cursor:pointer;
+    transition:all 0.15s; position:relative; user-select:none;
+  }
+  .nav-item:hover { background:var(--surface2); color:var(--text); }
+  .nav-item.active { background:var(--surface2); color:var(--text); font-weight:500; }
+  .nav-item.active::before {
+    content:''; position:absolute; left:0; top:6px; bottom:6px;
+    width:3px; border-radius:2px; background:var(--accent);
+  }
+  .nav-icon { font-size:16px; width:20px; text-align:center; }
+  .nav-badge { margin-left:auto; background:var(--accent3); color:#fff; font-size:10px; font-weight:700; padding:1px 6px; border-radius:10px; }
+
+  /* PROFILE CARD IN SIDEBAR */
+  .profile-card {
+    background:var(--surface2); border:1px solid var(--border);
+    border-radius:10px; padding:14px; margin-bottom:8px; text-align:center;
+  }
+  .profile-av {
+    width:52px; height:52px; border-radius:12px;
+    background:linear-gradient(135deg,rgba(74,240,200,0.3),rgba(200,240,74,0.2));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Syne',sans-serif; font-weight:800; font-size:18px; color:var(--accent);
+    margin:0 auto 10px;
+  }
+  .profile-name { font-family:'Syne',sans-serif; font-weight:700; font-size:14px; }
+  .profile-spec { font-size:11px; color:var(--muted); margin-top:3px; }
+  .profile-rating { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:8px; font-size:12px; color:var(--accent4); font-weight:600; }
+
+  /* MAIN */
+  .main { margin-left:216px; flex:1; padding:28px 28px 40px; }
+
+  /* PAGE HEADER */
+  .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; }
+  .page-title { font-family:'Syne',sans-serif; font-weight:800; font-size:24px; letter-spacing:-0.5px; }
+  .page-sub { font-size:13px; color:var(--muted); margin-top:3px; }
+  .page-actions { display:flex; gap:10px; }
+  .btn { padding:9px 18px; border-radius:8px; font-family:'Syne',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.3px; cursor:pointer; border:none; transition:all 0.15s; }
+  .btn-primary { background:var(--accent); color:#0b1512; }
+  .btn-primary:hover { filter:brightness(1.1); }
+  .btn-ghost { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
+  .btn-ghost:hover { border-color:var(--muted); }
+
+  /* MINI STATS */
+  .mini-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
+  .mstat {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:12px; padding:18px; text-align:center;
+    transition:border-color 0.15s, transform 0.15s; cursor:default;
+  }
+  .mstat:hover { border-color:var(--muted); transform:translateY(-1px); }
+  .mstat-val { font-family:'Syne',sans-serif; font-weight:800; font-size:28px; letter-spacing:-1px; margin-bottom:5px; }
+  .mstat-lbl { font-size:11px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:0.5px; }
+
+  /* CARDS */
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+  .card-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px 14px; border-bottom:1px solid var(--border); }
+  .card-title { font-family:'Syne',sans-serif; font-weight:700; font-size:14px; }
+  .card-link { font-size:12px; color:var(--accent); cursor:pointer; font-weight:500; }
+  .card-link:hover { text-decoration:underline; }
+
+  .g31 { display:grid; grid-template-columns:1.7fr 1fr; gap:16px; margin-bottom:16px; }
+  .g2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .flex-col { display:flex; flex-direction:column; gap:16px; }
+
+  /* BADGES */
+  .badge { display:inline-flex; align-items:center; padding:3px 8px; border-radius:6px; font-size:11px; font-weight:600; }
+  .b-green { background:rgba(200,240,74,0.12); color:var(--accent2); }
+  .b-teal { background:rgba(74,240,200,0.12); color:var(--accent); }
+  .b-pink { background:rgba(240,74,138,0.12); color:var(--accent3); }
+  .b-orange { background:rgba(240,164,74,0.12); color:var(--accent4); }
+  .b-gray { background:var(--surface2); color:var(--muted); }
+
+  /* NEXT SESSION HERO */
+  .next-session-hero {
+    margin:16px 20px;
+    background:linear-gradient(135deg,rgba(74,240,200,0.08),rgba(200,240,74,0.04));
+    border:1px solid rgba(74,240,200,0.2);
+    border-radius:10px; padding:18px;
+  }
+  .next-tag { font-size:10px; color:var(--accent); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+  .next-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  .next-name { font-family:'Syne',sans-serif; font-weight:800; font-size:18px; margin-bottom:3px; }
+  .next-meta { font-size:12px; color:var(--muted); }
+  .next-time-row { display:flex; align-items:center; gap:8px; margin-top:12px; }
+  .next-time-badge { background:rgba(74,240,200,0.15); color:var(--accent); padding:5px 12px; border-radius:7px; font-size:12px; font-weight:700; font-family:'Syne',sans-serif; }
+  .next-type-badge { background:var(--surface2); color:var(--muted); padding:5px 12px; border-radius:7px; font-size:11.5px; }
+
+  /* SESSION LIST */
+  .session-item {
+    display:flex; align-items:center; gap:14px;
+    padding:14px 20px; border-bottom:1px solid rgba(31,46,39,0.8);
+    transition:background 0.12s; cursor:pointer;
+  }
+  .session-item:hover { background:var(--surface2); }
+  .session-item:last-child { border-bottom:none; }
+  .session-item.next-up { background:rgba(74,240,200,0.04); border-left:2px solid var(--accent); }
+  .sess-time { font-family:'Syne',sans-serif; font-weight:700; font-size:12px; color:var(--accent); width:46px; text-align:center; flex-shrink:0; line-height:1.4; }
+  .sess-line { width:1px; height:36px; background:var(--border); flex-shrink:0; }
+  .sess-info { flex:1; }
+  .sess-name { font-weight:500; font-size:13.5px; }
+  .sess-detail { font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .sess-actions { display:flex; gap:6px; }
+  .sess-btn { padding:4px 10px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; border:none; transition:all 0.12s; }
+  .sess-btn-done { background:rgba(200,240,74,0.15); color:var(--accent2); }
+  .sess-btn-done:hover { background:rgba(200,240,74,0.25); }
+  .sess-btn-ns { background:rgba(240,74,138,0.12); color:var(--accent3); }
+  .sess-btn-ns:hover { background:rgba(240,74,138,0.22); }
+
+  /* EARNINGS */
+  .earn-hero { padding:20px; text-align:center; border-bottom:1px solid var(--border); }
+  .earn-amt { font-family:'Syne',sans-serif; font-weight:800; font-size:32px; letter-spacing:-1.5px; color:var(--accent); }
+  .earn-lbl { font-size:12px; color:var(--muted); margin-top:3px; }
+  .earn-rows { padding:14px 20px; display:flex; flex-direction:column; gap:10px; }
+  .earn-row { display:flex; justify-content:space-between; align-items:center; }
+  .earn-row-lbl { font-size:12px; color:var(--muted); }
+  .earn-row-val { font-weight:600; font-size:13px; }
+  .earn-divider { border-top:1px solid var(--border); margin-top:2px; padding-top:10px; }
+
+  /* MEMBERS LIST */
+  .member-row { display:flex; align-items:center; gap:12px; padding:13px 20px; border-bottom:1px solid rgba(31,46,39,0.8); transition:background 0.12s; cursor:pointer; }
+  .member-row:hover { background:var(--surface2); }
+  .member-row:last-child { border-bottom:none; }
+  .mav { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:12px; }
+  .minfo { flex:1; }
+  .mname { font-size:13px; font-weight:500; }
+  .mdetail { font-size:11px; color:var(--muted); }
+  .msess { font-size:12px; color:var(--accent); font-weight:600; }
+
+  /* ACTIVITY FEED */
+  .activity-feed { padding:14px 20px; display:flex; flex-direction:column; gap:0; }
+  .act-item { display:flex; gap:12px; padding-bottom:16px; position:relative; }
+  .act-item:not(:last-child)::after { content:''; position:absolute; left:13px; top:28px; bottom:0; width:1px; background:var(--border); }
+  .act-dot { width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; position:relative; z-index:1; }
+  .act-body { flex:1; padding-top:3px; }
+  .act-title { font-size:13px; font-weight:500; }
+  .act-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .act-time { font-size:11px; color:var(--muted); margin-top:3px; }
+
+  /* WEEK MINI CALENDAR */
+  .week-cal { padding:16px 20px; }
+  .week-header { display:flex; justify-content:space-between; margin-bottom:12px; }
+  .week-nav { font-size:11px; color:var(--accent); cursor:pointer; font-weight:600; }
+  .week-title { font-size:12px; font-weight:600; }
+  .week-days { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .wday { text-align:center; }
+  .wday-name { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+  .wday-num { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:600; font-size:12px; margin:0 auto; cursor:pointer; transition:all 0.12s; }
+  .wday-num:hover { background:var(--surface2); }
+  .wday-num.today { background:var(--accent); color:#0b1512; }
+  .wday-num.has-session { position:relative; }
+  .wday-num.has-session::after { content:''; position:absolute; bottom:2px; left:50%; transform:translateX(-50%); width:4px; height:4px; border-radius:50%; background:var(--accent3); }
+  .wday-num.today.has-session::after { background:#0b1512; }
+
+  ::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-track { background:transparent; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .main > * { animation:fadeUp 0.35s ease both; }
+  .mini-stats .mstat:nth-child(1) { animation-delay:0.05s; }
+  .mini-stats .mstat:nth-child(2) { animation-delay:0.1s; }
+  .mini-stats .mstat:nth-child(3) { animation-delay:0.15s; }
+  .mini-stats .mstat:nth-child(4) { animation-delay:0.2s; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:14px;">
+    <div class="brand"><em>FIT</em>CORE</div>
+    <div class="role-tag">Trainer</div>
+  </div>
+  <div class="topbar-right">
+    <div class="icon-btn">🔔<span class="notif-dot"></span></div>
+    <div class="icon-btn">📅</div>
+    <div class="avatar">CM</div>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="sidebar">
+    <div class="profile-card">
+      <div class="profile-av">CM</div>
+      <div class="profile-name">Coach Marco</div>
+      <div class="profile-spec">Strength & Conditioning</div>
+      <div class="profile-rating">★ 4.9 <span style="color:var(--muted);font-weight:400">(42 reviews)</span></div>
+    </div>
+
+    <div class="nav-section">My Work</div>
+    <div class="nav-item active"><span class="nav-icon">⬡</span>Dashboard</div>
+    <div class="nav-item"><span class="nav-icon">📅</span>My Sessions<span class="nav-badge">6</span></div>
+    <div class="nav-item"><span class="nav-icon">👥</span>My Members</div>
+
+    <div class="nav-section">Account</div>
+    <div class="nav-item"><span class="nav-icon">✏️</span>My Profile</div>
+    <div class="nav-item"><span class="nav-icon">💰</span>Earnings</div>
+    <div class="nav-item"><span class="nav-icon">⚙️</span>Settings</div>
+  </div>
+
+  <div class="main">
+    <div class="page-header">
+      <div>
+        <div class="page-title">My Dashboard</div>
+        <div class="page-sub">Friday, March 7 2026 &nbsp;·&nbsp; You have 6 sessions today</div>
+      </div>
+      <div class="page-actions">
+        <button class="btn btn-ghost">📋 Session History</button>
+        <button class="btn btn-primary">✓ Mark Session</button>
+      </div>
+    </div>
+
+    <!-- MINI STATS -->
+    <div class="mini-stats">
+      <div class="mstat">
+        <div class="mstat-val" style="color:var(--accent)">6</div>
+        <div class="mstat-lbl">Sessions Today</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-val" style="color:var(--accent2)">34</div>
+        <div class="mstat-lbl">This Month</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-val" style="color:var(--accent4)">₱18.4k</div>
+        <div class="mstat-lbl">Earnings (Mar)</div>
+      </div>
+      <div class="mstat">
+        <div class="mstat-val" style="color:var(--accent3)">2</div>
+        <div class="mstat-lbl">No-shows (Mar)</div>
+      </div>
+    </div>
+
+    <!-- ROW 1: SESSIONS + RIGHT PANEL -->
+    <div class="g31">
+      <!-- TODAY'S SESSIONS -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Today's Sessions</div>
+          <span class="badge b-teal">6 bookings</span>
+        </div>
+
+        <!-- NEXT SESSION HERO -->
+        <div class="next-session-hero">
+          <div class="next-tag"><span class="next-dot"></span>Up Next</div>
+          <div class="next-name">Kevin Reyes</div>
+          <div class="next-meta">Cardio Conditioning &nbsp;·&nbsp; Member &nbsp;·&nbsp; 1 hour</div>
+          <div class="next-time-row">
+            <span class="next-time-badge">11:00 AM</span>
+            <span class="next-type-badge">Member Rate</span>
+          </div>
+        </div>
+
+        <div class="session-item">
+          <div class="sess-time">7:00<br>AM</div>
+          <div class="sess-line"></div>
+          <div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · Member · 1hr</div></div>
+          <span class="badge b-teal">Done ✓</span>
+        </div>
+        <div class="session-item">
+          <div class="sess-time">9:00<br>AM</div>
+          <div class="sess-line"></div>
+          <div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · Non-member · 1hr</div></div>
+          <span class="badge b-orange">Pending</span>
+        </div>
+        <div class="session-item next-up">
+          <div class="sess-time" style="color:var(--accent)">11:00<br>AM</div>
+          <div class="sess-line" style="background:rgba(74,240,200,0.3)"></div>
+          <div class="sess-info"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · Member · 1hr</div></div>
+          <div class="sess-actions">
+            <button class="sess-btn sess-btn-done">✓ Done</button>
+            <button class="sess-btn sess-btn-ns">No-show</button>
+          </div>
+        </div>
+        <div class="session-item">
+          <div class="sess-time">1:00<br>PM</div>
+          <div class="sess-line"></div>
+          <div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · Member · 1hr</div></div>
+          <span class="badge b-teal">Confirmed</span>
+        </div>
+        <div class="session-item">
+          <div class="sess-time">3:00<br>PM</div>
+          <div class="sess-line"></div>
+          <div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · Member · 1hr</div></div>
+          <span class="badge b-teal">Confirmed</span>
+        </div>
+        <div class="session-item">
+          <div class="sess-time">5:00<br>PM</div>
+          <div class="sess-line"></div>
+          <div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · Member · 1hr</div></div>
+          <span class="badge b-teal">Confirmed</span>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="flex-col">
+        <!-- EARNINGS -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">My Earnings</div>
+            <div class="card-link">History →</div>
+          </div>
+          <div class="earn-hero">
+            <div class="earn-amt">₱18,400</div>
+            <div class="earn-lbl">March 2026</div>
+          </div>
+          <div class="earn-rows">
+            <div class="earn-row">
+              <span class="earn-row-lbl">Member sessions</span>
+              <span class="earn-row-val" style="color:var(--accent2)">₱14,200</span>
+            </div>
+            <div class="earn-row">
+              <span class="earn-row-lbl">Non-member sessions</span>
+              <span class="earn-row-val" style="color:var(--accent)">₱4,200</span>
+            </div>
+            <div class="earn-row earn-divider">
+              <span class="earn-row-lbl">Completed / Total</span>
+              <span class="earn-row-val">28 / 34</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- WEEK CALENDAR -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">This Week</div>
+            <div class="card-link">Full schedule →</div>
+          </div>
+          <div class="week-cal">
+            <div class="week-days">
+              <div class="wday"><div class="wday-name">Mon</div><div class="wday-num has-session">3</div></div>
+              <div class="wday"><div class="wday-name">Tue</div><div class="wday-num has-session">4</div></div>
+              <div class="wday"><div class="wday-name">Wed</div><div class="wday-num has-session">5</div></div>
+              <div class="wday"><div class="wday-name">Thu</div><div class="wday-num has-session">6</div></div>
+              <div class="wday"><div class="wday-name">Fri</div><div class="wday-num today has-session">7</div></div>
+              <div class="wday"><div class="wday-name">Sat</div><div class="wday-num has-session">8</div></div>
+              <div class="wday"><div class="wday-name">Sun</div><div class="wday-num">9</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: MY MEMBERS + ACTIVITY -->
+    <div class="g2">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">My Members</div>
+          <div class="card-link">View all →</div>
+        </div>
+        <div class="member-row">
+          <div class="mav" style="background:rgba(200,240,74,0.15);color:#c8f04a">JD</div>
+          <div class="minfo"><div class="mname">Jake Dela Cruz</div><div class="mdetail">Strength Training · Member</div></div>
+          <div class="msess">6 sessions</div>
+        </div>
+        <div class="member-row">
+          <div class="mav" style="background:rgba(74,240,200,0.15);color:#4af0c8">RB</div>
+          <div class="minfo"><div class="mname">Rica Bautista</div><div class="mdetail">Body Sculpting · Member</div></div>
+          <div class="msess">7 sessions</div>
+        </div>
+        <div class="member-row">
+          <div class="mav" style="background:rgba(240,164,74,0.15);color:#f0a44a">KR</div>
+          <div class="minfo"><div class="mname">Kevin Reyes</div><div class="mdetail">Cardio Conditioning · Member</div></div>
+          <div class="msess">4 sessions</div>
+        </div>
+        <div class="member-row">
+          <div class="mav" style="background:rgba(240,74,138,0.15);color:#f04a8a">LT</div>
+          <div class="minfo"><div class="mname">Luis Torres</div><div class="mdetail">Strength Training · Member</div></div>
+          <div class="msess">9 sessions</div>
+        </div>
+        <div class="member-row">
+          <div class="mav" style="background:rgba(200,240,74,0.12);color:#a0b870">ML</div>
+          <div class="minfo"><div class="mname">Marco Lim</div><div class="mdetail">Weight Loss · Non-member</div></div>
+          <div class="msess" style="color:var(--muted)">2 sessions</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Recent Activity</div>
+        </div>
+        <div class="activity-feed">
+          <div class="act-item">
+            <div class="act-dot" style="background:rgba(200,240,74,0.15)">✓</div>
+            <div class="act-body">
+              <div class="act-title">Session completed</div>
+              <div class="act-sub">Jake Dela Cruz · Strength Training</div>
+              <div class="act-time">Today, 8:05 AM</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="act-dot" style="background:rgba(74,240,200,0.15)">📋</div>
+            <div class="act-body">
+              <div class="act-title">New booking received</div>
+              <div class="act-sub">Marco Lim · Today at 9AM</div>
+              <div class="act-time">Yesterday, 9:32 PM</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="act-dot" style="background:rgba(240,74,138,0.15)">✗</div>
+            <div class="act-body">
+              <div class="act-title">No-show recorded</div>
+              <div class="act-sub">Luis Torres · 5PM session</div>
+              <div class="act-time">Yesterday, 5:10 PM</div>
+            </div>
+          </div>
+          <div class="act-item">
+            <div class="act-dot" style="background:rgba(240,164,74,0.15)">💬</div>
+            <div class="act-body">
+              <div class="act-title">Booking cancelled</div>
+              <div class="act-sub">Ana Santos · Rescheduled to Fri</div>
+              <div class="act-time">Mar 5, 3:45 PM</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+document.querySelectorAll('.sess-btn-done').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const row = this.closest('.session-item');
+    const actionsDiv = row.querySelector('.sess-actions');
+    actionsDiv.innerHTML = '<span class="badge b-teal">Done ✓</span>';
+    row.classList.remove('next-up');
+  });
+});
+
+document.querySelectorAll('.sess-btn-ns').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const row = this.closest('.session-item');
+    const actionsDiv = row.querySelector('.sess-actions');
+    actionsDiv.innerHTML = '<span class="badge b-pink">No-show</span>';
+    row.classList.remove('next-up');
+  });
+});
+</script>
+</body>
+</html>
