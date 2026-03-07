@@ -23,7 +23,7 @@
   * { margin:0; padding:0; box-sizing:border-box; }
   body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; overflow-x:hidden; }
 
-  /* TOPBAR */
+  /* ── TOPBAR ── */
   .topbar {
     position:fixed; top:0; left:0; right:0; z-index:100;
     height:56px; display:flex; align-items:center; justify-content:space-between;
@@ -31,7 +31,7 @@
     background:rgba(27,27,27,0.97); backdrop-filter:blur(12px);
     border-bottom:1px solid var(--border);
   }
-  .brand { font-family:'Lalezar',cursive; font-weight:800; font-size:18px; letter-spacing:-0.5px; }
+  .brand { font-family:'Lalezar',cursive; font-size:20px; letter-spacing:0.5px; color:var(--text); }
   .brand em { color:var(--accent); font-style:normal; }
   .role-tag {
     background:rgba(0,245,255,0.1); color:var(--accent);
@@ -45,21 +45,21 @@
     background:var(--surface2); border:1px solid var(--border);
     display:flex; align-items:center; justify-content:center;
     cursor:pointer; font-size:15px; color:var(--muted);
-    transition:color 0.15s, border-color 0.15s; position:relative;
+    transition:color 0.15s, border-color 0.15s, background 0.15s; position:relative;
   }
-  .icon-btn:hover { color:var(--text); border-color:var(--muted); }
+  .icon-btn:hover { color:var(--text); border-color:var(--muted); background:var(--surface); }
   .notif-dot { position:absolute; top:7px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--accent3); border:2px solid var(--bg); }
   .avatar {
     width:36px; height:36px; border-radius:8px;
     background:linear-gradient(135deg,var(--accent),var(--accent2));
     display:flex; align-items:center; justify-content:center;
-    font-family:'Lalezar',cursive; font-weight:700; font-size:12px; color:#1B1B1B; cursor:pointer;
+    font-family:'Lalezar',cursive; font-size:13px; color:#1B1B1B; cursor:pointer;
   }
 
-  /* LAYOUT */
+  /* ── LAYOUT ── */
   .layout { display:flex; padding-top:56px; min-height:100vh; }
 
-  /* SIDEBAR */
+  /* ── SIDEBAR ── */
   .sidebar {
     width:216px; position:fixed; top:56px; left:0; bottom:0;
     background:var(--surface); border-right:1px solid var(--border);
@@ -73,7 +73,7 @@
     transition:all 0.15s; position:relative; user-select:none;
   }
   .nav-item:hover { background:var(--surface2); color:var(--text); }
-  .nav-item.active { background:var(--surface2); color:var(--text); font-weight:500; }
+  .nav-item.active { background:var(--surface2); color:var(--text); font-weight:600; }
   .nav-item.active::before {
     content:''; position:absolute; left:0; top:6px; bottom:6px;
     width:3px; border-radius:2px; background:var(--accent);
@@ -81,7 +81,6 @@
   .nav-icon { font-size:16px; width:20px; text-align:center; }
   .nav-badge { margin-left:auto; background:var(--accent3); color:#fff; font-size:10px; font-weight:700; padding:1px 6px; border-radius:10px; }
 
-  /* PROFILE CARD IN SIDEBAR */
   .profile-card {
     background:var(--surface2); border:1px solid var(--border);
     border-radius:10px; padding:14px; margin-bottom:8px; text-align:center;
@@ -90,97 +89,92 @@
     width:52px; height:52px; border-radius:12px;
     background:linear-gradient(135deg,rgba(0,245,255,0.3),rgba(238,90,189,0.2));
     display:flex; align-items:center; justify-content:center;
-    font-family:'Lalezar',cursive; font-weight:800; font-size:18px; color:var(--accent);
+    font-family:'Lalezar',cursive; font-size:18px; color:var(--accent);
     margin:0 auto 10px;
   }
-  .profile-name { font-family:'Lalezar',cursive; font-weight:700; font-size:14px; }
+  .profile-name { font-family:'Lalezar',cursive; font-size:15px; }
   .profile-spec { font-size:11px; color:var(--muted); margin-top:3px; }
   .profile-rating { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:8px; font-size:12px; color:var(--accent4); font-weight:600; }
 
-  /* MAIN */
+  /* ── MAIN ── */
   .main { margin-left:216px; flex:1; padding:28px 28px 40px; }
+  .page { display:none; }
+  .page.active { display:block; animation:fadeUp 0.3s ease both; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
-  /* PAGE HEADER */
+  /* ── COMMON ── */
   .page-header { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; }
-  .page-title { font-family:'Lalezar',cursive; font-weight:800; font-size:24px; letter-spacing:-0.5px; }
+  .page-title { font-family:'Lalezar',cursive; font-size:26px; letter-spacing:0.3px; }
   .page-sub { font-size:13px; color:var(--muted); margin-top:3px; }
   .page-actions { display:flex; gap:10px; }
-  .btn { padding:9px 18px; border-radius:8px; font-family:'Lalezar',cursive; font-weight:600; font-size:12px; letter-spacing:0.3px; cursor:pointer; border:none; transition:all 0.15s; }
+  .btn { padding:9px 18px; border-radius:8px; font-family:'Lalezar',cursive; font-size:14px; letter-spacing:0.3px; cursor:pointer; border:none; transition:all 0.15s; }
   .btn-primary { background:var(--accent); color:#1B1B1B; }
   .btn-primary:hover { filter:brightness(1.1); }
   .btn-ghost { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
   .btn-ghost:hover { border-color:var(--muted); }
+  .btn-danger { background:rgba(255,42,38,0.15); color:var(--accent3); border:1px solid rgba(255,42,38,0.3); }
+  .btn-danger:hover { background:rgba(255,42,38,0.25); }
 
-  /* MINI STATS */
-  .mini-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
-  .mstat {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; padding:18px; text-align:center;
-    transition:border-color 0.15s, transform 0.15s; cursor:default;
-  }
-  .mstat:hover { border-color:var(--muted); transform:translateY(-1px); }
-  .mstat-val { font-family:'Lalezar',cursive; font-weight:800; font-size:28px; letter-spacing:-1px; margin-bottom:5px; }
-  .mstat-lbl { font-size:11px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:0.5px; }
-
-  /* CARDS */
   .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
   .card-header { display:flex; align-items:center; justify-content:space-between; padding:16px 20px 14px; border-bottom:1px solid var(--border); }
-  .card-title { font-family:'Lalezar',cursive; font-weight:700; font-size:14px; }
+  .card-title { font-family:'Lalezar',cursive; font-size:15px; }
   .card-link { font-size:12px; color:var(--accent); cursor:pointer; font-weight:500; }
   .card-link:hover { text-decoration:underline; }
 
-  .g31 { display:grid; grid-template-columns:1.7fr 1fr; gap:16px; margin-bottom:16px; }
-  .g2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
-  .flex-col { display:flex; flex-direction:column; gap:16px; }
-
-  /* BADGES */
   .badge { display:inline-flex; align-items:center; padding:3px 8px; border-radius:6px; font-size:11px; font-weight:600; }
-  .b-green { background:rgba(238,90,189,0.15); color:var(--accent2); }
   .b-teal { background:rgba(0,245,255,0.12); color:var(--accent); }
   .b-pink { background:rgba(255,42,38,0.12); color:var(--accent3); }
   .b-orange { background:rgba(237,110,82,0.15); color:var(--accent4); }
-  .b-gray { background:var(--surface2); color:var(--muted); }
+  .b-purple { background:rgba(238,90,189,0.15); color:var(--accent2); }
+  .b-gray { background:var(--surface2); color:var(--muted); border:1px solid var(--border); }
 
-  /* NEXT SESSION HERO */
+  .g31 { display:grid; grid-template-columns:1.7fr 1fr; gap:16px; margin-bottom:16px; }
+  .g2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:16px; }
+  .flex-col { display:flex; flex-direction:column; gap:16px; }
+
+  /* ── MINI STATS ── */
+  .mini-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:20px; }
+  .mstat { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; transition:border-color 0.15s,transform 0.15s; }
+  .mstat:hover { border-color:var(--muted); transform:translateY(-1px); }
+  .mstat-val { font-family:'Lalezar',cursive; font-size:30px; letter-spacing:-1px; margin-bottom:5px; }
+  .mstat-lbl { font-size:11px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:0.5px; }
+
+  /* ── NEXT SESSION HERO ── */
   .next-session-hero {
     margin:16px 20px;
     background:linear-gradient(135deg,rgba(0,245,255,0.08),rgba(238,90,189,0.04));
-    border:1px solid rgba(0,245,255,0.2);
-    border-radius:10px; padding:18px;
+    border:1px solid rgba(0,245,255,0.2); border-radius:10px; padding:18px;
   }
   .next-tag { font-size:10px; color:var(--accent); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
   .next-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 1.5s infinite; }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
-  .next-name { font-family:'Lalezar',cursive; font-weight:800; font-size:18px; margin-bottom:3px; }
+  .next-name { font-family:'Lalezar',cursive; font-size:20px; margin-bottom:3px; }
   .next-meta { font-size:12px; color:var(--muted); }
   .next-time-row { display:flex; align-items:center; gap:8px; margin-top:12px; }
   .next-time-badge { background:rgba(0,245,255,0.15); color:var(--accent); padding:5px 12px; border-radius:7px; font-size:12px; font-weight:700; font-family:'Lalezar',cursive; }
   .next-type-badge { background:var(--surface2); color:var(--muted); padding:5px 12px; border-radius:7px; font-size:11.5px; }
 
-  /* SESSION LIST */
-  .session-item {
-    display:flex; align-items:center; gap:14px;
-    padding:14px 20px; border-bottom:1px solid rgba(51,51,51,0.8);
-    transition:background 0.12s; cursor:pointer;
-  }
+  /* ── SESSION ITEMS ── */
+  .session-item { display:flex; align-items:center; gap:14px; padding:14px 20px; border-bottom:1px solid rgba(51,51,51,0.8); transition:background 0.12s; cursor:pointer; }
   .session-item:hover { background:var(--surface2); }
   .session-item:last-child { border-bottom:none; }
   .session-item.next-up { background:rgba(0,245,255,0.04); border-left:2px solid var(--accent); }
-  .sess-time { font-family:'Lalezar',cursive; font-weight:700; font-size:12px; color:var(--accent); width:46px; text-align:center; flex-shrink:0; line-height:1.4; }
+  .sess-time { font-family:'Lalezar',cursive; font-size:12px; color:var(--accent); width:46px; text-align:center; flex-shrink:0; line-height:1.4; }
   .sess-line { width:1px; height:36px; background:var(--border); flex-shrink:0; }
   .sess-info { flex:1; }
   .sess-name { font-weight:500; font-size:13.5px; }
   .sess-detail { font-size:11.5px; color:var(--muted); margin-top:2px; }
   .sess-actions { display:flex; gap:6px; }
   .sess-btn { padding:4px 10px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; border:none; transition:all 0.12s; }
-  .sess-btn-done { background:rgba(238,90,189,0.15); color:var(--accent2); }
-  .sess-btn-done:hover { background:rgba(238,90,189,0.25); }
+  .sess-btn-done { background:rgba(0,245,255,0.12); color:var(--accent); }
+  .sess-btn-done:hover { background:rgba(0,245,255,0.22); }
   .sess-btn-ns { background:rgba(255,42,38,0.12); color:var(--accent3); }
   .sess-btn-ns:hover { background:rgba(255,42,38,0.22); }
 
-  /* EARNINGS */
+  /* ── EARNINGS ── */
   .earn-hero { padding:20px; text-align:center; border-bottom:1px solid var(--border); }
-  .earn-amt { font-family:'Lalezar',cursive; font-weight:800; font-size:32px; letter-spacing:-1.5px; color:var(--accent); }
+  .earn-amt { font-family:'Lalezar',cursive; font-size:34px; letter-spacing:-1px; color:var(--accent); }
   .earn-lbl { font-size:12px; color:var(--muted); margin-top:3px; }
   .earn-rows { padding:14px 20px; display:flex; flex-direction:column; gap:10px; }
   .earn-row { display:flex; justify-content:space-between; align-items:center; }
@@ -188,18 +182,18 @@
   .earn-row-val { font-weight:600; font-size:13px; }
   .earn-divider { border-top:1px solid var(--border); margin-top:2px; padding-top:10px; }
 
-  /* MEMBERS LIST */
+  /* ── MEMBER ROWS ── */
   .member-row { display:flex; align-items:center; gap:12px; padding:13px 20px; border-bottom:1px solid rgba(51,51,51,0.8); transition:background 0.12s; cursor:pointer; }
   .member-row:hover { background:var(--surface2); }
   .member-row:last-child { border-bottom:none; }
-  .mav { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-weight:700; font-size:12px; }
+  .mav { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; flex-shrink:0; }
   .minfo { flex:1; }
   .mname { font-size:13px; font-weight:500; }
   .mdetail { font-size:11px; color:var(--muted); }
   .msess { font-size:12px; color:var(--accent); font-weight:600; }
 
-  /* ACTIVITY FEED */
-  .activity-feed { padding:14px 20px; display:flex; flex-direction:column; gap:0; }
+  /* ── ACTIVITY FEED ── */
+  .activity-feed { padding:14px 20px; display:flex; flex-direction:column; }
   .act-item { display:flex; gap:12px; padding-bottom:16px; position:relative; }
   .act-item:not(:last-child)::after { content:''; position:absolute; left:13px; top:28px; bottom:0; width:1px; background:var(--border); }
   .act-dot { width:26px; height:26px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; position:relative; z-index:1; }
@@ -208,42 +202,202 @@
   .act-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
   .act-time { font-size:11px; color:var(--muted); margin-top:3px; }
 
-  /* WEEK MINI CALENDAR */
+  /* ── WEEK CALENDAR ── */
   .week-cal { padding:16px 20px; }
   .week-days { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
   .wday { text-align:center; }
   .wday-name { font-size:9px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
-  .wday-num { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-weight:600; font-size:12px; margin:0 auto; cursor:pointer; transition:all 0.12s; }
+  .wday-num { width:28px; height:28px; border-radius:7px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; margin:0 auto; cursor:pointer; transition:all 0.12s; }
   .wday-num:hover { background:var(--surface2); }
   .wday-num.today { background:var(--accent); color:#1B1B1B; }
   .wday-num.has-session { position:relative; }
   .wday-num.has-session::after { content:''; position:absolute; bottom:2px; left:50%; transform:translateX(-50%); width:4px; height:4px; border-radius:50%; background:var(--accent3); }
   .wday-num.today.has-session::after { background:#1B1B1B; }
 
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; display:none; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+  .modal-overlay.open { display:flex; }
+  .modal { background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:28px; width:480px; max-width:95vw; max-height:90vh; overflow-y:auto; animation:fadeUp 0.25s ease; position:relative; }
+  .modal-title { font-family:'Lalezar',cursive; font-size:20px; margin-bottom:4px; }
+  .modal-sub { font-size:12px; color:var(--muted); margin-bottom:20px; }
+  .modal-close { position:absolute; top:16px; right:16px; width:28px; height:28px; border-radius:7px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px; color:var(--muted); }
+  .modal-close:hover { color:var(--text); }
+
+  /* ── FORM ELEMENTS ── */
+  .form-group { margin-bottom:16px; }
+  .form-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:7px; display:block; }
+  .form-input, .form-select, .form-textarea {
+    width:100%; background:var(--surface2); border:1px solid var(--border);
+    border-radius:8px; padding:10px 14px; font-family:'Barlow',sans-serif; font-size:13.5px;
+    color:var(--text); outline:none; transition:border-color 0.15s;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--accent); }
+  .form-select option { background:var(--surface2); }
+  .form-textarea { resize:vertical; min-height:80px; }
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .form-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; padding-top:16px; border-top:1px solid var(--border); }
+
+  /* ── INPUT PLACEHOLDER ── */
+  ::placeholder { color:var(--muted); }
+
+  /* ── DIVIDER ── */
+  .divider { border-top:1px solid var(--border); margin:16px 0; }
+
+  /* ── SCROLLBAR ── */
   ::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-track { background:transparent; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
-  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-  .main > * { animation:fadeUp 0.35s ease both; }
-  .mini-stats .mstat:nth-child(1) { animation-delay:0.05s; }
-  .mini-stats .mstat:nth-child(2) { animation-delay:0.1s; }
-  .mini-stats .mstat:nth-child(3) { animation-delay:0.15s; }
-  .mini-stats .mstat:nth-child(4) { animation-delay:0.2s; }
+
+  /* ── NOTIFICATION PANEL ── */
+  .notif-panel {
+    position:fixed; top:64px; right:16px; width:340px; z-index:150;
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.4); display:none; overflow:hidden;
+    animation:fadeUp 0.2s ease;
+  }
+  .notif-panel.open { display:block; }
+  .notif-header { padding:14px 18px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+  .notif-header-title { font-family:'Lalezar',cursive; font-size:15px; }
+  .notif-clear { font-size:11px; color:var(--accent); cursor:pointer; font-weight:500; }
+  .notif-item { display:flex; gap:12px; padding:13px 18px; border-bottom:1px solid rgba(51,51,51,0.6); transition:background 0.12s; cursor:pointer; }
+  .notif-item:hover { background:var(--surface2); }
+  .notif-item:last-child { border-bottom:none; }
+  .notif-item.unread { border-left:3px solid var(--accent); }
+  .notif-dot-icon { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .notif-body { flex:1; }
+  .notif-msg { font-size:12.5px; font-weight:500; line-height:1.4; }
+  .notif-time { font-size:11px; color:var(--muted); margin-top:3px; }
+
+  /* ── CALENDAR FULL ── */
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .cal-day-name { text-align:center; font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.5px; padding-bottom:8px; }
+  .cal-cell { min-height:80px; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:8px; cursor:pointer; transition:border-color 0.12s; }
+  .cal-cell:hover { border-color:var(--muted); }
+  .cal-cell.today { border-color:var(--accent); }
+  .cal-cell.other-month { opacity:0.35; }
+  .cal-num { font-family:'Lalezar',cursive; font-size:14px; margin-bottom:4px; }
+  .cal-cell.today .cal-num { color:var(--accent); }
+  .cal-event { background:rgba(0,245,255,0.12); color:var(--accent); font-size:10px; padding:2px 5px; border-radius:4px; margin-bottom:2px; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cal-event.pink { background:rgba(238,90,189,0.15); color:var(--accent2); }
+  .cal-event.orange { background:rgba(237,110,82,0.15); color:var(--accent4); }
+  .cal-month-nav { display:flex; align-items:center; gap:16px; }
+  .cal-nav-btn { width:30px; height:30px; border-radius:7px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:14px; color:var(--muted); transition:all 0.12s; }
+  .cal-nav-btn:hover { color:var(--text); border-color:var(--muted); }
+
+  /* ── SESSION HISTORY TABLE ── */
+  .history-table { width:100%; border-collapse:collapse; }
+  .history-table th { font-size:10px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px; padding:10px 16px; text-align:left; border-bottom:1px solid var(--border); }
+  .history-table td { padding:13px 16px; font-size:13px; border-bottom:1px solid rgba(51,51,51,0.5); }
+  .history-table tr:hover td { background:var(--surface2); }
+  .history-table tr:last-child td { border-bottom:none; }
+
+  /* ── PROFILE PAGE ── */
+  .profile-hero { background:linear-gradient(135deg,rgba(0,245,255,0.07),rgba(238,90,189,0.04)); border:1px solid rgba(0,245,255,0.15); border-radius:12px; padding:28px; display:flex; align-items:center; gap:24px; margin-bottom:16px; }
+  .profile-hero-av { width:80px; height:80px; border-radius:16px; background:linear-gradient(135deg,rgba(0,245,255,0.3),rgba(238,90,189,0.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:28px; color:var(--accent); flex-shrink:0; }
+  .profile-hero-info { flex:1; }
+  .profile-hero-name { font-family:'Lalezar',cursive; font-size:24px; }
+  .profile-hero-spec { font-size:13px; color:var(--muted); margin-top:3px; }
+  .profile-hero-stats { display:flex; gap:24px; margin-top:14px; }
+  .phs { text-align:center; }
+  .phs-val { font-family:'Lalezar',cursive; font-size:20px; color:var(--accent); }
+  .phs-lbl { font-size:11px; color:var(--muted); }
+  .tag-list { display:flex; flex-wrap:wrap; gap:8px; }
+  .skill-tag { background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:5px 12px; font-size:12px; color:var(--text); }
+  .skill-tag.active-tag { background:rgba(0,245,255,0.1); border-color:rgba(0,245,255,0.3); color:var(--accent); }
+  .availability-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; }
+  .avail-day { background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px 6px; text-align:center; cursor:pointer; transition:all 0.15s; }
+  .avail-day.on { background:rgba(0,245,255,0.1); border-color:rgba(0,245,255,0.3); }
+  .avail-day-name { font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; }
+  .avail-day.on .avail-day-name { color:var(--accent); }
+  .avail-dot { width:8px; height:8px; border-radius:50%; background:var(--border); margin:0 auto; }
+  .avail-day.on .avail-dot { background:var(--accent); }
+
+  /* ── EARNINGS PAGE ── */
+  .earnings-big { font-family:'Lalezar',cursive; font-size:48px; letter-spacing:-2px; color:var(--accent); line-height:1; }
+  .earnings-period { font-size:13px; color:var(--muted); margin-top:4px; }
+  .bar-chart { display:flex; align-items:flex-end; gap:8px; height:120px; padding:0 4px; }
+  .bar-wrap { flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .bar { width:100%; border-radius:4px 4px 0 0; transition:height 0.3s ease; min-height:4px; }
+  .bar-lbl { font-size:10px; color:var(--muted); }
+  .payout-row { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-bottom:1px solid rgba(51,51,51,0.5); }
+  .payout-row:last-child { border-bottom:none; }
+  .payout-date { font-size:12px; color:var(--muted); }
+  .payout-name { font-size:13px; font-weight:500; }
+  .payout-amount { font-family:'Lalezar',cursive; font-size:16px; }
+  .payout-status { font-size:11px; font-weight:600; }
+
+  /* ── SETTINGS ── */
+  .settings-section { margin-bottom:24px; }
+  .settings-section-title { font-family:'Lalezar',cursive; font-size:16px; margin-bottom:12px; color:var(--text); }
+  .settings-row { display:flex; align-items:center; justify-content:space-between; padding:14px 0; border-bottom:1px solid rgba(51,51,51,0.5); }
+  .settings-row:last-child { border-bottom:none; }
+  .settings-row-info { flex:1; }
+  .settings-row-label { font-size:13.5px; font-weight:500; }
+  .settings-row-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .toggle { width:40px; height:22px; border-radius:11px; background:var(--border); position:relative; cursor:pointer; transition:background 0.2s; flex-shrink:0; }
+  .toggle.on { background:var(--accent); }
+  .toggle::after { content:''; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#1B1B1B; transition:transform 0.2s; }
+  .toggle.on::after { transform:translateX(18px); }
+  .danger-zone { background:rgba(255,42,38,0.05); border:1px solid rgba(255,42,38,0.2); border-radius:10px; padding:16px 20px; }
+
+  /* ── MARK SESSION MODAL ── */
+  .client-select-list { display:flex; flex-direction:column; gap:6px; max-height:200px; overflow-y:auto; }
+  .client-select-item { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); cursor:pointer; transition:all 0.12s; }
+  .client-select-item:hover { border-color:var(--muted); background:var(--surface2); }
+  .client-select-item.selected { border-color:var(--accent); background:rgba(0,245,255,0.07); }
+  .rating-stars { display:flex; gap:4px; }
+  .star { font-size:20px; cursor:pointer; color:var(--border); transition:color 0.12s; }
+  .star.lit { color:var(--accent4); }
+
+  /* ── RESPONSIVE ADJUSTMENTS ── */
+  .mini-stats-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:20px; }
 </style>
 </head>
 <body>
 
+<!-- TOPBAR -->
 <div class="topbar">
   <div style="display:flex;align-items:center;gap:14px;">
-        <img src="../images/image-removebg-preview.png" alt="A'S GYM" class="logo-img" style="max-width: 15%; height: auto;">
+            <img src="../images/image-removebg-preview.png" alt="A'S GYM" class="logo-img" style="max-width: 100%; height: auto;">
+    <div class="brand"><em>FIT</em>CORE</div>
     <div class="role-tag">Trainer</div>
   </div>
   <div class="topbar-right">
-    <div class="icon-btn">🔔<span class="notif-dot"></span></div>
-    <div class="icon-btn">📅</div>
+    <div class="icon-btn" id="notifBtn">🔔<span class="notif-dot"></span></div>
+    <div class="icon-btn" id="calBtn">📅</div>
     <div class="avatar">CM</div>
   </div>
 </div>
 
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <div class="notif-header-title">Notifications</div>
+    <div class="notif-clear">Mark all read</div>
+  </div>
+  <div class="notif-item unread">
+    <div class="notif-dot-icon" style="background:rgba(0,245,255,0.15)">📋</div>
+    <div class="notif-body"><div class="notif-msg">New booking from <strong>Marco Lim</strong> — Today at 9:00 AM</div><div class="notif-time">2 hours ago</div></div>
+  </div>
+  <div class="notif-item unread">
+    <div class="notif-dot-icon" style="background:rgba(255,42,38,0.15)">✗</div>
+    <div class="notif-body"><div class="notif-msg"><strong>Luis Torres</strong> missed yesterday's 5PM session</div><div class="notif-time">Yesterday, 5:12 PM</div></div>
+  </div>
+  <div class="notif-item unread">
+    <div class="notif-dot-icon" style="background:rgba(238,90,189,0.15)">⭐</div>
+    <div class="notif-body"><div class="notif-msg"><strong>Rica Bautista</strong> left you a 5-star review</div><div class="notif-time">Yesterday, 3:40 PM</div></div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-dot-icon" style="background:rgba(237,110,82,0.15)">💰</div>
+    <div class="notif-body"><div class="notif-msg">Payout of <strong>₱8,200</strong> processed successfully</div><div class="notif-time">Mar 5, 10:00 AM</div></div>
+  </div>
+  <div class="notif-item">
+    <div class="notif-dot-icon" style="background:rgba(0,245,255,0.15)">📅</div>
+    <div class="notif-body"><div class="notif-msg"><strong>Ana Santos</strong> rescheduled to Friday 3PM</div><div class="notif-time">Mar 5, 3:45 PM</div></div>
+  </div>
+</div>
+
+<!-- LAYOUT -->
 <div class="layout">
+  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="profile-card">
       <div class="profile-av">CM</div>
@@ -251,260 +405,822 @@
       <div class="profile-spec">Strength & Conditioning</div>
       <div class="profile-rating">★ 4.9 <span style="color:var(--muted);font-weight:400">(42 reviews)</span></div>
     </div>
-
     <div class="nav-section">My Work</div>
-    <div class="nav-item active"><span class="nav-icon">⬡</span>Dashboard</div>
-    <div class="nav-item"><span class="nav-icon">📅</span>My Sessions<span class="nav-badge">6</span></div>
-    <div class="nav-item"><span class="nav-icon">👥</span>My Members</div>
-
+    <div class="nav-item active" data-page="dashboard"><span class="nav-icon">⬡</span>Dashboard</div>
+    <div class="nav-item" data-page="sessions"><span class="nav-icon">📅</span>My Sessions<span class="nav-badge">6</span></div>
+    <div class="nav-item" data-page="members"><span class="nav-icon">👥</span>My Members</div>
     <div class="nav-section">Account</div>
-    <div class="nav-item"><span class="nav-icon">✏️</span>My Profile</div>
-    <div class="nav-item"><span class="nav-icon">💰</span>Earnings</div>
-    <div class="nav-item"><span class="nav-icon">⚙️</span>Settings</div>
+    <div class="nav-item" data-page="profile"><span class="nav-icon">✏️</span>My Profile</div>
+    <div class="nav-item" data-page="earnings"><span class="nav-icon">💰</span>Earnings</div>
+    <div class="nav-item" data-page="settings"><span class="nav-icon">⚙️</span>Settings</div>
   </div>
 
+  <!-- MAIN CONTENT -->
   <div class="main">
-    <div class="page-header">
-      <div>
-        <div class="page-title">My Dashboard</div>
-        <div class="page-sub">Friday, March 7 2026 &nbsp;·&nbsp; You have 6 sessions today</div>
+
+    <!-- ══════════════════════════════════════
+         PAGE: DASHBOARD
+    ══════════════════════════════════════ -->
+    <div class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div>
+          <div class="page-title">My Dashboard</div>
+          <div class="page-sub">Friday, March 7 2026 &nbsp;·&nbsp; You have 6 sessions today</div>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-ghost" id="historyBtn">📋 Session History</button>
+          <button class="btn btn-primary" id="markSessionBtn">✓ Mark Session</button>
+        </div>
       </div>
-      <div class="page-actions">
-        <button class="btn btn-ghost">📋 Session History</button>
-        <button class="btn btn-primary">✓ Mark Session</button>
+
+      <div class="mini-stats">
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent)">6</div><div class="mstat-lbl">Sessions Today</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent2)">34</div><div class="mstat-lbl">This Month</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent4)">₱18.4k</div><div class="mstat-lbl">Earnings (Mar)</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent3)">2</div><div class="mstat-lbl">No-shows (Mar)</div></div>
+      </div>
+
+      <div class="g31">
+        <div class="card">
+          <div class="card-header"><div class="card-title">Today's Sessions</div><span class="badge b-teal">6 bookings</span></div>
+          <div class="next-session-hero">
+            <div class="next-tag"><span class="next-dot"></span>Up Next</div>
+            <div class="next-name">Kevin Reyes</div>
+            <div class="next-meta">Cardio Conditioning · Member · 1 hour</div>
+            <div class="next-time-row"><span class="next-time-badge">11:00 AM</span><span class="next-type-badge">Member Rate</span></div>
+          </div>
+          <div class="session-item"><div class="sess-time">7:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · Member · 1hr</div></div><span class="badge b-teal">Done ✓</span></div>
+          <div class="session-item"><div class="sess-time">9:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · Non-member · 1hr</div></div><span class="badge b-orange">Pending</span></div>
+          <div class="session-item next-up">
+            <div class="sess-time" style="color:var(--accent)">11:00<br>AM</div>
+            <div class="sess-line" style="background:rgba(0,245,255,0.3)"></div>
+            <div class="sess-info"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · Member · 1hr</div></div>
+            <div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div>
+          </div>
+          <div class="session-item"><div class="sess-time">1:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · Member · 1hr</div></div><span class="badge b-teal">Confirmed</span></div>
+          <div class="session-item"><div class="sess-time">3:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · Member · 1hr</div></div><span class="badge b-teal">Confirmed</span></div>
+          <div class="session-item"><div class="sess-time">5:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · Member · 1hr</div></div><span class="badge b-teal">Confirmed</span></div>
+        </div>
+        <div class="flex-col">
+          <div class="card">
+            <div class="card-header"><div class="card-title">My Earnings</div><div class="card-link" data-goto="earnings">History →</div></div>
+            <div class="earn-hero"><div class="earn-amt">₱18,400</div><div class="earn-lbl">March 2026</div></div>
+            <div class="earn-rows">
+              <div class="earn-row"><span class="earn-row-lbl">Member sessions</span><span class="earn-row-val" style="color:var(--accent2)">₱14,200</span></div>
+              <div class="earn-row"><span class="earn-row-lbl">Non-member sessions</span><span class="earn-row-val" style="color:var(--accent)">₱4,200</span></div>
+              <div class="earn-row earn-divider"><span class="earn-row-lbl">Completed / Total</span><span class="earn-row-val">28 / 34</span></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">This Week</div><div class="card-link" id="dashCalLink">Full schedule →</div></div>
+            <div class="week-cal">
+              <div class="week-days">
+                <div class="wday"><div class="wday-name">Mon</div><div class="wday-num has-session">3</div></div>
+                <div class="wday"><div class="wday-name">Tue</div><div class="wday-num has-session">4</div></div>
+                <div class="wday"><div class="wday-name">Wed</div><div class="wday-num has-session">5</div></div>
+                <div class="wday"><div class="wday-name">Thu</div><div class="wday-num has-session">6</div></div>
+                <div class="wday"><div class="wday-name">Fri</div><div class="wday-num today has-session">7</div></div>
+                <div class="wday"><div class="wday-name">Sat</div><div class="wday-num has-session">8</div></div>
+                <div class="wday"><div class="wday-name">Sun</div><div class="wday-num">9</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="g2">
+        <div class="card">
+          <div class="card-header"><div class="card-title">My Members</div><div class="card-link" data-goto="members">View all →</div></div>
+          <div class="member-row"><div class="mav" style="background:rgba(238,90,189,0.15);color:#EE5ABD">JD</div><div class="minfo"><div class="mname">Jake Dela Cruz</div><div class="mdetail">Strength Training · Member</div></div><div class="msess">6 sessions</div></div>
+          <div class="member-row"><div class="mav" style="background:rgba(0,245,255,0.15);color:#00F5FF">RB</div><div class="minfo"><div class="mname">Rica Bautista</div><div class="mdetail">Body Sculpting · Member</div></div><div class="msess">7 sessions</div></div>
+          <div class="member-row"><div class="mav" style="background:rgba(237,110,82,0.15);color:#ED6E52">KR</div><div class="minfo"><div class="mname">Kevin Reyes</div><div class="mdetail">Cardio Conditioning · Member</div></div><div class="msess">4 sessions</div></div>
+          <div class="member-row"><div class="mav" style="background:rgba(255,42,38,0.15);color:#FF2A26">LT</div><div class="minfo"><div class="mname">Luis Torres</div><div class="mdetail">Strength Training · Member</div></div><div class="msess">9 sessions</div></div>
+          <div class="member-row"><div class="mav" style="background:rgba(183,45,111,0.15);color:#B72D6F">ML</div><div class="minfo"><div class="mname">Marco Lim</div><div class="mdetail">Weight Loss · Non-member</div></div><div class="msess" style="color:var(--muted)">2 sessions</div></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">Recent Activity</div></div>
+          <div class="activity-feed">
+            <div class="act-item"><div class="act-dot" style="background:rgba(0,245,255,0.15)">✓</div><div class="act-body"><div class="act-title">Session completed</div><div class="act-sub">Jake Dela Cruz · Strength Training</div><div class="act-time">Today, 8:05 AM</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:rgba(238,90,189,0.15)">📋</div><div class="act-body"><div class="act-title">New booking received</div><div class="act-sub">Marco Lim · Today at 9AM</div><div class="act-time">Yesterday, 9:32 PM</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:rgba(255,42,38,0.15)">✗</div><div class="act-body"><div class="act-title">No-show recorded</div><div class="act-sub">Luis Torres · 5PM session</div><div class="act-time">Yesterday, 5:10 PM</div></div></div>
+            <div class="act-item"><div class="act-dot" style="background:rgba(237,110,82,0.15)">💬</div><div class="act-body"><div class="act-title">Booking cancelled</div><div class="act-sub">Ana Santos · Rescheduled to Fri</div><div class="act-time">Mar 5, 3:45 PM</div></div></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- MINI STATS -->
-    <div class="mini-stats">
-      <div class="mstat">
-        <div class="mstat-val" style="color:var(--accent)">6</div>
-        <div class="mstat-lbl">Sessions Today</div>
+    <!-- ══════════════════════════════════════
+         PAGE: MY SESSIONS
+    ══════════════════════════════════════ -->
+    <div class="page" id="page-sessions">
+      <div class="page-header">
+        <div><div class="page-title">My Sessions</div><div class="page-sub">All your bookings · March 2026</div></div>
+        <div class="page-actions">
+          <button class="btn btn-ghost" id="sessHistoryBtn">📋 History</button>
+          <button class="btn btn-primary" id="sessMarkBtn">✓ Mark Session</button>
+        </div>
       </div>
-      <div class="mstat">
-        <div class="mstat-val" style="color:var(--accent2)">34</div>
-        <div class="mstat-lbl">This Month</div>
+
+      <div class="mini-stats">
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent)">6</div><div class="mstat-lbl">Today</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent2)">34</div><div class="mstat-lbl">This Month</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent4)">28</div><div class="mstat-lbl">Completed</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent3)">2</div><div class="mstat-lbl">No-shows</div></div>
       </div>
-      <div class="mstat">
-        <div class="mstat-val" style="color:var(--accent4)">₱18.4k</div>
-        <div class="mstat-lbl">Earnings (Mar)</div>
-      </div>
-      <div class="mstat">
-        <div class="mstat-val" style="color:var(--accent3)">2</div>
-        <div class="mstat-lbl">No-shows (Mar)</div>
+
+      <div class="g2" style="margin-bottom:16px;">
+        <!-- TODAY -->
+        <div class="card">
+          <div class="card-header"><div class="card-title">Today — Mar 7</div><span class="badge b-teal">6 sessions</span></div>
+          <div class="next-session-hero">
+            <div class="next-tag"><span class="next-dot"></span>Up Next · 11:00 AM</div>
+            <div class="next-name">Kevin Reyes</div>
+            <div class="next-meta">Cardio Conditioning · 1 hour · Member Rate</div>
+          </div>
+          <div class="session-item"><div class="sess-time">7:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · 1hr</div></div><span class="badge b-teal">Done ✓</span></div>
+          <div class="session-item"><div class="sess-time">9:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · 1hr</div></div><span class="badge b-orange">Pending</span></div>
+          <div class="session-item next-up">
+            <div class="sess-time" style="color:var(--accent)">11:00<br>AM</div><div class="sess-line" style="background:rgba(0,245,255,0.3)"></div>
+            <div class="sess-info"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · 1hr</div></div>
+            <div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div>
+          </div>
+          <div class="session-item"><div class="sess-time">1:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · 1hr</div></div><div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
+          <div class="session-item"><div class="sess-time">3:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · 1hr</div></div><div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
+          <div class="session-item"><div class="sess-time">5:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · 1hr</div></div><div class="sess-actions"><button class="sess-btn sess-btn-done">✓ Done</button><button class="sess-btn sess-btn-ns">No-show</button></div></div>
+        </div>
+
+        <!-- UPCOMING -->
+        <div class="card">
+          <div class="card-header"><div class="card-title">Upcoming</div><span class="badge b-gray">This week</span></div>
+          <div style="padding:6px 0;">
+            <div style="padding:10px 20px; font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px;">Saturday, Mar 8</div>
+            <div class="session-item"><div class="sess-time">8:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
+            <div class="session-item"><div class="sess-time">10:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
+            <div class="session-item"><div class="sess-time">12:00<br>PM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
+            <div style="padding:10px 20px; font-size:11px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:1px; border-top:1px solid var(--border); margin-top:4px;">Monday, Mar 10</div>
+            <div class="session-item"><div class="sess-time">7:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
+            <div class="session-item"><div class="sess-time">9:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · 1hr</div></div><span class="badge b-gray">Confirmed</span></div>
+            <div class="session-item"><div class="sess-time">11:00<br>AM</div><div class="sess-line"></div><div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · 1hr</div></div><span class="badge b-orange">Tentative</span></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- ROW 1: SESSIONS + RIGHT PANEL -->
-    <div class="g31">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Today's Sessions</div>
-          <span class="badge b-teal">6 bookings</span>
-        </div>
-
-        <div class="next-session-hero">
-          <div class="next-tag"><span class="next-dot"></span>Up Next</div>
-          <div class="next-name">Kevin Reyes</div>
-          <div class="next-meta">Cardio Conditioning &nbsp;·&nbsp; Member &nbsp;·&nbsp; 1 hour</div>
-          <div class="next-time-row">
-            <span class="next-time-badge">11:00 AM</span>
-            <span class="next-type-badge">Member Rate</span>
-          </div>
-        </div>
-
-        <div class="session-item">
-          <div class="sess-time">7:00<br>AM</div>
-          <div class="sess-line"></div>
-          <div class="sess-info"><div class="sess-name">Jake Dela Cruz</div><div class="sess-detail">Strength Training · Member · 1hr</div></div>
-          <span class="badge b-teal">Done ✓</span>
-        </div>
-        <div class="session-item">
-          <div class="sess-time">9:00<br>AM</div>
-          <div class="sess-line"></div>
-          <div class="sess-info"><div class="sess-name">Marco Lim</div><div class="sess-detail">Weight Loss · Non-member · 1hr</div></div>
-          <span class="badge b-orange">Pending</span>
-        </div>
-        <div class="session-item next-up">
-          <div class="sess-time" style="color:var(--accent)">11:00<br>AM</div>
-          <div class="sess-line" style="background:rgba(0,245,255,0.3)"></div>
-          <div class="sess-info"><div class="sess-name" style="color:var(--accent)">Kevin Reyes</div><div class="sess-detail">Cardio Conditioning · Member · 1hr</div></div>
-          <div class="sess-actions">
-            <button class="sess-btn sess-btn-done">✓ Done</button>
-            <button class="sess-btn sess-btn-ns">No-show</button>
-          </div>
-        </div>
-        <div class="session-item">
-          <div class="sess-time">1:00<br>PM</div>
-          <div class="sess-line"></div>
-          <div class="sess-info"><div class="sess-name">Rica Bautista</div><div class="sess-detail">Body Sculpting · Member · 1hr</div></div>
-          <span class="badge b-teal">Confirmed</span>
-        </div>
-        <div class="session-item">
-          <div class="sess-time">3:00<br>PM</div>
-          <div class="sess-line"></div>
-          <div class="sess-info"><div class="sess-name">Ana Santos</div><div class="sess-detail">Flexibility & Mobility · Member · 1hr</div></div>
-          <span class="badge b-teal">Confirmed</span>
-        </div>
-        <div class="session-item">
-          <div class="sess-time">5:00<br>PM</div>
-          <div class="sess-line"></div>
-          <div class="sess-info"><div class="sess-name">Luis Torres</div><div class="sess-detail">Strength Training · Member · 1hr</div></div>
-          <span class="badge b-teal">Confirmed</span>
+    <!-- ══════════════════════════════════════
+         PAGE: MY MEMBERS
+    ══════════════════════════════════════ -->
+    <div class="page" id="page-members">
+      <div class="page-header">
+        <div><div class="page-title">My Members</div><div class="page-sub">5 clients · 4 active members</div></div>
+        <div class="page-actions">
+          <button class="btn btn-ghost">🔍 Search</button>
+          <button class="btn btn-primary">+ Add Client</button>
         </div>
       </div>
 
-      <div class="flex-col">
+      <div class="mini-stats-3" style="grid-template-columns:repeat(3,1fr)">
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent)">5</div><div class="mstat-lbl">Total Clients</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent2)">4</div><div class="mstat-lbl">Active Members</div></div>
+        <div class="mstat"><div class="mstat-val" style="color:var(--accent4)">28</div><div class="mstat-lbl">Sessions This Month</div></div>
+      </div>
+
+      <div class="g2">
+        <!-- MEMBER CARDS -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
+
+          <div class="card" style="overflow:visible;">
+            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
+              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(238,90,189,0.15);color:#EE5ABD;font-size:16px;">JD</div>
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:15px;">Jake Dela Cruz</div>
+                <div style="font-size:12px;color:var(--muted);margin-top:2px;">Strength Training · Active Member</div>
+              </div>
+              <span class="badge b-teal">Active</span>
+            </div>
+            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">6</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">3 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
+            </div>
+            <div style="padding:12px 20px;display:flex;gap:8px;">
+              <button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button>
+              <button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
+              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(0,245,255,0.15);color:#00F5FF;font-size:16px;">RB</div>
+              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Rica Bautista</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Body Sculpting · Active Member</div></div>
+              <span class="badge b-teal">Active</span>
+            </div>
+            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">7</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">4 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
+            </div>
+            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
+          </div>
+
+          <div class="card">
+            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
+              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(237,110,82,0.15);color:#ED6E52;font-size:16px;">KR</div>
+              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Kevin Reyes</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Cardio Conditioning · Active Member</div></div>
+              <span class="badge b-teal">Active</span>
+            </div>
+            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">4</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">2 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
+            </div>
+            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
+          </div>
+
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;">
+
+          <div class="card">
+            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
+              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(255,42,38,0.15);color:#FF2A26;font-size:16px;">LT</div>
+              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Luis Torres</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Strength Training · Active Member</div></div>
+              <span class="badge b-teal">Active</span>
+            </div>
+            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">9</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">6 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
+            </div>
+            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
+          </div>
+
+          <div class="card">
+            <div style="padding:18px 20px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)">
+              <div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(183,45,111,0.15);color:#B72D6F;font-size:16px;">ML</div>
+              <div style="flex:1"><div style="font-weight:600;font-size:15px;">Marco Lim</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Weight Loss · Non-member</div></div>
+              <span class="badge b-gray">Non-member</span>
+            </div>
+            <div style="padding:14px 20px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center;border-bottom:1px solid var(--border)">
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">2</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">Sessions</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">No-shows</div></div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">1 mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px">With you</div></div>
+            </div>
+            <div style="padding:12px 20px;display:flex;gap:8px;"><button class="btn btn-ghost" style="flex:1;padding:7px;font-size:12px;">📋 History</button><button class="btn btn-primary" style="flex:1;padding:7px;font-size:12px;">📅 Book</button></div>
+          </div>
+
+          <!-- NOTES CARD -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Quick Notes</div><div class="card-link">+ Add</div></div>
+            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:10px;">
+              <div style="background:rgba(0,245,255,0.07);border:1px solid rgba(0,245,255,0.15);border-radius:8px;padding:10px 12px;">
+                <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:3px;">Jake Dela Cruz</div>
+                <div style="font-size:12px;color:var(--text)">Focus on deadlift form — knees caving in. Increase bench to 80kg next session.</div>
+              </div>
+              <div style="background:rgba(238,90,189,0.07);border:1px solid rgba(238,90,189,0.15);border-radius:8px;padding:10px 12px;">
+                <div style="font-size:12px;font-weight:600;color:var(--accent2);margin-bottom:3px;">Rica Bautista</div>
+                <div style="font-size:12px;color:var(--text)">Consistent progress. Down 2kg this month. Keep current program.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         PAGE: MY PROFILE
+    ══════════════════════════════════════ -->
+    <div class="page" id="page-profile">
+      <div class="page-header">
+        <div><div class="page-title">My Profile</div><div class="page-sub">How clients see you</div></div>
+        <div class="page-actions">
+          <button class="btn btn-ghost">👁 Preview</button>
+          <button class="btn btn-primary" id="saveProfileBtn">💾 Save Changes</button>
+        </div>
+      </div>
+
+      <div class="profile-hero">
+        <div class="profile-hero-av">CM</div>
+        <div class="profile-hero-info">
+          <div class="profile-hero-name">Coach Marco</div>
+          <div class="profile-hero-spec">Strength & Conditioning Specialist</div>
+          <div class="profile-hero-stats">
+            <div class="phs"><div class="phs-val">4.9</div><div class="phs-lbl">Rating</div></div>
+            <div class="phs"><div class="phs-val">42</div><div class="phs-lbl">Reviews</div></div>
+            <div class="phs"><div class="phs-val">5</div><div class="phs-lbl">Clients</div></div>
+            <div class="phs"><div class="phs-val">2 yr</div><div class="phs-lbl">Experience</div></div>
+          </div>
+        </div>
+        <button class="btn btn-ghost" style="font-size:12px;padding:8px 14px;">📷 Change Photo</button>
+      </div>
+
+      <div class="g2">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Personal Info</div></div>
+            <div style="padding:18px 20px;display:flex;flex-direction:column;gap:14px;">
+              <div class="form-group" style="margin:0"><label class="form-label">Full Name</label><input class="form-input" value="Marco Reyes" /></div>
+              <div class="form-group" style="margin:0"><label class="form-label">Specialization</label><input class="form-input" value="Strength & Conditioning" /></div>
+              <div class="form-row">
+                <div class="form-group" style="margin:0"><label class="form-label">Phone</label><input class="form-input" value="+63 917 555 0123" /></div>
+                <div class="form-group" style="margin:0"><label class="form-label">Years Experience</label><input class="form-input" value="2" /></div>
+              </div>
+              <div class="form-group" style="margin:0"><label class="form-label">Bio</label><textarea class="form-textarea">Certified strength coach specializing in progressive overload and functional movement. I help clients build real strength and lasting habits.</textarea></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Certifications</div><div class="card-link">+ Add</div></div>
+            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:8px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border-radius:8px;">
+                <div><div style="font-size:13px;font-weight:500;">NSCA-CSCS</div><div style="font-size:11px;color:var(--muted);">Expires Dec 2026</div></div>
+                <span class="badge b-teal">Active</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border-radius:8px;">
+                <div><div style="font-size:13px;font-weight:500;">First Aid / CPR</div><div style="font-size:11px;color:var(--muted);">Expires Jun 2025</div></div>
+                <span class="badge b-pink">Expired</span>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--surface2);border-radius:8px;">
+                <div><div style="font-size:13px;font-weight:500;">ACSM Personal Trainer</div><div style="font-size:11px;color:var(--muted);">Expires Mar 2027</div></div>
+                <span class="badge b-teal">Active</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card">
+            <div class="card-header"><div class="card-title">Skills & Services</div></div>
+            <div style="padding:16px 20px;">
+              <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Training Types</div>
+              <div class="tag-list">
+                <span class="skill-tag active-tag">Strength Training</span>
+                <span class="skill-tag active-tag">Conditioning</span>
+                <span class="skill-tag active-tag">Weight Loss</span>
+                <span class="skill-tag active-tag">Body Sculpting</span>
+                <span class="skill-tag">CrossFit</span>
+                <span class="skill-tag">Sports Performance</span>
+                <span class="skill-tag">Rehabilitation</span>
+                <span class="skill-tag active-tag">Flexibility</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Availability</div></div>
+            <div style="padding:16px 20px;">
+              <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Days Available</div>
+              <div class="availability-grid">
+                <div class="avail-day on"><div class="avail-day-name">Mon</div><div class="avail-dot"></div></div>
+                <div class="avail-day on"><div class="avail-day-name">Tue</div><div class="avail-dot"></div></div>
+                <div class="avail-day on"><div class="avail-day-name">Wed</div><div class="avail-dot"></div></div>
+                <div class="avail-day on"><div class="avail-day-name">Thu</div><div class="avail-dot"></div></div>
+                <div class="avail-day on"><div class="avail-day-name">Fri</div><div class="avail-dot"></div></div>
+                <div class="avail-day on"><div class="avail-day-name">Sat</div><div class="avail-dot"></div></div>
+                <div class="avail-day"><div class="avail-day-name">Sun</div><div class="avail-dot"></div></div>
+              </div>
+              <div style="margin-top:14px;">
+                <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px;">Hours</div>
+                <div class="form-row">
+                  <div class="form-group" style="margin:0"><label class="form-label">From</label><input class="form-input" value="6:00 AM" /></div>
+                  <div class="form-group" style="margin:0"><label class="form-label">To</label><input class="form-input" value="7:00 PM" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><div class="card-title">Recent Reviews</div></div>
+            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:12px;">
+              <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="font-size:13px;font-weight:500;">Rica Bautista</span><span style="color:var(--accent4);font-size:12px;">★★★★★</span></div>
+                <div style="font-size:12px;color:var(--muted);">"Best trainer I've had. Really pushes me but knows when to back off."</div>
+              </div>
+              <div style="border-bottom:1px solid var(--border);padding-bottom:12px;">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;"><span style="font-size:13px;font-weight:500;">Jake Dela Cruz</span><span style="color:var(--accent4);font-size:12px;">★★★★★</span></div>
+                <div style="font-size:12px;color:var(--muted);">"Hit my first 100kg squat this month. Coach Marco is the real deal."</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         PAGE: EARNINGS
+    ══════════════════════════════════════ -->
+    <div class="page" id="page-earnings">
+      <div class="page-header">
+        <div><div class="page-title">Earnings</div><div class="page-sub">Your income overview</div></div>
+        <div class="page-actions">
+          <button class="btn btn-ghost">📊 Export</button>
+          <button class="btn btn-primary">💳 Request Payout</button>
+        </div>
+      </div>
+
+      <div class="g31" style="margin-bottom:16px;">
         <div class="card">
           <div class="card-header">
-            <div class="card-title">My Earnings</div>
-            <div class="card-link">History →</div>
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="card-title">Monthly Overview</div>
+              <div style="display:flex;gap:6px;">
+                <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px;" id="prevMonth">‹</button>
+                <span style="font-size:12px;color:var(--muted);padding:4px 8px;">March 2026</span>
+                <button class="btn btn-ghost" style="padding:4px 10px;font-size:11px;" id="nextMonth">›</button>
+              </div>
+            </div>
+            <span class="badge b-teal">+12% vs Feb</span>
           </div>
-          <div class="earn-hero">
-            <div class="earn-amt">₱18,400</div>
-            <div class="earn-lbl">March 2026</div>
+          <div style="padding:24px 20px 8px;display:flex;align-items:flex-end;gap:20px;border-bottom:1px solid var(--border)">
+            <div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;">Total Earned</div>
+              <div class="earnings-big">₱18,400</div>
+              <div class="earnings-period">34 sessions · 28 completed</div>
+            </div>
+            <div style="flex:1;text-align:right">
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Pending payout</div>
+              <div style="font-family:'Lalezar',cursive;font-size:22px;color:var(--accent4)">₱6,200</div>
+            </div>
           </div>
-          <div class="earn-rows">
-            <div class="earn-row">
-              <span class="earn-row-lbl">Member sessions</span>
-              <span class="earn-row-val" style="color:var(--accent2)">₱14,200</span>
+          <div style="padding:16px 20px;">
+            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:12px;">Daily Earnings — March</div>
+            <div class="bar-chart">
+              <div class="bar-wrap"><div class="bar" style="height:40%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">3</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:60%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">4</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:50%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">5</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:70%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">6</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:100%;background:var(--accent)"></div><div class="bar-lbl" style="color:var(--accent)">7</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:80%;background:rgba(0,245,255,0.25)"></div><div class="bar-lbl">8</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:0%;background:rgba(0,245,255,0.2)"></div><div class="bar-lbl">9</div></div>
+              <div class="bar-wrap"><div class="bar" style="height:55%;background:rgba(0,245,255,0.4)"></div><div class="bar-lbl">10</div></div>
             </div>
-            <div class="earn-row">
-              <span class="earn-row-lbl">Non-member sessions</span>
-              <span class="earn-row-val" style="color:var(--accent)">₱4,200</span>
-            </div>
-            <div class="earn-row earn-divider">
-              <span class="earn-row-lbl">Completed / Total</span>
-              <span class="earn-row-val">28 / 34</span>
-            </div>
+          </div>
+          <div style="padding:0 20px 4px;">
+            <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.8px;padding:10px 0;border-top:1px solid var(--border)">Breakdown</div>
+          </div>
+          <div class="earn-rows" style="padding-top:0">
+            <div class="earn-row"><span class="earn-row-lbl">Member sessions (24)</span><span class="earn-row-val" style="color:var(--accent2)">₱14,200</span></div>
+            <div class="earn-row"><span class="earn-row-lbl">Non-member sessions (4)</span><span class="earn-row-val" style="color:var(--accent)">₱4,200</span></div>
+            <div class="earn-row earn-divider"><span class="earn-row-lbl">Platform fee (5%)</span><span class="earn-row-val" style="color:var(--accent3)">−₱920</span></div>
+            <div class="earn-row"><span class="earn-row-lbl" style="font-weight:600;color:var(--text)">Net Earnings</span><span class="earn-row-val" style="font-family:'Lalezar',cursive;font-size:17px;color:var(--accent)">₱17,480</span></div>
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">This Week</div>
-            <div class="card-link">Full schedule →</div>
+        <div class="flex-col">
+          <div class="card">
+            <div class="card-header"><div class="card-title">This Year</div></div>
+            <div style="padding:14px 20px;display:flex;flex-direction:column;gap:10px;">
+              <div class="earn-row"><span class="earn-row-lbl">January</span><span class="earn-row-val">₱12,800</span></div>
+              <div class="earn-row"><span class="earn-row-lbl">February</span><span class="earn-row-val">₱16,400</span></div>
+              <div class="earn-row" style="background:rgba(0,245,255,0.05);padding:6px 8px;border-radius:6px;"><span class="earn-row-lbl" style="color:var(--accent);font-weight:600;">March (current)</span><span class="earn-row-val" style="color:var(--accent)">₱18,400</span></div>
+              <div class="earn-row earn-divider"><span class="earn-row-lbl" style="font-weight:600;">YTD Total</span><span class="earn-row-val" style="font-family:'Lalezar',cursive;color:var(--accent2)">₱47,600</span></div>
+            </div>
           </div>
-          <div class="week-cal">
-            <div class="week-days">
-              <div class="wday"><div class="wday-name">Mon</div><div class="wday-num has-session">3</div></div>
-              <div class="wday"><div class="wday-name">Tue</div><div class="wday-num has-session">4</div></div>
-              <div class="wday"><div class="wday-name">Wed</div><div class="wday-num has-session">5</div></div>
-              <div class="wday"><div class="wday-name">Thu</div><div class="wday-num has-session">6</div></div>
-              <div class="wday"><div class="wday-name">Fri</div><div class="wday-num today has-session">7</div></div>
-              <div class="wday"><div class="wday-name">Sat</div><div class="wday-num has-session">8</div></div>
-              <div class="wday"><div class="wday-name">Sun</div><div class="wday-num">9</div></div>
+          <div class="card">
+            <div class="card-header"><div class="card-title">Payout History</div></div>
+            <div class="payout-row">
+              <div><div class="payout-name">Feb Payout</div><div class="payout-date">Mar 1, 2026</div></div>
+              <div style="text-align:right"><div class="payout-amount" style="color:var(--accent2)">₱15,580</div><div class="payout-status" style="color:var(--accent2)">Paid ✓</div></div>
+            </div>
+            <div class="payout-row">
+              <div><div class="payout-name">Jan Payout</div><div class="payout-date">Feb 1, 2026</div></div>
+              <div style="text-align:right"><div class="payout-amount" style="color:var(--accent2)">₱12,160</div><div class="payout-status" style="color:var(--accent2)">Paid ✓</div></div>
+            </div>
+            <div class="payout-row">
+              <div><div class="payout-name">Mar Pending</div><div class="payout-date">Due Apr 1, 2026</div></div>
+              <div style="text-align:right"><div class="payout-amount" style="color:var(--accent4)">₱6,200</div><div class="payout-status" style="color:var(--accent4)">Pending</div></div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ROW 2: MY MEMBERS + ACTIVITY -->
-    <div class="g2">
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">My Members</div>
-          <div class="card-link">View all →</div>
-        </div>
-        <div class="member-row">
-          <div class="mav" style="background:rgba(238,90,189,0.15);color:#EE5ABD">JD</div>
-          <div class="minfo"><div class="mname">Jake Dela Cruz</div><div class="mdetail">Strength Training · Member</div></div>
-          <div class="msess">6 sessions</div>
-        </div>
-        <div class="member-row">
-          <div class="mav" style="background:rgba(0,245,255,0.15);color:#00F5FF">RB</div>
-          <div class="minfo"><div class="mname">Rica Bautista</div><div class="mdetail">Body Sculpting · Member</div></div>
-          <div class="msess">7 sessions</div>
-        </div>
-        <div class="member-row">
-          <div class="mav" style="background:rgba(237,110,82,0.15);color:#ED6E52">KR</div>
-          <div class="minfo"><div class="mname">Kevin Reyes</div><div class="mdetail">Cardio Conditioning · Member</div></div>
-          <div class="msess">4 sessions</div>
-        </div>
-        <div class="member-row">
-          <div class="mav" style="background:rgba(255,42,38,0.15);color:#FF2A26">LT</div>
-          <div class="minfo"><div class="mname">Luis Torres</div><div class="mdetail">Strength Training · Member</div></div>
-          <div class="msess">9 sessions</div>
-        </div>
-        <div class="member-row">
-          <div class="mav" style="background:rgba(183,45,111,0.15);color:#B72D6F">ML</div>
-          <div class="minfo"><div class="mname">Marco Lim</div><div class="mdetail">Weight Loss · Non-member</div></div>
-          <div class="msess" style="color:var(--muted)">2 sessions</div>
-        </div>
+    <!-- ══════════════════════════════════════
+         PAGE: SETTINGS
+    ══════════════════════════════════════ -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div><div class="page-title">Settings</div><div class="page-sub">Manage your account preferences</div></div>
+        <div class="page-actions"><button class="btn btn-primary">💾 Save All</button></div>
       </div>
 
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">Recent Activity</div>
+      <div class="g2">
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card" style="padding:20px;">
+            <div class="settings-section-title">Notifications</div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">New bookings</div><div class="settings-row-sub">Get notified when a client books a session</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Session reminders</div><div class="settings-row-sub">30-minute reminder before each session</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">No-show alerts</div><div class="settings-row-sub">Alert when a client doesn't show up</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Payout notifications</div><div class="settings-row-sub">Notify when a payout is processed</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Review alerts</div><div class="settings-row-sub">Notify when a client leaves a review</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
+          </div>
+
+          <div class="card" style="padding:20px;">
+            <div class="settings-section-title">Session Defaults</div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="form-group" style="margin:0"><label class="form-label">Default Session Duration</label>
+                <select class="form-select"><option>1 hour</option><option>45 minutes</option><option>90 minutes</option></select>
+              </div>
+              <div class="form-group" style="margin:0"><label class="form-label">Buffer Time Between Sessions</label>
+                <select class="form-select"><option>15 minutes</option><option>None</option><option>30 minutes</option></select>
+              </div>
+              <div class="form-group" style="margin:0"><label class="form-label">Max Sessions Per Day</label>
+                <input class="form-input" value="8" /></div>
+            </div>
+          </div>
         </div>
-        <div class="activity-feed">
-          <div class="act-item">
-            <div class="act-dot" style="background:rgba(238,90,189,0.15)">✓</div>
-            <div class="act-body">
-              <div class="act-title">Session completed</div>
-              <div class="act-sub">Jake Dela Cruz · Strength Training</div>
-              <div class="act-time">Today, 8:05 AM</div>
+
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div class="card" style="padding:20px;">
+            <div class="settings-section-title">Rates</div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <div class="form-group" style="margin:0"><label class="form-label">Member Rate (per session)</label><input class="form-input" value="₱600" /></div>
+              <div class="form-group" style="margin:0"><label class="form-label">Non-member Rate (per session)</label><input class="form-input" value="₱1,050" /></div>
+              <div class="form-group" style="margin:0"><label class="form-label">Package Rate (10 sessions)</label><input class="form-input" value="₱5,500" /></div>
             </div>
           </div>
-          <div class="act-item">
-            <div class="act-dot" style="background:rgba(0,245,255,0.15)">📋</div>
-            <div class="act-body">
-              <div class="act-title">New booking received</div>
-              <div class="act-sub">Marco Lim · Today at 9AM</div>
-              <div class="act-time">Yesterday, 9:32 PM</div>
-            </div>
+
+          <div class="card" style="padding:20px;">
+            <div class="settings-section-title">Privacy</div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Public profile</div><div class="settings-row-sub">Allow clients to find your profile</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Show earnings to gym admin</div><div class="settings-row-sub">Admin can view your earnings report</div></div><div class="toggle on" onclick="this.classList.toggle('on')"></div></div>
+            <div class="settings-row"><div class="settings-row-info"><div class="settings-row-label">Show availability publicly</div><div class="settings-row-sub">Clients can see your open time slots</div></div><div class="toggle" onclick="this.classList.toggle('on')"></div></div>
           </div>
-          <div class="act-item">
-            <div class="act-dot" style="background:rgba(255,42,38,0.15)">✗</div>
-            <div class="act-body">
-              <div class="act-title">No-show recorded</div>
-              <div class="act-sub">Luis Torres · 5PM session</div>
-              <div class="act-time">Yesterday, 5:10 PM</div>
-            </div>
-          </div>
-          <div class="act-item">
-            <div class="act-dot" style="background:rgba(237,110,82,0.15)">💬</div>
-            <div class="act-body">
-              <div class="act-title">Booking cancelled</div>
-              <div class="act-sub">Ana Santos · Rescheduled to Fri</div>
-              <div class="act-time">Mar 5, 3:45 PM</div>
+
+          <div class="danger-zone">
+            <div style="font-family:'Lalezar',cursive;font-size:15px;color:var(--accent3);margin-bottom:10px;">Danger Zone</div>
+            <div style="font-size:12.5px;color:var(--muted);margin-bottom:14px;">These actions are permanent and cannot be undone.</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <button class="btn btn-danger" style="width:100%;text-align:left;font-size:13px;">🗑 Delete All Session History</button>
+              <button class="btn btn-danger" style="width:100%;text-align:left;font-size:13px;">⚠️ Deactivate Account</button>
             </div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════
+         PAGE: CALENDAR (full)
+    ══════════════════════════════════════ -->
+    <div class="page" id="page-calendar">
+      <div class="page-header">
+        <div><div class="page-title">Schedule</div><div class="page-sub">Your full calendar view</div></div>
+        <div class="page-actions">
+          <div class="cal-month-nav">
+            <button class="cal-nav-btn">‹</button>
+            <div style="font-family:'Lalezar',cursive;font-size:16px;">March 2026</div>
+            <button class="cal-nav-btn">›</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="overflow:visible;">
+        <div style="padding:16px 16px 0;">
+          <div class="cal-grid" style="margin-bottom:6px;">
+            <div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div><div class="cal-day-name">Thu</div><div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div><div class="cal-day-name">Sun</div>
+          </div>
+          <div class="cal-grid">
+            <!-- Row 1 -->
+            <div class="cal-cell other-month"><div class="cal-num">24</div></div>
+            <div class="cal-cell other-month"><div class="cal-num">25</div></div>
+            <div class="cal-cell other-month"><div class="cal-num">26</div></div>
+            <div class="cal-cell other-month"><div class="cal-num">27</div></div>
+            <div class="cal-cell other-month"><div class="cal-num">28</div></div>
+            <div class="cal-cell other-month"><div class="cal-num">1</div><div class="cal-event">Jake 7AM</div></div>
+            <div class="cal-cell other-month"><div class="cal-num">2</div></div>
+            <!-- Row 2 -->
+            <div class="cal-cell"><div class="cal-num">3</div><div class="cal-event">Jake 7AM</div><div class="cal-event pink">Rica 1PM</div></div>
+            <div class="cal-cell"><div class="cal-num">4</div><div class="cal-event">Kevin 9AM</div><div class="cal-event orange">Luis 5PM</div></div>
+            <div class="cal-cell"><div class="cal-num">5</div><div class="cal-event">Marco 9AM</div></div>
+            <div class="cal-cell"><div class="cal-num">6</div><div class="cal-event">Ana 3PM</div><div class="cal-event orange">Luis 5PM</div></div>
+            <div class="cal-cell today"><div class="cal-num">7</div><div class="cal-event">Jake 7AM</div><div class="cal-event">Kevin 11AM</div><div class="cal-event pink">Rica 1PM</div></div>
+            <div class="cal-cell"><div class="cal-num">8</div><div class="cal-event">Jake 8AM</div><div class="cal-event orange">Luis 10AM</div></div>
+            <div class="cal-cell"><div class="cal-num">9</div></div>
+            <!-- Row 3 -->
+            <div class="cal-cell"><div class="cal-num">10</div><div class="cal-event">Kevin 7AM</div><div class="cal-event">Ana 9AM</div></div>
+            <div class="cal-cell"><div class="cal-num">11</div><div class="cal-event">Marco 11AM</div></div>
+            <div class="cal-cell"><div class="cal-num">12</div><div class="cal-event">Jake 7AM</div></div>
+            <div class="cal-cell"><div class="cal-num">13</div><div class="cal-event orange">Luis 5PM</div></div>
+            <div class="cal-cell"><div class="cal-num">14</div><div class="cal-event pink">Rica 1PM</div><div class="cal-event">Ana 3PM</div></div>
+            <div class="cal-cell"><div class="cal-num">15</div><div class="cal-event">Jake 8AM</div></div>
+            <div class="cal-cell"><div class="cal-num">16</div></div>
+            <!-- Row 4 -->
+            <div class="cal-cell"><div class="cal-num">17</div><div class="cal-event">Kevin 9AM</div></div>
+            <div class="cal-cell"><div class="cal-num">18</div></div>
+            <div class="cal-cell"><div class="cal-num">19</div><div class="cal-event">Jake 7AM</div></div>
+            <div class="cal-cell"><div class="cal-num">20</div><div class="cal-event orange">Luis 5PM</div></div>
+            <div class="cal-cell"><div class="cal-num">21</div><div class="cal-event pink">Rica 1PM</div></div>
+            <div class="cal-cell"><div class="cal-num">22</div></div>
+            <div class="cal-cell"><div class="cal-num">23</div></div>
+          </div>
+        </div>
+        <div style="padding:14px 16px;display:flex;align-items:center;gap:16px;border-top:1px solid var(--border);margin-top:10px;">
+          <span style="font-size:12px;color:var(--muted)">Legend:</span>
+          <span style="font-size:11px;" class="cal-event">Member</span>
+          <span style="font-size:11px;" class="cal-event pink">Body Sculpt</span>
+          <span style="font-size:11px;" class="cal-event orange">Strength</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- ══════════════════════════════════════
+     MODAL: SESSION HISTORY
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="historyModal">
+  <div class="modal" style="width:640px;">
+    <div class="modal-close" onclick="closeModal('historyModal')">✕</div>
+    <div class="modal-title">Session History</div>
+    <div class="modal-sub">All completed sessions · March 2026</div>
+    <div style="display:flex;gap:10px;margin-bottom:16px;">
+      <input class="form-input" placeholder="Search client..." style="flex:1;" />
+      <select class="form-select" style="width:140px;"><option>All sessions</option><option>Completed</option><option>No-shows</option></select>
+    </div>
+    <div class="card" style="overflow:hidden;">
+      <table class="history-table">
+        <thead><tr><th>Date</th><th>Client</th><th>Type</th><th>Duration</th><th>Rate</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--muted)">Mar 7</td><td>Jake Dela Cruz</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
+          <tr><td style="color:var(--muted)">Mar 6</td><td>Ana Santos</td><td>Flexibility</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
+          <tr><td style="color:var(--muted)">Mar 6</td><td>Luis Torres</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-pink">No-show</span></td></tr>
+          <tr><td style="color:var(--muted)">Mar 5</td><td>Rica Bautista</td><td>Body Sculpting</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
+          <tr><td style="color:var(--muted)">Mar 5</td><td>Marco Lim</td><td>Weight Loss</td><td>1hr</td><td style="color:var(--accent)">₱1,050</td><td><span class="badge b-teal">Done ✓</span></td></tr>
+          <tr><td style="color:var(--muted)">Mar 4</td><td>Kevin Reyes</td><td>Cardio</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
+          <tr><td style="color:var(--muted)">Mar 4</td><td>Luis Torres</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-pink">No-show</span></td></tr>
+          <tr><td style="color:var(--muted)">Mar 3</td><td>Jake Dela Cruz</td><td>Strength Training</td><td>1hr</td><td style="color:var(--accent2)">₱600</td><td><span class="badge b-teal">Done ✓</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+      <span style="font-size:12px;color:var(--muted)">Showing 8 of 28 completed sessions</span>
+      <button class="btn btn-ghost" style="font-size:12px;padding:7px 14px;">Load more</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MODAL: MARK SESSION
+══════════════════════════════════════ -->
+<div class="modal-overlay" id="markSessionModal">
+  <div class="modal">
+    <div class="modal-close" onclick="closeModal('markSessionModal')">✕</div>
+    <div class="modal-title">Mark Session</div>
+    <div class="modal-sub">Record the outcome of a completed session</div>
+
+    <div class="form-group">
+      <label class="form-label">Select Client</label>
+      <div class="client-select-list">
+        <div class="client-select-item selected" onclick="selectClient(this)">
+          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(0,245,255,0.15);color:#00F5FF;font-size:11px;">KR</div>
+          <div><div style="font-size:13px;font-weight:500;">Kevin Reyes</div><div style="font-size:11px;color:var(--muted)">Cardio Conditioning · 11:00 AM</div></div>
+        </div>
+        <div class="client-select-item" onclick="selectClient(this)">
+          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(238,90,189,0.15);color:#EE5ABD;font-size:11px;">RB</div>
+          <div><div style="font-size:13px;font-weight:500;">Rica Bautista</div><div style="font-size:11px;color:var(--muted)">Body Sculpting · 1:00 PM</div></div>
+        </div>
+        <div class="client-select-item" onclick="selectClient(this)">
+          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(237,110,82,0.15);color:#ED6E52;font-size:11px;">AS</div>
+          <div><div style="font-size:13px;font-weight:500;">Ana Santos</div><div style="font-size:11px;color:var(--muted)">Flexibility · 3:00 PM</div></div>
+        </div>
+        <div class="client-select-item" onclick="selectClient(this)">
+          <div class="mav" style="width:32px;height:32px;border-radius:8px;background:rgba(255,42,38,0.15);color:#FF2A26;font-size:11px;">LT</div>
+          <div><div style="font-size:13px;font-weight:500;">Luis Torres</div><div style="font-size:11px;color:var(--muted)">Strength Training · 5:00 PM</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Outcome</label>
+        <select class="form-select">
+          <option>✓ Completed</option>
+          <option>✗ No-show</option>
+          <option>↩ Cancelled</option>
+          <option>⟳ Rescheduled</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Duration</label>
+        <select class="form-select"><option>1 hour</option><option>45 min</option><option>90 min</option></select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Rate your session</label>
+      <div class="rating-stars" id="stars">
+        <span class="star lit" data-i="1">★</span>
+        <span class="star lit" data-i="2">★</span>
+        <span class="star lit" data-i="3">★</span>
+        <span class="star lit" data-i="4">★</span>
+        <span class="star lit" data-i="5">★</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Session Notes (optional)</label>
+      <textarea class="form-textarea" placeholder="e.g. Great session — increased squat weight. Work on hip mobility next time."></textarea>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeModal('markSessionModal')">Cancel</button>
+      <button class="btn btn-primary" onclick="closeModal('markSessionModal')">✓ Save Session</button>
+    </div>
   </div>
 </div>
 
 <script>
-document.querySelectorAll('.nav-item').forEach(item => {
-  item.addEventListener('click', function() {
+  // ── NAVIGATION ──
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    this.classList.add('active');
-  });
-});
+    const page = document.getElementById('page-' + id);
+    if (page) page.classList.add('active');
+    const nav = document.querySelector(`.nav-item[data-page="${id}"]`);
+    if (nav) nav.classList.add('active');
+  }
 
-document.querySelectorAll('.sess-btn-done').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const row = this.closest('.session-item');
-    const actionsDiv = row.querySelector('.sess-actions');
-    actionsDiv.innerHTML = '<span class="badge b-teal">Done ✓</span>';
-    row.classList.remove('next-up');
+  document.querySelectorAll('.nav-item[data-page]').forEach(item => {
+    item.addEventListener('click', () => showPage(item.dataset.page));
   });
-});
 
-document.querySelectorAll('.sess-btn-ns').forEach(btn => {
-  btn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const row = this.closest('.session-item');
-    const actionsDiv = row.querySelector('.sess-actions');
-    actionsDiv.innerHTML = '<span class="badge b-pink">No-show</span>';
-    row.classList.remove('next-up');
+  document.querySelectorAll('[data-goto]').forEach(el => {
+    el.addEventListener('click', () => showPage(el.dataset.goto));
   });
-});
+
+  document.getElementById('dashCalLink').addEventListener('click', () => showPage('calendar'));
+
+  // ── NOTIFICATIONS ──
+  const notifBtn = document.getElementById('notifBtn');
+  const notifPanel = document.getElementById('notifPanel');
+  notifBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    notifPanel.classList.toggle('open');
+  });
+  document.addEventListener('click', () => notifPanel.classList.remove('open'));
+  notifPanel.addEventListener('click', e => e.stopPropagation());
+
+  // ── CALENDAR BUTTON ──
+  document.getElementById('calBtn').addEventListener('click', () => showPage('calendar'));
+
+  // ── MODALS ──
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  document.getElementById('historyBtn').addEventListener('click', () => openModal('historyModal'));
+  document.getElementById('sessHistoryBtn') && document.getElementById('sessHistoryBtn').addEventListener('click', () => openModal('historyModal'));
+  document.getElementById('markSessionBtn').addEventListener('click', () => openModal('markSessionModal'));
+  document.getElementById('sessMarkBtn') && document.getElementById('sessMarkBtn').addEventListener('click', () => openModal('markSessionModal'));
+
+  document.querySelectorAll('.modal-overlay').forEach(overlay => {
+    overlay.addEventListener('click', function(e) {
+      if (e.target === this) this.classList.remove('open');
+    });
+  });
+
+  // ── CLIENT SELECT ──
+  function selectClient(el) {
+    document.querySelectorAll('.client-select-item').forEach(i => i.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // ── STAR RATING ──
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', function() {
+      const val = parseInt(this.dataset.i);
+      document.querySelectorAll('.star').forEach((s, i) => {
+        s.classList.toggle('lit', i < val);
+      });
+    });
+  });
+
+  // ── SESSION DONE/NO-SHOW BUTTONS ──
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('sess-btn-done')) {
+      const row = e.target.closest('.session-item');
+      const actions = row.querySelector('.sess-actions');
+      if (actions) actions.innerHTML = '<span class="badge b-teal">Done ✓</span>';
+      row.classList.remove('next-up');
+    }
+    if (e.target.classList.contains('sess-btn-ns')) {
+      const row = e.target.closest('.session-item');
+      const actions = row.querySelector('.sess-actions');
+      if (actions) actions.innerHTML = '<span class="badge b-pink">No-show</span>';
+      row.classList.remove('next-up');
+    }
+  });
+
+  // ── AVAILABILITY TOGGLE ──
+  document.querySelectorAll('.avail-day').forEach(d => {
+    d.addEventListener('click', () => d.classList.toggle('on'));
+  });
+
+  // ── SAVE PROFILE FEEDBACK ──
+  document.getElementById('saveProfileBtn') && document.getElementById('saveProfileBtn').addEventListener('click', function() {
+    this.textContent = '✓ Saved!';
+    this.style.background = 'rgba(0,245,255,0.2)';
+    setTimeout(() => { this.textContent = '💾 Save Changes'; this.style.background = ''; }, 2000);
+  });
 </script>
 </body>
 </html>
