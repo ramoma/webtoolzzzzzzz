@@ -18,26 +18,26 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .fc-topbar { position:fixed; top:0; left:0; right:0; z-index:1040; height:56px; background:rgba(27,27,27,0.97); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; padding:0 20px; }
 .fc-brand { font-family:'Lalezar',cursive; font-size:20px; color:var(--text); text-decoration:none; }
 .fc-brand em { color:var(--accent); font-style:normal; }
-.role-tag { background:rgba(238,90,189,.1); color:var(--accent2); border:1px solid rgba(238,90,189,.25); border-radius:6px; padding:3px 10px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
-.ic-btn { width:36px; height:36px; border-radius:8px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; color:var(--muted); transition:.15s; position:relative; }
+.role-tag { background:rgba(238,90,189,.1); color:var(--accent2); border:1px solid rgba(238,90,189,.25); border-radius:0px; padding:3px 10px; font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.ic-btn { width:36px; height:36px; border-radius:0px; background:var(--surface2); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:15px; color:var(--muted); transition:.15s; position:relative; }
 .ic-btn:hover { color:var(--text); border-color:var(--muted); }
-.ndot { position:absolute; top:7px; right:7px; width:7px; height:7px; border-radius:50%; background:var(--accent3); border:2px solid var(--bg); }
-.fc-avatar { width:36px; height:36px; border-radius:8px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; color:#1B1B1B; cursor:pointer; }
+.ndot { position:absolute; top:7px; right:7px; width:7px; height:7px; border-radius:0%; background:var(--accent3); border:2px solid var(--bg); }
+.fc-avatar { width:36px; height:36px; border-radius:0px; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; color:#1B1B1B; cursor:pointer; }
 .hamburger { background:none; border:none; color:var(--text); font-size:20px; cursor:pointer; padding:4px 8px; }
 
 /* ── SIDEBAR ── */
 .fc-sidebar { position:fixed; top:56px; left:0; bottom:0; width:216px; z-index:1035; background:var(--surface); border-right:1px solid var(--border); overflow-y:auto; padding:12px; transition:transform .25s ease; }
 @media(max-width:991px){ .fc-sidebar { transform:translateX(-216px); } .fc-sidebar.open { transform:translateX(0); } }
-.profile-card { background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px; margin-bottom:10px; text-align:center; }
-.profile-av { width:52px; height:52px; border-radius:12px; background:linear-gradient(135deg,rgba(0,245,255,.3),rgba(238,90,189,.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:18px; color:var(--accent); margin:0 auto 10px; }
+.profile-card { background:var(--surface2); border:1px solid var(--border); border-radius:0px; padding:14px; margin-bottom:10px; text-align:center; }
+.profile-av { width:52px; height:52px; border-radius:0px; background:linear-gradient(135deg,rgba(0,245,255,.3),rgba(238,90,189,.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:18px; color:var(--accent); margin:0 auto 10px; }
 .profile-name { font-family:'Lalezar',cursive; font-size:15px; }
 .profile-spec { font-size:11px; color:var(--muted); margin-top:3px; }
 .profile-rating { display:flex; align-items:center; justify-content:center; gap:4px; margin-top:8px; font-size:12px; color:var(--accent4); font-weight:600; }
 .nav-sec { font-size:10px; font-weight:600; letter-spacing:1.5px; color:var(--muted); text-transform:uppercase; padding:14px 10px 5px; }
-.nav-lnk { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:8px; font-size:13.5px; color:var(--muted); cursor:pointer; transition:.15s; position:relative; user-select:none; border:none; background:none; width:100%; text-align:left; }
+.nav-lnk { display:flex; align-items:center; gap:10px; padding:9px 12px; border-radius:0px; font-size:13.5px; color:var(--muted); cursor:pointer; transition:.15s; position:relative; user-select:none; border:none; background:none; width:100%; text-align:left; }
 .nav-lnk:hover { background:var(--surface2); color:var(--text); }
 .nav-lnk.active { background:var(--surface2); color:var(--text); font-weight:600; }
-.nav-lnk.active::before { content:''; position:absolute; left:0; top:6px; bottom:6px; width:3px; border-radius:2px; background:var(--accent); }
+.nav-lnk.active::before { content:''; position:absolute; left:0; top:6px; bottom:6px; width:3px; border-radius:0px; background:var(--accent); }
 .sidebar-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:1034; }
 .sidebar-overlay.show { display:block; }
 
@@ -53,19 +53,19 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
 
 /* ── CARDS ── */
-.fc-card { background:var(--surface); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-bottom:16px; }
+.fc-card { background:var(--surface); border:1px solid var(--border); border-radius:0px; overflow:hidden; margin-bottom:16px; }
 .fc-card-header { display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--border); flex-wrap:wrap; gap:8px; }
 .fc-card-title { font-family:'Lalezar',cursive; font-size:15px; margin:0; }
 .fc-card-link { font-size:12px; color:var(--accent); cursor:pointer; font-weight:500; border:none; background:none; padding:0; }
 
 /* ── STAT CARDS ── */
-.mstat { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px; text-align:center; transition:.2s; }
+.mstat { background:var(--surface); border:1px solid var(--border); border-radius:0px; padding:18px; text-align:center; transition:.2s; }
 .mstat:hover { transform:translateY(-2px); }
 .mstat-val { font-family:'Lalezar',cursive; font-size:28px; letter-spacing:-1px; margin-bottom:5px; }
 .mstat-lbl { font-size:11px; color:var(--muted); font-weight:500; text-transform:uppercase; letter-spacing:.5px; }
 
 /* ── BADGES ── */
-.fc-badge { display:inline-flex; align-items:center; padding:3px 8px; border-radius:6px; font-size:11px; font-weight:600; }
+.fc-badge { display:inline-flex; align-items:center; padding:3px 8px; border-radius:0px; font-size:11px; font-weight:600; }
 .b-teal{background:rgba(0,245,255,.12);color:var(--accent)} .b-pink{background:rgba(255,42,38,.12);color:var(--accent3)}
 .b-orange{background:rgba(237,110,82,.15);color:var(--accent4)} .b-purple{background:rgba(238,90,189,.15);color:var(--accent2)}
 .b-gray{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
@@ -80,7 +80,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .tbl-wrap { overflow-x:auto; }
 
 /* ── BUTTONS ── */
-.fc-btn { padding:8px 16px; border-radius:8px; font-family:'Lalezar',cursive; font-size:14px; cursor:pointer; border:none; transition:.15s; }
+.fc-btn { padding:8px 16px; border-radius:0px; font-family:'Lalezar',cursive; font-size:14px; cursor:pointer; border:none; transition:.15s; }
 .fc-btn-primary { background:var(--accent); color:#1B1B1B; }
 .fc-btn-primary:hover { filter:brightness(1.1); }
 .fc-btn-ghost { background:var(--surface2); color:var(--text); border:1px solid var(--border); }
@@ -95,22 +95,22 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 
 /* ── FORM ── */
 .fc-label { font-size:11px; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:6px; display:block; }
-.fc-input, .fc-select, .fc-textarea { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-family:'Barlow',sans-serif; font-size:13.5px; color:var(--text); outline:none; transition:border-color .15s; }
+.fc-input, .fc-select, .fc-textarea { width:100%; background:var(--surface2); border:1px solid var(--border); border-radius:0px; padding:10px 14px; font-family:'Barlow',sans-serif; font-size:13.5px; color:var(--text); outline:none; transition:border-color .15s; }
 .fc-input:focus, .fc-select:focus, .fc-textarea:focus { border-color:var(--accent); }
 .fc-select option { background:var(--surface2); }
 .fc-textarea { resize:vertical; min-height:80px; }
 ::placeholder { color:var(--muted); }
 
 /* ── SETTINGS TOGGLE ── */
-.fc-toggle { width:40px; height:22px; border-radius:11px; background:var(--border); position:relative; cursor:pointer; transition:.2s; flex-shrink:0; }
+.fc-toggle { width:40px; height:22px; border-radius:0px; background:var(--border); position:relative; cursor:pointer; transition:.2s; flex-shrink:0; }
 .fc-toggle.on { background:var(--accent); }
-.fc-toggle::after { content:''; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:50%; background:#1B1B1B; transition:transform .2s; }
+.fc-toggle::after { content:''; position:absolute; top:3px; left:3px; width:16px; height:16px; border-radius:0px; background:#1B1B1B; transition:transform .2s; }
 .fc-toggle.on::after { transform:translateX(18px); }
 .settings-row { display:flex; align-items:center; justify-content:space-between; padding:13px 0; border-bottom:1px solid rgba(51,51,51,.5); }
 .settings-row:last-child { border-bottom:none; }
 
 /* ── NOTIFICATION PANEL ── */
-.notif-panel { position:fixed; top:64px; right:12px; width:320px; max-width:95vw; z-index:1050; background:var(--surface); border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 32px rgba(0,0,0,.4); display:none; overflow:hidden; animation:fadeUp .2s ease; }
+.notif-panel { position:fixed; top:64px; right:12px; width:320px; max-width:95vw; z-index:1050; background:var(--surface); border:1px solid var(--border); border-radius:0px; box-shadow:0 8px 32px rgba(0,0,0,.4); display:none; overflow:hidden; animation:fadeUp .2s ease; }
 .notif-panel.open { display:block; }
 .notif-hdr { padding:13px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
 .notif-hdr-title { font-family:'Lalezar',cursive; font-size:15px; }
@@ -118,7 +118,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .notif-item:hover { background:var(--surface2); }
 .notif-item:last-child { border-bottom:none; }
 .notif-item.unread { border-left:3px solid var(--accent3); }
-.notif-ico { width:32px; height:32px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+.notif-ico { width:32px; height:32px; border-radius:0px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
 .notif-msg { font-size:12.5px; font-weight:500; line-height:1.4; }
 .notif-time { font-size:11px; color:var(--muted); margin-top:2px; }
 
@@ -126,7 +126,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .member-row { display:flex; align-items:center; gap:12px; padding:13px 18px; border-bottom:1px solid rgba(51,51,51,.8); transition:background .12s; cursor:pointer; }
 .member-row:hover { background:var(--surface2); }
 .member-row:last-child { border-bottom:none; }
-.mav { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; flex-shrink:0; }
+.mav { width:36px; height:36px; border-radius:0px; display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:13px; flex-shrink:0; }
 
 /* ── SESSION ITEMS ── */
 .session-item { display:flex; align-items:center; gap:12px; padding:13px 18px; border-bottom:1px solid rgba(51,51,51,.8); transition:background .12s; cursor:pointer; }
@@ -137,16 +137,16 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .sess-line { width:1px; height:34px; background:var(--border); flex-shrink:0; }
 .sess-name { font-weight:500; font-size:13px; }
 .sess-detail { font-size:11.5px; color:var(--muted); margin-top:2px; }
-.sess-btn { padding:4px 10px; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer; border:none; transition:.12s; }
+.sess-btn { padding:4px 10px; border-radius:0px; font-size:11px; font-weight:600; cursor:pointer; border:none; transition:.12s; }
 .sess-btn-done { background:rgba(0,245,255,.12); color:var(--accent); }
 .sess-btn-done:hover { background:rgba(0,245,255,.22); }
 .sess-btn-ns { background:rgba(255,42,38,.12); color:var(--accent3); }
 .sess-btn-ns:hover { background:rgba(255,42,38,.22); }
 
 /* ── NEXT SESSION HERO ── */
-.next-session-hero { margin:14px 18px; background:linear-gradient(135deg,rgba(0,245,255,.08),rgba(238,90,189,.04)); border:1px solid rgba(0,245,255,.2); border-radius:10px; padding:16px; }
+.next-session-hero { margin:14px 18px; background:linear-gradient(135deg,rgba(0,245,255,.08),rgba(238,90,189,.04)); border:1px solid rgba(0,245,255,.2); border-radius:0px; padding:16px; }
 .next-tag { font-size:10px; color:var(--accent); font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px; }
-.next-dot { width:6px; height:6px; border-radius:50%; background:var(--accent); animation:pulse 1.5s infinite; }
+.next-dot { width:6px; height:6px; border-radius:0px; background:var(--accent); animation:pulse 1.5s infinite; }
 @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
 .next-name { font-family:'Lalezar',cursive; font-size:19px; margin-bottom:3px; }
 .next-meta { font-size:12px; color:var(--muted); }
@@ -160,13 +160,13 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .chart-wrap { padding:16px 18px; display:flex; flex-direction:column; gap:10px; }
 .bar-row { display:flex; align-items:center; gap:8px; }
 .bar-lbl { width:28px; font-size:11px; color:var(--muted); }
-.bar-track { flex:1; height:8px; background:var(--surface2); border-radius:4px; overflow:hidden; }
-.bar-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--accent2),var(--accent)); }
+.bar-track { flex:1; height:8px; background:var(--surface2); border-radius:0px; overflow:hidden; }
+.bar-fill { height:100%; border-radius:0px; background:linear-gradient(90deg,var(--accent2),var(--accent)); }
 .bar-val { width:44px; text-align:right; font-size:11px; color:var(--muted); }
 
 /* ── PROFILE HERO ── */
-.profile-hero { display:flex; align-items:center; gap:18px; padding:20px; background:linear-gradient(135deg,rgba(0,245,255,.06),rgba(238,90,189,.03)); border:1px solid var(--border); border-radius:12px; margin-bottom:16px; flex-wrap:wrap; }
-.profile-hero-av { width:64px; height:64px; border-radius:14px; background:linear-gradient(135deg,rgba(0,245,255,.3),rgba(238,90,189,.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:22px; color:var(--accent); flex-shrink:0; }
+.profile-hero { display:flex; align-items:center; gap:18px; padding:20px; background:linear-gradient(135deg,rgba(0,245,255,.06),rgba(238,90,189,.03)); border:1px solid var(--border); border-radius:0px; margin-bottom:16px; flex-wrap:wrap; }
+.profile-hero-av { width:64px; height:64px; border-radius:0px; background:linear-gradient(135deg,rgba(0,245,255,.3),rgba(238,90,189,.2)); display:flex; align-items:center; justify-content:center; font-family:'Lalezar',cursive; font-size:22px; color:var(--accent); flex-shrink:0; }
 .profile-hero-name { font-family:'Lalezar',cursive; font-size:22px; }
 .profile-hero-spec { font-size:13px; color:var(--muted); margin-top:3px; }
 .profile-hero-stats { display:flex; gap:16px; margin-top:12px; flex-wrap:wrap; }
@@ -175,9 +175,9 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .phs-lbl { font-size:10px; color:var(--muted); text-transform:uppercase; }
 
 /* ── AVAIL GRID ── */
-.avail-day { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); margin-bottom:6px; cursor:pointer; transition:.15s; font-size:13px; }
+.avail-day { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; border-radius:0px; border:1px solid var(--border); background:var(--surface2); margin-bottom:6px; cursor:pointer; transition:.15s; font-size:13px; }
 .avail-day.on { background:rgba(0,245,255,.08); border-color:rgba(0,245,255,.3); color:var(--accent); }
-.avail-dot { width:8px; height:8px; border-radius:50%; background:var(--border); }
+.avail-dot { width:8px; height:8px; border-radius:0px; background:var(--border); }
 .avail-day.on .avail-dot { background:var(--accent); }
 
 /* ── PAYOUT HISTORY ── */
@@ -185,7 +185,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .payout-row:last-child { border-bottom:none; }
 
 /* ── MODAL ── */
-.modal-content { background:var(--surface); border:1px solid var(--border); border-radius:14px; color:var(--text); }
+.modal-content { background:var(--surface); border:1px solid var(--border); border-radius:0px; color:var(--text); }
 .modal-header { border-bottom:1px solid var(--border); padding:18px 22px; }
 .modal-title { font-family:'Lalezar',cursive; font-size:20px; color:var(--text); }
 .btn-close { filter:invert(1); opacity:.5; }
@@ -196,7 +196,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 /* ── ACTIVITY FEED ── */
 .act-item { display:flex; gap:12px; padding-bottom:14px; position:relative; }
 .act-item:not(:last-child)::before { content:''; position:absolute; left:13px; top:28px; bottom:0; width:1px; background:var(--border); }
-.act-dot { width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+.act-dot { width:28px; height:28px; border-radius:0px; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
 .act-title { font-size:13px; font-weight:500; }
 .act-sub { font-size:11.5px; color:var(--muted); margin-top:2px; }
 .act-time { font-size:11px; color:var(--muted); margin-top:2px; }
@@ -216,7 +216,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .cal-day-hdr { font-size:10px; color:var(--muted); font-weight:600; text-transform:uppercase; text-align:center; padding-bottom:8px; }
 
 /* ── CLIENT SELECT (mark session modal) ── */
-.client-select-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--surface2); cursor:pointer; transition:.15s; margin-bottom:6px; font-size:13px; }
+.client-select-item { display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:2px; border:1px solid var(--border); background:var(--surface2); cursor:pointer; transition:.15s; margin-bottom:6px; font-size:13px; }
 .client-select-item:hover { border-color:var(--muted); }
 .client-select-item.selected { border-color:var(--accent); background:rgba(0,245,255,.07); color:var(--accent); }
 
@@ -227,7 +227,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 .review-text { font-size:12.5px; color:var(--text); line-height:1.5; margin-bottom:4px; }
 .review-meta { font-size:11px; color:var(--muted); }
 
-::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:0px; }
 </style>
 </head>
 <body>
@@ -409,19 +409,19 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
   </div>
   <div class="row g-3">
     <div class="col-12 col-sm-6 col-lg-4">
-      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(238,90,189,.15);color:#EE5ABD;font-size:16px">JD</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Jake Dela Cruz</div><div style="font-size:12px;color:var(--muted)">Strength Training · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">6</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">3mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:0px;background:rgba(238,90,189,.15);color:#EE5ABD;font-size:16px">JD</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Jake Dela Cruz</div><div style="font-size:12px;color:var(--muted)">Strength Training · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">6</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">3mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4">
-      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(0,245,255,.15);color:#00F5FF;font-size:16px">RB</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Rica Bautista</div><div style="font-size:12px;color:var(--muted)">Body Sculpting · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">7</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">4mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:0px;background:rgba(0,245,255,.15);color:#00F5FF;font-size:16px">RB</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Rica Bautista</div><div style="font-size:12px;color:var(--muted)">Body Sculpting · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">7</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">4mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4">
-      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(237,110,82,.15);color:#ED6E52;font-size:16px">KR</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Kevin Reyes</div><div style="font-size:12px;color:var(--muted)">Cardio · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">4</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">2mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:0px;background:rgba(237,110,82,.15);color:#ED6E52;font-size:16px">KR</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Kevin Reyes</div><div style="font-size:12px;color:var(--muted)">Cardio · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">4</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">2mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4">
-      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(255,42,38,.15);color:#FF2A26;font-size:16px">LT</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Luis Torres</div><div style="font-size:12px;color:var(--muted)">Strength Training · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">9</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">6mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:0px;background:rgba(255,42,38,.15);color:#FF2A26;font-size:16px">LT</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Luis Torres</div><div style="font-size:12px;color:var(--muted)">Strength Training · Active</div></div><span class="fc-badge b-teal">Active</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">9</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent3)">1</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">6mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
     </div>
     <div class="col-12 col-sm-6 col-lg-4">
-      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:12px;background:rgba(183,45,111,.15);color:#B72D6F;font-size:16px">ML</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Marco Lim</div><div style="font-size:12px;color:var(--muted)">Weight Loss · Non-member</div></div><span class="fc-badge b-gray">Non-member</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">2</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">1mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
+      <div class="fc-card"><div style="padding:18px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)"><div class="mav" style="width:48px;height:48px;border-radius:0px;background:rgba(183,45,111,.15);color:#B72D6F;font-size:16px">ML</div><div class="flex-fill"><div style="font-weight:600;font-size:15px">Marco Lim</div><div style="font-size:12px;color:var(--muted)">Weight Loss · Non-member</div></div><span class="fc-badge b-gray">Non-member</span></div><div style="padding:14px 18px;display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:8px;border-bottom:1px solid var(--border)"><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">2</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">Sessions</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">0</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">No-shows</div></div><div><div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent4)">1mo</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase">With you</div></div></div><div style="padding:12px 18px;display:flex;gap:8px"><button class="fc-btn fc-btn-ghost fc-btn-sm flex-fill" data-bs-toggle="modal" data-bs-target="#historyModal">📋 History</button><button class="fc-btn fc-btn-primary fc-btn-sm flex-fill">📅 Book</button></div></div>
     </div>
   </div>
 </div>
@@ -470,10 +470,10 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
         <div class="mb-3"><label class="fc-label">Certifications</label><input class="fc-input" value="NSCA-CPT, CrossFit L1"/></div>
         <div><label class="fc-label">Specialties</label>
           <div class="d-flex flex-wrap gap-2 mt-1">
-            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">Powerlifting</span>
-            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">Weight Loss</span>
-            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">Muscle Building</span>
-            <span style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:6px;font-size:12px;cursor:pointer">+ Add</span>
+            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">Powerlifting</span>
+            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">Weight Loss</span>
+            <span style="background:rgba(0,245,255,.1);border:1px solid rgba(0,245,255,.3);color:var(--accent);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">Muscle Building</span>
+            <span style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">+ Add</span>
           </div>
         </div>
       </div>
@@ -592,9 +592,9 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 <!-- Mark Session -->
 <div class="modal fade" id="markSessionModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><div class="modal-title">Mark Session</div><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body">
   <div class="mb-3"><label class="fc-label">Select Client</label>
-    <div class="client-select-item selected" onclick="selectClient(this)"><div class="mav" style="background:rgba(238,90,189,.15);color:#EE5ABD;width:28px;height:28px;border-radius:7px;font-size:11px">JD</div>Jake Dela Cruz</div>
-    <div class="client-select-item" onclick="selectClient(this)"><div class="mav" style="background:rgba(0,245,255,.15);color:#00F5FF;width:28px;height:28px;border-radius:7px;font-size:11px">RB</div>Rica Bautista</div>
-    <div class="client-select-item" onclick="selectClient(this)"><div class="mav" style="background:rgba(237,110,82,.15);color:#ED6E52;width:28px;height:28px;border-radius:7px;font-size:11px">KR</div>Kevin Reyes</div>
+    <div class="client-select-item selected" onclick="selectClient(this)"><div class="mav" style="background:rgba(238,90,189,.15);color:#EE5ABD;width:28px;height:28px;border-radius:0px;font-size:11px">JD</div>Jake Dela Cruz</div>
+    <div class="client-select-item" onclick="selectClient(this)"><div class="mav" style="background:rgba(0,245,255,.15);color:#00F5FF;width:28px;height:28px;border-radius:0px;font-size:11px">RB</div>Rica Bautista</div>
+    <div class="client-select-item" onclick="selectClient(this)"><div class="mav" style="background:rgba(237,110,82,.15);color:#ED6E52;width:28px;height:28px;border-radius:0px;font-size:11px">KR</div>Kevin Reyes</div>
   </div>
   <div class="row g-3 mb-3">
     <div class="col-6"><label class="fc-label">Outcome</label><select class="fc-select"><option>Done ✓</option><option>No-show ✗</option><option>Cancelled</option></select></div>
