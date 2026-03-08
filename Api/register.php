@@ -62,12 +62,13 @@
         $fullname = $data["fullname"];
         $username = $data["username"];
         $password = $data["password"];
+        $hashed = password_hash($password, PASSWORD_BCRYPT);
         $email = $data["email"];
         $gender = $data["gender"];
 
 
         $stmt = $conn->prepare("insert into user_accounts(full_name, username, email, password, gender) values(?,?,?,?,?)");
-        $stmt->bind_param("sssss",$fullname, $username, $email, $password, $gender);
+        $stmt->bind_param("sssss",$fullname, $username, $email, $hashed, $gender);
         $stmt->execute();
         $stmt->close();
         
@@ -83,12 +84,13 @@
         $fullname = $data["fullname"];
         $username = $data["username"];
         $password = $data["password"];
+        $hashed = password_hash($password, PASSWORD_BCRYPT);
         $email = $data["email"];
         $gender = $data["gender"];
         $membership = $data["membership"];
 
         $stmt = $conn->prepare("insert into user_accounts(full_name, username, email, password, gender, membership) values(?,?,?,?,?,?)");
-        $stmt->bind_param("ssssss",$fullname, $username, $email, $password, $gender, $membership);
+        $stmt->bind_param("ssssss",$fullname, $username, $email, $hashed, $gender, $membership);
         $stmt->execute();
         $stmt->close();
         

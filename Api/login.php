@@ -30,36 +30,38 @@
     }
     if(isset($data["login"])){
 
-        $stmt = $conn->prepare("select count(*) from user_accounts where username = ?");
+        $stmt = $conn->prepare("select password from user_accounts where username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
-        $stmt->bind_result($check_username);
-        $stmt->fetch();
-        $stmt->close();
+        $stmt->store_result();
 
-        $stmt2 = $conn->prepare("select count(*) from user_accounts where password = ?");
-        $stmt2->bind_param("s", $password);
-        $stmt2->execute();
-        $stmt2->bind_result($check_password);
-        $stmt2->fetch();
-        $stmt2->close();
+        if($stmt->num_rows > 0){
 
-        if($check_password > 0 && $check_username > 0){
+            $stmt->bind_result($check_password);
+            $stmt->fetch();
 
-            $_SESSION["username"] = $username;
+            if(password_verify($password, $check_password)){
+                $_SESSION['username'] = $username;
 
-            echo json_encode([
-                "Status" => "success",
-                "message" => "logging in" 
-            ]);
-            exit;
+                echo json_encode([
+                    "Status" => "success",
+                    "message" => "loogging in {$check_password}"
+                ]);
+                exit;
+            }else{
+                echo json_encode([
+                    "Status"=>"failed",
+                    "message" => "wrong password"
+                ]);
+                exit;
+            }
 
             
         }
         else{
             echo json_encode([
                 "Status" => "failed",
-                "message" => "wrong email or password"
+                "message" => "wrong username"
             ]);
             exit;
         }
