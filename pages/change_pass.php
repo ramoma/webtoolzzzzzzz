@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed = password_hash($new_pass, PASSWORD_BCRYPT);
         $email  = $_SESSION['reset_email'];
 
-        $stmt = mysqli_prepare($conn, "UPDATE users SET password = ? WHERE email = ?");
+        $stmt = mysqli_prepare($conn, "UPDATE user_accounts SET password = ? WHERE email = ?");
         mysqli_stmt_bind_param($stmt, "ss", $hashed, $email);
         mysqli_stmt_execute($stmt);
 
