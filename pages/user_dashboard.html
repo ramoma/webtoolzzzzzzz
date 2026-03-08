@@ -1,95 +1,1398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="icon" type="image/png" href="../images/aonlylogo.png">
-    <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <title>A'S GYM</title>
-    <style> 
-        .sidebar-link {
-            color: #FFFFFF;
-            font-family: 'Lalezar', sans-serif;
-            font-size: 32px;
-            text-align: center;
-            text-decoration: none;
-            display: block;
-            line-height: 1;
-            padding: 4px 8px;
-            border-radius: 5px;
-            transition: background 0.15s;
-            cursor: pointer;
-        }
-        .sidebar-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: #FFFFFF;
-        }
-        .sidebar-link:active {
-            background: rgba(255, 255, 255, 0.4);
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A's Gym — Member Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#1B1B1B;--surface:#222;--surface2:#292929;--border:#333;
+  --accent:#00F5FF;--accent2:#EE5ABD;--accent3:#FF2A26;--accent4:#ED6E52;--accent5:#B72D6F;
+  --text:#D9D9D9;--muted:#777;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ─── TOPBAR ─── */
+.fc-topbar{position:fixed;top:0;left:0;right:0;z-index:1040;height:56px;
+  background:rgba(27,27,27,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 20px;}
+.fc-brand{font-family:'Lalezar',cursive;font-size:20px;color:var(--text);text-decoration:none;}
+.fc-brand span{color:var(--accent2);}
+.role-tag{background:rgba(238,90,189,.12);color:var(--accent2);border:1px solid rgba(238,90,189,.3);
+  border-radius:0px;padding:3px 10px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;}
+.ic-btn{width:36px;height:36px;border-radius:0px;background:var(--surface2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;color:var(--muted);
+  transition:.15s;position:relative;}
+.ic-btn:hover{color:var(--text);border-color:var(--muted);}
+.n-dot{position:absolute;top:7px;right:7px;width:7px;height:7px;border-radius:0%;
+  background:var(--accent3);border:2px solid var(--bg);}
+.fc-ava{width:36px;height:36px;border-radius:0px;
+  background:linear-gradient(135deg,var(--accent2),var(--accent5));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Lalezar',cursive;font-size:13px;color:#fff;cursor:pointer;}
+.hamburger{background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px 8px;}
+
+/* ─── SIDEBAR ─── */
+.fc-sidebar{position:fixed;top:56px;left:0;bottom:0;width:220px;z-index:1035;
+  background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;
+  padding:14px 12px;transition:transform .25s ease;}
+@media(max-width:991px){.fc-sidebar{transform:translateX(-220px);}
+  .fc-sidebar.open{transform:translateX(0);}}
+
+.mem-mini{background:linear-gradient(135deg,rgba(238,90,189,.1),rgba(0,245,255,.04));
+  border:1px solid rgba(238,90,189,.2);border-radius:0px;padding:15px;margin-bottom:12px;text-align:center;}
+.mem-ava{width:50px;height:50px;border-radius:0px;
+  background:linear-gradient(135deg,var(--accent2),var(--accent5));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Lalezar',cursive;font-size:17px;color:#fff;margin:0 auto 9px;}
+.mem-name{font-family:'Lalezar',cursive;font-size:14px;}
+.mem-plan{font-size:11px;color:var(--accent2);font-weight:600;margin-top:2px;letter-spacing:.5px;}
+.mem-exp{font-size:10.5px;color:var(--muted);margin-top:3px;}
+.mem-exp.warn{color:var(--accent3);font-weight:600;}
+
+.nav-sec{font-size:10px;font-weight:600;letter-spacing:1.5px;color:var(--muted);
+  text-transform:uppercase;padding:13px 10px 5px;}
+.nav-lnk{display:flex;align-items:center;gap:9px;padding:8px 11px;border-radius:0px;
+  font-size:13px;color:var(--muted);cursor:pointer;transition:.15s;position:relative;
+  user-select:none;border:none;background:none;width:100%;text-align:left;}
+.nav-lnk:hover{background:var(--surface2);color:var(--text);}
+.nav-lnk.active{background:var(--surface2);color:var(--text);font-weight:600;}
+.nav-lnk.active::before{content:'';position:absolute;left:0;top:5px;bottom:5px;width:3px;
+  border-radius:0px;background:var(--accent2);}
+
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1034;}
+.sidebar-overlay.show{display:block;}
+
+/* ─── MAIN ─── */
+.fc-main{margin-left:220px;padding-top:56px;min-height:100vh;}
+@media(max-width:991px){.fc-main{margin-left:0;}}
+.fc-content{padding:24px 20px 64px;}
+@media(max-width:575px){.fc-content{padding:16px 12px 48px;}}
+
+/* ─── PAGES ─── */
+.fc-page{display:none;}
+.fc-page.active{display:block;animation:fadeUp .3s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─── CARDS ─── */
+.fc-card{background:var(--surface);border:1px solid var(--border);border-radius:0px;overflow:hidden;margin-bottom:16px;}
+.fc-card-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.fc-card-title{font-family:'Lalezar',cursive;font-size:15px;margin:0;}
+.fc-card-link{font-size:12px;color:var(--accent2);cursor:pointer;font-weight:500;border:none;background:none;padding:0;}
+
+/* ─── STAT CARDS ─── */
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:0px;
+  padding:16px 18px;position:relative;overflow:hidden;transition:.2s;}
+.stat-card:hover{transform:translateY(-2px);}
+.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.sc-pink::after{background:var(--accent2)} .sc-teal::after{background:var(--accent)}
+.sc-red::after{background:var(--accent3)} .sc-orange::after{background:var(--accent4)}
+.sc-pink .sv{color:var(--accent2)} .sc-teal .sv{color:var(--accent)}
+.sc-red .sv{color:var(--accent3)} .sc-orange .sv{color:var(--accent4)}
+.sl{font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:7px;}
+.sv{font-family:'Lalezar',cursive;font-size:27px;line-height:1;margin-bottom:4px;}
+.ss{font-size:11px;color:var(--muted);}
+
+/* ─── BADGES ─── */
+.fc-badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:0px;font-size:11px;font-weight:600;white-space:nowrap;}
+.b-pink{background:rgba(238,90,189,.12);color:var(--accent2)}
+.b-teal{background:rgba(0,245,255,.1);color:var(--accent)}
+.b-red{background:rgba(255,42,38,.12);color:var(--accent3)}
+.b-orange{background:rgba(237,110,82,.14);color:var(--accent4)}
+.b-gray{background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+
+/* ─── BUTTONS ─── */
+.fc-btn{padding:9px 18px;border-radius:0px;font-family:'Lalezar',cursive;font-size:14px;
+  cursor:pointer;border:none;transition:.15s;letter-spacing:.2px;display:inline-flex;align-items:center;gap:6px;}
+.fc-btn-pink{background:var(--accent2);color:#fff;}
+.fc-btn-pink:hover{filter:brightness(1.12);transform:translateY(-1px);}
+.fc-btn-teal{background:var(--accent);color:#1B1B1B;}
+.fc-btn-teal:hover{filter:brightness(1.1);transform:translateY(-1px);}
+.fc-btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+.fc-btn-ghost:hover{border-color:var(--muted);}
+.fc-btn-danger{background:rgba(255,42,38,.13);color:var(--accent3);border:1px solid rgba(255,42,38,.28);}
+.fc-btn-danger:hover{background:rgba(255,42,38,.2);}
+.fc-btn-sm{padding:6px 14px;font-size:12px;}
+.fc-btn-xs{padding:4px 10px;font-size:11px;}
+
+/* ─── PAGE HEADER ─── */
+.pg-hdr{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;}
+.pg-title{font-family:'Lalezar',cursive;font-size:26px;letter-spacing:.3px;margin:0;}
+.pg-sub{font-size:13px;color:var(--muted);margin-top:3px;}
+
+/* ─── TABLE ─── */
+.fc-table{width:100%;border-collapse:collapse;}
+.fc-table th{text-align:left;font-size:10.5px;font-weight:600;color:var(--muted);
+  letter-spacing:.8px;text-transform:uppercase;padding:10px 16px;
+  border-bottom:1px solid var(--border);white-space:nowrap;}
+.fc-table td{padding:11px 16px;font-size:13px;border-bottom:1px solid rgba(51,51,51,.5);vertical-align:middle;}
+.fc-table tr:last-child td{border-bottom:none;}
+.fc-table tbody tr:hover td{background:var(--surface2);}
+.tbl-wrap{overflow-x:auto;}
+
+/* ─── FORM ─── */
+.fc-lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;
+  letter-spacing:.8px;margin-bottom:6px;display:block;}
+.fc-input,.fc-sel,.fc-ta{width:100%;background:var(--surface2);border:1px solid var(--border);
+  border-radius:0px;padding:10px 14px;font-family:'Barlow',sans-serif;font-size:13.5px;
+  color:var(--text);outline:none;transition:border-color .15s;}
+.fc-input:focus,.fc-sel:focus,.fc-ta:focus{border-color:var(--accent2);}
+.fc-sel option{background:var(--surface2);}
+.fc-ta{resize:vertical;min-height:80px;}
+::placeholder{color:var(--muted);}
+
+/* ─── MEMBERSHIP BAR ─── */
+.mbar-track{height:7px;background:var(--surface2);border-radius:0px;overflow:hidden;margin:8px 0 4px;}
+.mbar-fill{height:100%;border-radius:0px;}
+.mbar-ok{background:linear-gradient(90deg,var(--accent2),var(--accent));}
+.mbar-warn{background:linear-gradient(90deg,var(--accent3),var(--accent4));}
+
+/* ─── SESSION CARDS ─── */
+.sess-card{border:1px solid var(--border);border-radius:0px;padding:15px;
+  background:var(--surface2);transition:.15s;}
+.sess-card:hover{border-color:rgba(238,90,189,.3);}
+.sess-card.next-up{border-color:rgba(238,90,189,.35);background:rgba(238,90,189,.04);}
+.sess-date-tag{font-size:10px;color:var(--accent2);font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;margin-bottom:6px;}
+.sess-time{font-family:'Lalezar',cursive;font-size:22px;color:var(--accent2);}
+.sess-meta{font-size:12px;color:var(--muted);margin-top:3px;}
+
+/* ─── BOOKING STEPS ─── */
+.step-bar{display:flex;align-items:center;margin-bottom:22px;}
+.step-node{display:flex;align-items:center;gap:6px;}
+.step-num{width:28px;height:28px;border-radius:0%;display:flex;align-items:center;justify-content:center;
+  font-family:'Lalezar',cursive;font-size:13px;border:2px solid var(--border);
+  color:var(--muted);transition:.2s;flex-shrink:0;}
+.step-num.act{border-color:var(--accent2);color:var(--accent2);background:rgba(238,90,189,.1);}
+.step-num.done{border-color:var(--accent2);background:var(--accent2);color:#fff;}
+.step-lbl{font-size:11.5px;color:var(--muted);font-weight:500;}
+.step-lbl.act{color:var(--text);}
+.step-line{flex:1;height:1px;background:var(--border);margin:0 5px;}
+.step-line.done{background:var(--accent2);}
+.bstep{display:none;}
+.bstep.active{display:block;animation:fadeUp .2s ease;}
+
+/* ─── DATE / TIME / TRAINER / PAY PICKERS ─── */
+.date-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.date-row::-webkit-scrollbar{display:none;}
+.date-pill{padding:6px 14px;border:1px solid var(--border);border-radius:0px;font-size:12px;
+  cursor:pointer;transition:.15s;background:var(--surface2);white-space:nowrap;flex-shrink:0;}
+.date-pill:hover{border-color:var(--muted);}
+.date-pill.sel{border-color:var(--accent2);background:rgba(238,90,189,.1);color:var(--accent2);font-weight:600;}
+.time-slot{padding:9px 6px;border:1px solid var(--border);border-radius:0px;font-size:12.5px;
+  cursor:pointer;transition:.15s;text-align:center;background:var(--surface2);}
+.time-slot:hover{border-color:var(--muted);}
+.time-slot.sel{border-color:var(--accent2);background:rgba(238,90,189,.1);color:var(--accent2);font-weight:600;}
+.time-slot.na{opacity:.35;cursor:not-allowed;pointer-events:none;}
+.trainer-card{border:2px solid var(--border);border-radius:0px;padding:14px;cursor:pointer;
+  transition:.15s;background:var(--surface2);}
+.trainer-card:hover{border-color:var(--muted);}
+.trainer-card.sel{border-color:var(--accent2);background:rgba(238,90,189,.05);}
+.pay-card{border:2px solid var(--border);border-radius:0px;padding:13px 15px;cursor:pointer;
+  transition:.15s;background:var(--surface2);display:flex;align-items:center;gap:12px;}
+.pay-card:hover{border-color:var(--muted);}
+.pay-card.sel{border-color:var(--accent2);background:rgba(238,90,189,.05);}
+
+/* ─── CONFIRM BOX ─── */
+.conf-box{background:rgba(238,90,189,.05);border:1px solid rgba(238,90,189,.2);border-radius:0px;padding:18px;}
+.conf-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;
+  border-bottom:1px solid rgba(51,51,51,.5);font-size:13px;}
+.conf-row:last-child{border-bottom:none;}
+.conf-lbl{color:var(--muted);font-size:12px;}
+
+/* ─── TOGGLE ─── */
+.fc-toggle{width:40px;height:22px;border-radius:0px;background:var(--border);
+  position:relative;cursor:pointer;transition:.2s;flex-shrink:0;}
+.fc-toggle.on{background:var(--accent2);}
+.fc-toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;
+  border-radius:0%;background:#1B1B1B;transition:transform .2s;}
+.fc-toggle.on::after{transform:translateX(18px);}
+.s-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;
+  border-bottom:1px solid rgba(51,51,51,.5);}
+.s-row:last-child{border-bottom:none;}
+
+/* ─── MODAL ─── */
+.modal-content{background:var(--surface);border:1px solid var(--border);border-radius:0px;color:var(--text);}
+.modal-header{border-bottom:1px solid var(--border);padding:18px 22px;}
+.modal-title{font-family:'Lalezar',cursive;font-size:20px;color:var(--text);}
+.btn-close{filter:invert(1);opacity:.5;}
+.modal-body{padding:20px 22px;}
+.modal-footer{border-top:1px solid var(--border);padding:14px 22px;gap:8px;}
+.modal-sub{font-size:12px;color:var(--muted);margin-top:2px;}
+
+/* ─── NOTIF PANEL ─── */
+.notif-panel{position:fixed;top:64px;right:12px;width:318px;max-width:95vw;z-index:1050;
+  background:var(--surface);border:1px solid var(--border);border-radius:0px;
+  box-shadow:0 8px 32px rgba(0,0,0,.45);display:none;overflow:hidden;}
+.notif-panel.open{display:block;animation:fadeUp .2s ease;}
+.notif-hdr{padding:13px 16px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;}
+.notif-hdr-t{font-family:'Lalezar',cursive;font-size:15px;}
+.notif-item{display:flex;gap:10px;padding:12px 16px;border-bottom:1px solid rgba(51,51,51,.6);cursor:pointer;transition:.12s;}
+.notif-item:hover{background:var(--surface2);}
+.notif-item:last-child{border-bottom:none;}
+.notif-item.unread{border-left:3px solid var(--accent2);}
+.n-ico{width:32px;height:32px;border-radius:0px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.n-msg{font-size:12.5px;line-height:1.4;}
+.n-time{font-size:11px;color:var(--muted);margin-top:2px;}
+
+::-webkit-scrollbar{width:4px;} ::-webkit-scrollbar-thumb{background:var(--border);border-radius:0px;}
+</style>
 </head>
-<body class="bg-altblack lalezar-regular">
+<body>
 
-    <!-- header banner -->
-    <div class="logo_banner p-0 m-0">
-        <div class="logo_overlay"></div>
-        <a href="index.html">
-            <div class="logo">
-                <p class="text-center text-white logo_text">
-                    "Our body is the temple of the Holy Spirit, who lives in you and was given to you by GOD." 
-                    1 Corinthians 6:19
-                </p>
+<!-- ── TOPBAR ── -->
+<div class="fc-topbar">
+  <div class="d-flex align-items-center gap-2">
+    <button class="hamburger d-lg-none" id="hambBtn">☰</button>
+        <img src="../images/image-removebg-preview.png" alt="A'S GYM" class="logo-img"  style="width:150px;height:auto;">
+    <span class="role-tag d-none d-sm-flex">Member</span>
+  </div>
+  <div class="d-flex align-items-center gap-2">
+    <div class="ic-btn" id="notifBtn">🔔<span class="n-dot"></span></div>
+    <div class="fc-ava">JD</div>
+  </div>
+</div>
+
+<!-- Notification Panel -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-hdr">
+    <div class="notif-hdr-t">Notifications</div>
+    <span style="font-size:11px;color:var(--accent2);cursor:pointer">Mark all read</span>
+  </div>
+  <div class="notif-item unread">
+    <div class="n-ico" style="background:rgba(238,90,189,.15)">✅</div>
+    <div><div class="n-msg"><strong>Session confirmed</strong> — Coach Marco, Sat Mar 8 · 8:00 AM</div><div class="n-time">Just now</div></div>
+  </div>
+  <div class="notif-item unread">
+    <div class="n-ico" style="background:rgba(255,42,38,.15)">⏰</div>
+    <div><div class="n-msg">Your <strong>Premium</strong> membership expires in <strong>3 days</strong></div><div class="n-time">Today</div></div>
+  </div>
+  <div class="notif-item unread">
+    <div class="n-ico" style="background:rgba(237,110,82,.15)">💳</div>
+    <div><div class="n-msg">Payment of <strong>₱600</strong> confirmed — session Mar 7</div><div class="n-time">Today</div></div>
+  </div>
+  <div class="notif-item">
+    <div class="n-ico" style="background:rgba(0,245,255,.12)">📅</div>
+    <div><div class="n-msg">Reminder: session with Coach Marco tomorrow at 7 AM</div><div class="n-time">Yesterday</div></div>
+  </div>
+</div>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ── SIDEBAR ── -->
+<nav class="fc-sidebar" id="sidebar">
+  <div class="mem-mini">
+    <div class="mem-ava">JD</div>
+    <div class="mem-name">Jake Dela Cruz</div>
+    <div class="mem-plan">⭐ Premium Member</div>
+    <div class="mem-exp warn">Expires Mar 10, 2026</div>
+  </div>
+
+  <div class="nav-sec">My FitCore</div>
+  <button class="nav-lnk active" data-page="dashboard">🏠 Dashboard</button>
+  <button class="nav-lnk" data-page="book">📅 Book a Session</button>
+  <button class="nav-lnk" data-page="sessions">🏋️ My Sessions</button>
+
+  <div class="nav-sec">Account</div>
+  <button class="nav-lnk" data-page="membership">🏷️ Membership</button>
+  <button class="nav-lnk" data-page="transactions">💳 Transactions</button>
+  <button class="nav-lnk" data-page="profile">👤 My Profile</button>
+</nav>
+
+<!-- ── MAIN ── -->
+<div class="fc-main"><div class="fc-content">
+
+<!-- ════════════════════════════════════════
+     PAGE: DASHBOARD
+════════════════════════════════════════ -->
+<div class="fc-page active" id="page-dashboard">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Welcome back, Jake 👋</div>
+      <div class="pg-sub">Friday, March 7, 2026 · Here's your overview</div>
+    </div>
+    <button class="fc-btn fc-btn-pink" data-goto="book">📅 Book a Session</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-xl-3">
+      <div class="stat-card sc-pink">
+        <div class="sl">Sessions Done</div><div class="sv">4</div>
+        <div class="ss">This month</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card sc-teal">
+        <div class="sl">Upcoming</div><div class="sv">3</div>
+        <div class="ss">Next: Sat Mar 8</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card sc-orange">
+        <div class="sl">PT Sessions Left</div><div class="sv">2</div>
+        <div class="ss">of 4 included</div>
+      </div>
+    </div>
+    <div class="col-6 col-xl-3">
+      <div class="stat-card sc-red">
+        <div class="sl">Membership</div><div class="sv">3d</div>
+        <div class="ss" style="color:var(--accent3)">Expiring soon!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <!-- Sessions preview -->
+    <div class="col-12 col-md-7">
+      <div class="fc-card" style="margin-bottom:0">
+        <div class="fc-card-hdr">
+          <span class="fc-card-title">My Sessions</span>
+          <button class="fc-card-link" data-goto="sessions">View all →</button>
+        </div>
+        <div style="padding:16px 18px">
+          <div class="sess-card next-up mb-3">
+            <div class="sess-date-tag">🟢 Next Up · Saturday, Mar 8</div>
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <div class="sess-time">8:00 AM</div>
+                <div style="font-size:14px;font-weight:500;margin-top:3px">Strength Training · 1 hour</div>
+                <div class="sess-meta">with Coach Marco</div>
+              </div>
+              <span class="fc-badge b-pink">Confirmed</span>
             </div>
-        </a>
-    </div>
-    <!-- end of header logo -->
-
-    <!-- navbar -->
-    <div class="hero_banner lalezar-regular mt-0 my-5 p-0 w-100 container-fluid">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary p-0 sticky-top">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="nav mx-auto">
-                    <li class="nav-item px-2 m-0 h4 d-flex align-items-center"><a href="membership_page.html" class="nav-link text-altblack">Membership</a></li>
-                    <li class="nav-item px-2 m-0 h4 d-flex align-items-center"><a href="#" class="nav-link text-altblack">Personal Training</a></li>
-                    <li class="nav-item px-2 m-0 h4 d-flex align-items-center"><a href="#" class="nav-link text-altblack">Why A's Gym?</a></li>
-                    <li class="nav-item px-2 m-0 h4 d-flex align-items-center"><a href="#" class="nav-link text-altblack">Login | Sign Up</a></li>
-                </ul>
+            <div class="d-flex gap-2 mt-3 flex-wrap">
+              <button class="fc-btn fc-btn-ghost fc-btn-sm" data-bs-toggle="modal" data-bs-target="#rescheduleModal">🔄 Reschedule</button>
+              <button class="fc-btn fc-btn-danger fc-btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal">✕ Cancel</button>
             </div>
-        </nav>
+          </div>
+          <div class="d-flex flex-column gap-2">
+            <div class="sess-card">
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                  <div style="font-size:13.5px;font-weight:500">Mon, Mar 10 · 7:00 AM</div>
+                  <div class="sess-meta">Strength Training · Coach Marco</div>
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                  <span class="fc-badge b-gray">Confirmed</span>
+                  <button class="fc-btn fc-btn-danger fc-btn-xs" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+                </div>
+              </div>
+            </div>
+            <div class="sess-card">
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div>
+                  <div style="font-size:13.5px;font-weight:500">Wed, Mar 12 · 7:00 AM</div>
+                  <div class="sess-meta">Strength Training · Coach Marco</div>
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-wrap">
+                  <span class="fc-badge b-gray">Confirmed</span>
+                  <button class="fc-btn fc-btn-danger fc-btn-xs" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- end of navbar -->
 
-    <!-- sidebar -->
-    <!-- sidebar (not buttons) appearance-->
-    <div style="
-        position: absolute;
-        left: 20px;
-        top: 708px;
-        width: 180px;
-        height: 367px;
-        background-color: #9E9E9E;
-        border-radius: 7px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        padding: 10px 0;
-    "> <!-- sidebar linking to respective webpages **SUBJECT TO CHANGES DEPENDING ON FILES**-->
-        <a href="dashboard.html" class="sidebar-link">Dashboard</a>
-        <a href="workouts_page.html" class="sidebar-link">Workouts</a>
-        <a href="schedule_page.html" class="sidebar-link">Schedule</a>
-        <a href="progress_page.html" class="sidebar-link">Progress</a>
-        <a href="nutrition_page.html" class="sidebar-link">Nutrition</a>
-        <a href="payment_page.html" class="sidebar-link">Payment</a>
-        <a href="user_dashboard_pages/settings_page.html" class="sidebar-link">Settings</a>
+    <!-- Membership + Trainer -->
+    <div class="col-12 col-md-5 d-flex flex-column gap-3">
+      <div class="fc-card" style="margin-bottom:0;flex:1">
+        <div class="fc-card-hdr">
+          <span class="fc-card-title">Membership Status</span>
+          <button class="fc-card-link" data-goto="membership">Manage →</button>
+        </div>
+        <div style="padding:16px 18px">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <div style="font-family:'Lalezar',cursive;font-size:17px;color:var(--accent2)">Premium Plan</div>
+            <span class="fc-badge b-red">Expiring</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">₱2,500 / month</div>
+          <div class="mbar-track"><div class="mbar-fill mbar-warn" style="width:10%"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px">
+            <span>Mar 1</span><span style="color:var(--accent3);font-weight:600">3 days left</span>
+          </div>
+          <div style="background:rgba(255,42,38,.07);border:1px solid rgba(255,42,38,.2);border-radius:0px;padding:10px 12px;margin:12px 0;font-size:12.5px;color:var(--accent3)">
+            ⚠️ Renew before Mar 10 to keep PT sessions & 24/7 access.
+          </div>
+          <button class="fc-btn fc-btn-pink w-100" data-bs-toggle="modal" data-bs-target="#renewModal">🔄 Renew Now</button>
+        </div>
+      </div>
+
+      <div class="fc-card" style="margin-bottom:0">
+        <div class="fc-card-hdr"><span class="fc-card-title">My Trainer</span></div>
+        <div style="padding:14px 18px;display:flex;align-items:center;gap:12px">
+          <div style="width:46px;height:46px;border-radius:0px;background:rgba(0,245,255,.14);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:15px;flex-shrink:0">CM</div>
+          <div class="flex-fill">
+            <div style="font-family:'Lalezar',cursive;font-size:16px">Coach Marco</div>
+            <div style="font-size:11.5px;color:var(--muted)">Strength & Conditioning</div>
+            <div style="color:var(--accent4);font-size:12px;margin-top:2px;font-weight:600">★ 4.9 · 42 reviews</div>
+          </div>
+          <button class="fc-btn fc-btn-pink fc-btn-sm" data-goto="book">Book</button>
+        </div>
+      </div>
     </div>
-    <!-- end of sidebar -->
+  </div>
 
+  <!-- Recent transactions -->
+  <div class="fc-card">
+    <div class="fc-card-hdr">
+      <span class="fc-card-title">Recent Transactions</span>
+      <button class="fc-card-link" data-goto="transactions">View all →</button>
+    </div>
+    <div class="tbl-wrap">
+      <table class="fc-table">
+        <thead><tr>
+          <th>Description</th>
+          <th class="d-none d-sm-table-cell">Type</th>
+          <th>Amount</th>
+          <th class="d-none d-md-table-cell">Date</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div style="font-weight:500">PT Session · Coach Marco</div><div style="font-size:11px;color:var(--muted)">Mar 7 · 7:00 AM</div></td>
+            <td class="d-none d-sm-table-cell"><span class="fc-badge b-pink">Session</span></td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-md-table-cell">Mar 7</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Premium Membership</div><div style="font-size:11px;color:var(--muted)">Mar 1 – Mar 31</div></td>
+            <td class="d-none d-sm-table-cell"><span class="fc-badge b-orange">Membership</span></td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱2,500</td>
+            <td class="d-none d-md-table-cell">Mar 1</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">PT Session · Coach Marco</div><div style="font-size:11px;color:var(--muted)">Feb 28 · 7:00 AM</div></td>
+            <td class="d-none d-sm-table-cell"><span class="fc-badge b-pink">Session</span></td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-md-table-cell">Feb 28</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE: BOOK A SESSION
+     User stories:
+     - Select a trainer, choose date/time, complete payment → session confirmed
+     - Receive confirmation notification after payment
+════════════════════════════════════════ -->
+<div class="fc-page" id="page-book">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Book a Session</div>
+      <div class="pg-sub">Select a trainer, date & time, then pay to confirm</div>
+    </div>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="step-bar mb-4">
+    <div class="step-node">
+      <div class="step-num act" id="sn1">1</div>
+      <div class="step-lbl act d-none d-sm-block" id="sl1">Trainer</div>
+    </div>
+    <div class="step-line" id="ln1"></div>
+    <div class="step-node">
+      <div class="step-num" id="sn2">2</div>
+      <div class="step-lbl d-none d-sm-block" id="sl2">Date & Time</div>
+    </div>
+    <div class="step-line" id="ln2"></div>
+    <div class="step-node">
+      <div class="step-num" id="sn3">3</div>
+      <div class="step-lbl d-none d-sm-block" id="sl3">Payment</div>
+    </div>
+    <div class="step-line" id="ln3"></div>
+    <div class="step-node">
+      <div class="step-num" id="sn4">4</div>
+      <div class="step-lbl d-none d-sm-block" id="sl4">Confirmed</div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="bstep active" id="bs1">
+    <div class="fc-card" style="padding:20px">
+      <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Choose Your Trainer</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:18px">All certified trainers · PT session rate ₱600</div>
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="trainer-card sel" onclick="pickTrainer(this)">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div style="width:40px;height:40px;border-radius:0px;background:rgba(0,245,255,.15);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:14px;flex-shrink:0">CM</div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:14px">Coach Marco</div><div style="font-size:11px;color:var(--muted)">Strength & Conditioning</div></div>
+            </div>
+            <div class="d-flex justify-content-between" style="font-size:12px;color:var(--muted)">
+              <span>★ 4.9 · 34 sessions</span><span style="color:var(--accent);font-weight:600">₱600</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="trainer-card" onclick="pickTrainer(this)">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div style="width:40px;height:40px;border-radius:0px;background:rgba(238,90,189,.15);color:var(--accent2);display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:14px;flex-shrink:0">CR</div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:14px">Coach Ria</div><div style="font-size:11px;color:var(--muted)">Body Sculpting & Cardio</div></div>
+            </div>
+            <div class="d-flex justify-content-between" style="font-size:12px;color:var(--muted)">
+              <span>★ 4.7 · 28 sessions</span><span style="color:var(--accent);font-weight:600">₱600</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="trainer-card" onclick="pickTrainer(this)">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div style="width:40px;height:40px;border-radius:0px;background:rgba(237,110,82,.15);color:var(--accent4);display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:14px;flex-shrink:0">CB</div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:14px">Coach Ben</div><div style="font-size:11px;color:var(--muted)">Sports Performance</div></div>
+            </div>
+            <div class="d-flex justify-content-between" style="font-size:12px;color:var(--muted)">
+              <span>★ 4.5 · 21 sessions</span><span style="color:var(--accent);font-weight:600">₱600</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+          <div class="trainer-card" onclick="pickTrainer(this)">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <div style="width:40px;height:40px;border-radius:0px;background:rgba(255,42,38,.15);color:var(--accent3);display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:14px;flex-shrink:0">CL</div>
+              <div><div style="font-family:'Lalezar',cursive;font-size:14px">Coach Len</div><div style="font-size:11px;color:var(--muted)">Flexibility & Rehab</div></div>
+            </div>
+            <div class="d-flex justify-content-between" style="font-size:12px;color:var(--muted)">
+              <span>★ 5.0 · 18 sessions</span><span style="color:var(--accent);font-weight:600">₱600</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="fc-lbl">Session Type</label>
+        <select class="fc-sel">
+          <option>Strength Training</option>
+          <option>Cardio Conditioning</option>
+          <option>Body Sculpting</option>
+          <option>Weight Loss Program</option>
+          <option>Flexibility & Mobility</option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="fc-btn fc-btn-pink" onclick="goStep(2)">Next: Pick Date & Time →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="bstep" id="bs2">
+    <div class="fc-card" style="padding:20px">
+      <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Choose Date & Time</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:20px">Coach Marco's available slots — March 2026</div>
+      <div class="mb-4">
+        <label class="fc-lbl mb-2">Select Date</label>
+        <div class="date-row">
+          <div class="date-pill" onclick="pickDate(this)">Sat Mar 8</div>
+          <div class="date-pill sel" onclick="pickDate(this)">Mon Mar 10</div>
+          <div class="date-pill" onclick="pickDate(this)">Tue Mar 11</div>
+          <div class="date-pill" onclick="pickDate(this)">Wed Mar 12</div>
+          <div class="date-pill" onclick="pickDate(this)">Thu Mar 13</div>
+          <div class="date-pill" onclick="pickDate(this)">Fri Mar 14</div>
+          <div class="date-pill" onclick="pickDate(this)">Sat Mar 15</div>
+        </div>
+      </div>
+      <div class="mb-4">
+        <label class="fc-lbl mb-2">Available Time Slots</label>
+        <div class="row g-2">
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot sel" onclick="pickTime(this)">7:00 AM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot" onclick="pickTime(this)">8:00 AM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot" onclick="pickTime(this)">9:00 AM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot na">10:00 AM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot na">11:00 AM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot" onclick="pickTime(this)">1:00 PM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot" onclick="pickTime(this)">2:00 PM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot na">3:00 PM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot" onclick="pickTime(this)">4:00 PM</div></div>
+          <div class="col-4 col-sm-3 col-md-2"><div class="time-slot" onclick="pickTime(this)">5:00 PM</div></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">Greyed out = already booked</div>
+      </div>
+      <div class="mb-4">
+        <label class="fc-lbl">Duration</label>
+        <select class="fc-sel" style="max-width:200px">
+          <option>1 hour</option><option>45 minutes</option><option>90 minutes</option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-between flex-wrap gap-2">
+        <button class="fc-btn fc-btn-ghost" onclick="goStep(1)">← Back</button>
+        <button class="fc-btn fc-btn-pink" onclick="goStep(3)">Next: Payment →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="bstep" id="bs3">
+    <div class="fc-card" style="padding:20px">
+      <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Complete Payment</div>
+      <div style="font-size:13px;color:var(--muted);margin-bottom:20px">Pay to confirm your session</div>
+
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:0px;padding:14px 16px;margin-bottom:20px">
+        <div style="font-size:10.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Session Summary</div>
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-2">
+          <div>
+            <div style="font-size:14px;font-weight:500">Strength Training · Coach Marco</div>
+            <div style="font-size:12px;color:var(--muted)">Mon Mar 10 · 7:00 AM · 1 hour</div>
+          </div>
+          <div style="font-family:'Lalezar',cursive;font-size:24px;color:var(--accent)">₱600</div>
+        </div>
+      </div>
+
+      <label class="fc-lbl mb-3">Payment Method</label>
+      <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-4">
+          <div class="pay-card sel" onclick="pickPay(this)">
+            <span style="font-size:22px">💵</span>
+            <div><div style="font-size:13px;font-weight:500">Cash</div><div style="font-size:11px;color:var(--muted)">Pay at front desk</div></div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div class="pay-card" onclick="pickPay(this)">
+            <span style="font-size:22px">📱</span>
+            <div><div style="font-size:13px;font-weight:500">GCash</div><div style="font-size:11px;color:var(--muted)">0917-XXX-XXXX</div></div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-4">
+          <div class="pay-card" onclick="pickPay(this)">
+            <span style="font-size:22px">💳</span>
+            <div><div style="font-size:13px;font-weight:500">Card</div><div style="font-size:11px;color:var(--muted)">Visa / Mastercard</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:18px">
+        By confirming, you agree to the <span style="color:var(--accent2);cursor:pointer">cancellation policy</span>.
+        Sessions cancelled less than 24 hours before are non-refundable.
+      </div>
+      <div class="d-flex justify-content-between flex-wrap gap-2">
+        <button class="fc-btn fc-btn-ghost" onclick="goStep(2)">← Back</button>
+        <button class="fc-btn fc-btn-pink" onclick="goStep(4)">✓ Confirm & Pay ₱600</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: CONFIRMED -->
+  <div class="bstep" id="bs4">
+    <div class="fc-card" style="padding:28px 20px;text-align:center">
+      <div style="font-size:52px;margin-bottom:14px">✅</div>
+      <div style="font-family:'Lalezar',cursive;font-size:28px;color:var(--accent2);margin-bottom:6px">Session Confirmed!</div>
+      <div style="font-size:14px;color:var(--muted);margin-bottom:24px;max-width:400px;margin-left:auto;margin-right:auto">
+        Your booking is confirmed and a notification has been sent to your account.
+      </div>
+      <div class="conf-box text-start mx-auto mb-4" style="max-width:420px">
+        <div class="conf-row"><span class="conf-lbl">Trainer</span><span style="font-weight:500">Coach Marco</span></div>
+        <div class="conf-row"><span class="conf-lbl">Session Type</span><span>Strength Training</span></div>
+        <div class="conf-row"><span class="conf-lbl">Date & Time</span><span style="font-family:'Lalezar',cursive;color:var(--accent2)">Mon Mar 10 · 7:00 AM</span></div>
+        <div class="conf-row"><span class="conf-lbl">Duration</span><span>1 hour</span></div>
+        <div class="conf-row"><span class="conf-lbl">Payment</span><span>₱600 · Cash</span></div>
+        <div class="conf-row"><span class="conf-lbl">Status</span><span class="fc-badge b-pink">Confirmed ✓</span></div>
+      </div>
+      <div class="d-flex gap-2 justify-content-center flex-wrap">
+        <button class="fc-btn fc-btn-ghost" data-goto="sessions">📋 View My Sessions</button>
+        <button class="fc-btn fc-btn-pink" onclick="goStep(1)">📅 Book Another</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE: MY SESSIONS
+     User stories:
+     - View upcoming and past sessions
+     - Cancel or reschedule before cut-off
+════════════════════════════════════════ -->
+<div class="fc-page" id="page-sessions">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">My Sessions</div>
+      <div class="pg-sub">Upcoming bookings and training history</div>
+    </div>
+    <button class="fc-btn fc-btn-pink" data-goto="book">📅 Book Session</button>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Upcoming</div><div class="sv">3</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-pink"><div class="sl">Completed</div><div class="sv">4</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-red"><div class="sl">No-shows</div><div class="sv">1</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-orange"><div class="sl">Total Booked</div><div class="sv">8</div></div></div>
+  </div>
+
+  <!-- Upcoming -->
+  <div class="fc-card mb-3">
+    <div class="fc-card-hdr">
+      <span class="fc-card-title">Upcoming Sessions</span>
+      <span class="fc-badge b-pink">3 sessions</span>
+    </div>
+    <div style="padding:16px 18px;display:flex;flex-direction:column;gap:12px">
+      <div class="sess-card next-up">
+        <div class="sess-date-tag">🟢 Next Up</div>
+        <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+          <div>
+            <div style="font-size:15px;font-weight:600">Sat, Mar 8 · 8:00 AM</div>
+            <div class="sess-meta">Strength Training · Coach Marco · 1 hour</div>
+          </div>
+          <span class="fc-badge b-pink">Confirmed</span>
+        </div>
+        <div class="d-flex gap-2 mt-3 flex-wrap">
+          <button class="fc-btn fc-btn-ghost fc-btn-sm" data-bs-toggle="modal" data-bs-target="#rescheduleModal">🔄 Reschedule</button>
+          <button class="fc-btn fc-btn-danger fc-btn-sm" data-bs-toggle="modal" data-bs-target="#cancelModal">✕ Cancel</button>
+        </div>
+      </div>
+      <div class="sess-card">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <div style="font-size:14px;font-weight:500">Mon, Mar 10 · 7:00 AM</div>
+            <div class="sess-meta">Strength Training · Coach Marco · 1 hour</div>
+          </div>
+          <div class="d-flex gap-2 align-items-center flex-wrap">
+            <span class="fc-badge b-gray">Confirmed</span>
+            <button class="fc-btn fc-btn-ghost fc-btn-sm" data-bs-toggle="modal" data-bs-target="#rescheduleModal">Reschedule</button>
+            <button class="fc-btn fc-btn-danger fc-btn-xs" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+          </div>
+        </div>
+      </div>
+      <div class="sess-card">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <div style="font-size:14px;font-weight:500">Wed, Mar 12 · 7:00 AM</div>
+            <div class="sess-meta">Strength Training · Coach Marco · 1 hour</div>
+          </div>
+          <div class="d-flex gap-2 align-items-center flex-wrap">
+            <span class="fc-badge b-gray">Confirmed</span>
+            <button class="fc-btn fc-btn-ghost fc-btn-sm" data-bs-toggle="modal" data-bs-target="#rescheduleModal">Reschedule</button>
+            <button class="fc-btn fc-btn-danger fc-btn-xs" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Training history -->
+  <div class="fc-card">
+    <div class="fc-card-hdr"><span class="fc-card-title">Training History</span></div>
+    <div class="tbl-wrap">
+      <table class="fc-table">
+        <thead><tr>
+          <th>Date & Time</th>
+          <th class="d-none d-md-table-cell">Trainer</th>
+          <th class="d-none d-sm-table-cell">Session Type</th>
+          <th>Status</th>
+          <th class="d-none d-sm-table-cell">Paid</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div style="font-weight:500">Mar 7, 2026 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">1 hour</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td class="d-none d-sm-table-cell">Strength Training</td>
+            <td><span class="fc-badge b-teal">Done ✓</span></td>
+            <td class="d-none d-sm-table-cell" style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Mar 5, 2026 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">1 hour</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td class="d-none d-sm-table-cell">Strength Training</td>
+            <td><span class="fc-badge b-teal">Done ✓</span></td>
+            <td class="d-none d-sm-table-cell" style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Mar 3, 2026 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">1 hour</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td class="d-none d-sm-table-cell">Strength Training</td>
+            <td><span class="fc-badge b-teal">Done ✓</span></td>
+            <td class="d-none d-sm-table-cell" style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Feb 28, 2026 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">1 hour</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td class="d-none d-sm-table-cell">Strength Training</td>
+            <td><span class="fc-badge b-red">No-show</span></td>
+            <td class="d-none d-sm-table-cell" style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Feb 26, 2026 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">1 hour</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td class="d-none d-sm-table-cell">Strength Training</td>
+            <td><span class="fc-badge b-teal">Done ✓</span></td>
+            <td class="d-none d-sm-table-cell" style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE: MEMBERSHIP
+     User story: View membership status so I know when it's due for renewal
+════════════════════════════════════════ -->
+<div class="fc-page" id="page-membership">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Membership</div>
+      <div class="pg-sub">Your plan, status, and renewal options</div>
+    </div>
+    <button class="fc-btn fc-btn-pink" data-bs-toggle="modal" data-bs-target="#renewModal">🔄 Renew Now</button>
+  </div>
+
+  <!-- Current plan hero -->
+  <div class="fc-card mb-3" style="border-color:rgba(238,90,189,.35)">
+    <div style="background:linear-gradient(135deg,rgba(238,90,189,.08),rgba(0,245,255,.03));padding:22px 20px;border-bottom:1px solid var(--border)">
+      <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+        <div>
+          <div style="font-size:10px;color:var(--accent2);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Current Plan</div>
+          <div style="font-family:'Lalezar',cursive;font-size:28px;color:var(--accent2)">Premium</div>
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">₱2,500 / month · Active since Feb 1, 2026</div>
+        </div>
+        <span class="fc-badge b-red" style="font-size:13px;padding:6px 14px">⚠️ Expires in 3 days</span>
+      </div>
+      <div style="margin-top:16px">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:4px">
+          <span>Mar 1, 2026</span><span>Mar 10, 2026</span>
+        </div>
+        <div class="mbar-track" style="margin:0"><div class="mbar-fill mbar-warn" style="width:10%"></div></div>
+        <div style="font-size:11px;color:var(--accent3);font-weight:600;margin-top:5px">3 days remaining — renew to avoid interruption</div>
+      </div>
+    </div>
+    <div style="padding:18px 20px">
+      <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Included in Premium</div>
+      <div class="row g-2 mb-4">
+        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>24/7 gym access</div></div>
+        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>4 PT sessions / month</div></div>
+        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>Locker room + towel service</div></div>
+        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>1 guest pass / month</div></div>
+      </div>
+      <div class="d-flex gap-2 flex-wrap">
+        <button class="fc-btn fc-btn-pink" data-bs-toggle="modal" data-bs-target="#renewModal">🔄 Renew Membership</button>
+        <button class="fc-btn fc-btn-ghost" data-bs-toggle="modal" data-bs-target="#changePlanModal">Change Plan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Plan comparison -->
+  <div class="fc-card">
+    <div class="fc-card-hdr"><span class="fc-card-title">Available Plans</span></div>
+    <div class="row g-0">
+      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border)">
+        <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Basic</div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱1,200<span style="font-size:13px;color:var(--muted)">/mo</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>Gym access 6AM–10PM</div>
+          <div><span style="color:var(--accent2)">✓ </span>Locker room</div>
+          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">PT sessions</span></div>
+          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">Guest pass</span></div>
+        </div>
+        <button class="fc-btn fc-btn-ghost fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Downgrade to Basic</button>
+      </div>
+      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border);border-left:1px solid rgba(238,90,189,.2);border-right:1px solid rgba(238,90,189,.2);background:rgba(238,90,189,.03)">
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">Premium</div>
+          <span class="fc-badge b-pink" style="font-size:10px">Current</span>
+        </div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱2,500<span style="font-size:13px;color:var(--muted)">/mo</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>24/7 gym access</div>
+          <div><span style="color:var(--accent2)">✓ </span>Locker + towel service</div>
+          <div><span style="color:var(--accent2)">✓ </span>4 PT sessions/month</div>
+          <div><span style="color:var(--accent2)">✓ </span>1 guest pass/month</div>
+        </div>
+        <button class="fc-btn fc-btn-pink fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#renewModal">🔄 Renew Premium</button>
+      </div>
+      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border)">
+        <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Day Pass</div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent4);margin-bottom:12px">₱250<span style="font-size:13px;color:var(--muted)">/day</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>Single-day gym access</div>
+          <div><span style="color:var(--accent2)">✓ </span>Locker room</div>
+          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">PT sessions</span></div>
+          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">Guest pass</span></div>
+        </div>
+        <button class="fc-btn fc-btn-ghost fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Buy Day Pass</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE: TRANSACTIONS
+     User story: View transactions — membership payments and PT session
+     payments — separately, for confirmation and management
+════════════════════════════════════════ -->
+<div class="fc-page" id="page-transactions">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">Transactions</div>
+      <div class="pg-sub">Membership payments & PT session payments — separately</div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-3">
+    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Total Paid</div><div class="sv" style="font-size:22px">₱6.4k</div><div class="ss">This month</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-pink"><div class="sl">Membership</div><div class="sv" style="font-size:22px">₱2.5k</div><div class="ss">1 payment</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-orange"><div class="sl">PT Sessions</div><div class="sv" style="font-size:22px">₱3.6k</div><div class="ss">6 sessions</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-red"><div class="sl">Outstanding</div><div class="sv">₱0</div><div class="ss">All settled</div></div></div>
+  </div>
+
+  <!-- Membership payments -->
+  <div class="fc-card mb-3">
+    <div class="fc-card-hdr">
+      <span class="fc-card-title">Membership Payments</span>
+      <span class="fc-badge b-orange">2 records</span>
+    </div>
+    <div class="tbl-wrap">
+      <table class="fc-table">
+        <thead><tr>
+          <th>Plan</th><th>Period</th><th>Amount</th>
+          <th class="d-none d-sm-table-cell">Method</th>
+          <th>Status</th>
+          <th class="d-none d-md-table-cell">Receipt</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="fc-badge b-pink">Premium</span></td>
+            <td>Mar 1 – Mar 31</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱2,500</td>
+            <td class="d-none d-sm-table-cell">GCash</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#MBR-003</button></td>
+          </tr>
+          <tr>
+            <td><span class="fc-badge b-pink">Premium</span></td>
+            <td>Feb 1 – Feb 28</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱2,500</td>
+            <td class="d-none d-sm-table-cell">GCash</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#MBR-002</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PT session payments -->
+  <div class="fc-card">
+    <div class="fc-card-hdr">
+      <span class="fc-card-title">Personal Training Session Payments</span>
+      <span class="fc-badge b-pink">6 sessions</span>
+    </div>
+    <div class="tbl-wrap">
+      <table class="fc-table">
+        <thead><tr>
+          <th>Session</th>
+          <th class="d-none d-md-table-cell">Trainer</th>
+          <th>Amount</th>
+          <th class="d-none d-sm-table-cell">Method</th>
+          <th>Status</th>
+          <th class="d-none d-md-table-cell">Receipt</th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><div style="font-weight:500">Mar 7 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">Strength Training · 1hr</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-sm-table-cell">Cash</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#SES-006</button></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Mar 5 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">Strength Training · 1hr</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-sm-table-cell">GCash</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#SES-005</button></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Mar 3 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">Strength Training · 1hr</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-sm-table-cell">Cash</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#SES-004</button></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Feb 28 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">Strength Training · 1hr</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-sm-table-cell">GCash</td>
+            <td><span class="fc-badge b-red">No-show†</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#SES-003</button></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Feb 26 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">Strength Training · 1hr</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-sm-table-cell">Cash</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#SES-002</button></td>
+          </tr>
+          <tr>
+            <td><div style="font-weight:500">Feb 24 · 7:00 AM</div><div style="font-size:11px;color:var(--muted)">Strength Training · 1hr</div></td>
+            <td class="d-none d-md-table-cell">Coach Marco</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
+            <td class="d-none d-sm-table-cell">GCash</td>
+            <td><span class="fc-badge b-teal">Paid</span></td>
+            <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#SES-001</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="padding:11px 18px;font-size:11.5px;color:var(--muted);border-top:1px solid var(--border)">† No-show sessions forfeit the session fee per cancellation policy.</div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════
+     PAGE: MY PROFILE
+     User story: Modify personal details, payment method,
+     training regimens, and other personal information
+════════════════════════════════════════ -->
+<div class="fc-page" id="page-profile">
+  <div class="pg-hdr">
+    <div>
+      <div class="pg-title">My Profile</div>
+      <div class="pg-sub">Personal info, payment method, and training regimen</div>
+    </div>
+    <button class="fc-btn fc-btn-pink" id="saveProfileBtn">💾 Save Changes</button>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-md-6">
+
+      <!-- Personal info -->
+      <div class="fc-card mb-3" style="padding:20px">
+        <div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:16px">Personal Information</div>
+        <div class="d-flex align-items-center gap-3 mb-4">
+          <div style="width:58px;height:58px;border-radius:0px;background:linear-gradient(135deg,var(--accent2),var(--accent5));display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:18px;color:#fff;flex-shrink:0">JD</div>
+          <div>
+            <div style="font-family:'Lalezar',cursive;font-size:17px">Jake Dela Cruz</div>
+            <div style="font-size:12px;color:var(--muted)">Premium Member · Since Feb 2026</div>
+            <button class="fc-btn fc-btn-ghost fc-btn-xs mt-2">📷 Change Photo</button>
+          </div>
+        </div>
+        <div class="row g-3">
+          <div class="col-12 col-sm-6"><label class="fc-lbl">First Name</label><input class="fc-input" value="Jake"/></div>
+          <div class="col-12 col-sm-6"><label class="fc-lbl">Last Name</label><input class="fc-input" value="Dela Cruz"/></div>
+          <div class="col-12"><label class="fc-lbl">Email Address</label><input class="fc-input" value="jake@email.com" type="email"/></div>
+          <div class="col-12 col-sm-6"><label class="fc-lbl">Phone Number</label><input class="fc-input" value="+63 917 123 4567"/></div>
+          <div class="col-12 col-sm-6"><label class="fc-lbl">Birthday</label><input class="fc-input" value="1998-05-12" type="date"/></div>
+        </div>
+      </div>
+
+      <!-- Payment method -->
+      <div class="fc-card" style="padding:20px">
+        <div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:14px">Preferred Payment Method</div>
+        <div class="d-flex flex-column gap-2">
+          <div class="pay-card sel" onclick="pickPay(this)">
+            <span style="font-size:22px">📱</span>
+            <div class="flex-fill"><div style="font-size:13px;font-weight:500">GCash</div><div style="font-size:11px;color:var(--muted)">0917-XXX-XXXX · Saved</div></div>
+            <span class="fc-badge b-pink">Default</span>
+          </div>
+          <div class="pay-card" onclick="pickPay(this)">
+            <span style="font-size:22px">💵</span>
+            <div><div style="font-size:13px;font-weight:500">Cash</div><div style="font-size:11px;color:var(--muted)">Pay at front desk</div></div>
+          </div>
+          <div class="pay-card" onclick="pickPay(this)">
+            <span style="font-size:22px">💳</span>
+            <div><div style="font-size:13px;font-weight:500">Credit / Debit Card</div><div style="font-size:11px;color:var(--muted)">+ Add a card</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6">
+
+      <!-- Training regimen -->
+      <div class="fc-card mb-3" style="padding:20px">
+        <div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:16px">Training Regimen</div>
+        <div class="mb-3">
+          <label class="fc-lbl">Fitness Goals</label>
+          <div class="d-flex flex-wrap gap-2 mt-1">
+            <span style="background:rgba(238,90,189,.1);border:1px solid rgba(238,90,189,.3);color:var(--accent2);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">Muscle Building</span>
+            <span style="background:rgba(238,90,189,.1);border:1px solid rgba(238,90,189,.3);color:var(--accent2);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">Strength</span>
+            <span style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">Weight Loss</span>
+            <span style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">Flexibility</span>
+            <span style="background:var(--surface2);border:1px solid var(--border);color:var(--muted);padding:4px 10px;border-radius:0px;font-size:12px;cursor:pointer">+ Add</span>
+          </div>
+        </div>
+        <div class="row g-3 mb-3">
+          <div class="col-6"><label class="fc-lbl">Current Weight</label><input class="fc-input" value="82 kg"/></div>
+          <div class="col-6"><label class="fc-lbl">Target Weight</label><input class="fc-input" value="78 kg"/></div>
+        </div>
+        <div class="mb-3">
+          <label class="fc-lbl">Assigned Trainer</label>
+          <input class="fc-input" value="Coach Marco — Strength & Conditioning" readonly style="opacity:.7"/>
+        </div>
+        <div>
+          <label class="fc-lbl">Health Notes / Injuries</label>
+          <textarea class="fc-ta">Lower back sensitivity — avoid heavy deadlifts. Progressing well on bench press.</textarea>
+        </div>
+      </div>
+
+      <!-- Notification preferences -->
+      <div class="fc-card" style="padding:20px">
+        <div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:14px">Notification Preferences</div>
+        <div class="s-row"><div><div style="font-size:13.5px;font-weight:500">Session reminders</div><div style="font-size:11.5px;color:var(--muted)">24 hrs before each session</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="s-row"><div><div style="font-size:13.5px;font-weight:500">Booking confirmations</div><div style="font-size:11.5px;color:var(--muted)">Immediately after booking</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="s-row"><div><div style="font-size:13.5px;font-weight:500">Membership expiry alerts</div><div style="font-size:11.5px;color:var(--muted)">3 days before renewal</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="s-row"><div><div style="font-size:13.5px;font-weight:500">Payment receipts</div></div><div class="fc-toggle on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="s-row"><div><div style="font-size:13.5px;font-weight:500">Gym announcements</div></div><div class="fc-toggle" onclick="this.classList.toggle('on')"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div></div><!-- /fc-content /fc-main -->
+
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- Renew -->
+<div class="modal fade" id="renewModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+    <div class="modal-header">
+      <div><div class="modal-title">Renew Membership</div><div class="modal-sub">Keep PT sessions & 24/7 access uninterrupted</div></div>
+      <button class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:rgba(255,42,38,.07);border:1px solid rgba(255,42,38,.2);border-radius:0px;padding:11px 14px;margin-bottom:16px;font-size:13px;color:var(--accent3)">⚠️ Your membership expires in <strong>3 days</strong> — Mar 10, 2026</div>
+      <div class="mb-3"><label class="fc-lbl">Plan</label>
+        <select class="fc-sel"><option>Premium — ₱2,500 / month</option><option>Basic — ₱1,200 / month</option></select></div>
+      <div class="mb-3"><label class="fc-lbl">Duration</label>
+        <select class="fc-sel"><option>1 Month — ₱2,500</option><option>3 Months — ₱7,000 (save ₱500)</option><option>6 Months — ₱13,500 (save ₱1,500)</option></select></div>
+      <div class="mb-3"><label class="fc-lbl">Payment Method</label>
+        <select class="fc-sel"><option>GCash (saved)</option><option>Cash</option><option>Card</option></select></div>
+      <div style="background:rgba(0,245,255,.06);border:1px solid rgba(0,245,255,.2);border-radius:0px;padding:14px">
+        <div class="d-flex justify-content-between mb-1" style="font-size:13px"><span style="color:var(--muted)">Plan</span><span>Premium</span></div>
+        <div class="d-flex justify-content-between mb-1" style="font-size:13px"><span style="color:var(--muted)">Duration</span><span>1 Month</span></div>
+        <div class="d-flex justify-content-between" style="border-top:1px solid var(--border);padding-top:10px;margin-top:8px"><span style="font-weight:600">Total Due</span><span style="font-family:'Lalezar',cursive;font-size:22px;color:var(--accent)">₱2,500</span></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Cancel</button>
+      <button class="fc-btn fc-btn-pink" data-bs-dismiss="modal">✓ Confirm Renewal</button>
+    </div>
+  </div></div>
+</div>
+
+<!-- Change Plan -->
+<div class="modal fade" id="changePlanModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Change Plan</div>
+      <button class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3"><label class="fc-lbl">New Plan</label>
+        <select class="fc-sel"><option>Basic — ₱1,200/mo</option><option selected>Premium — ₱2,500/mo</option><option>Day Pass — ₱250/day</option></select></div>
+      <div style="background:rgba(255,42,38,.06);border:1px solid rgba(255,42,38,.2);border-radius:0px;padding:12px;font-size:12.5px;color:var(--accent3)">⚠️ Downgrading from Premium removes PT session credits and guest pass at the start of your next billing cycle.</div>
+    </div>
+    <div class="modal-footer">
+      <button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Cancel</button>
+      <button class="fc-btn fc-btn-pink" data-bs-dismiss="modal">Confirm Change</button>
+    </div>
+  </div></div>
+</div>
+
+<!-- Reschedule -->
+<div class="modal fade" id="rescheduleModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+    <div class="modal-header">
+      <div><div class="modal-title">Reschedule Session</div><div class="modal-sub">Sat, Mar 8 · 8:00 AM · Coach Marco</div></div>
+      <button class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:rgba(0,245,255,.06);border:1px solid rgba(0,245,255,.2);border-radius:0px;padding:11px 14px;margin-bottom:16px;font-size:12.5px;color:var(--muted)">ℹ️ Free reschedule up to <strong style="color:var(--text)">24 hours before</strong> the session.</div>
+      <div class="mb-4">
+        <label class="fc-lbl mb-2">New Date</label>
+        <div class="date-row">
+          <div class="date-pill sel" onclick="pickDate(this)">Mon Mar 10</div>
+          <div class="date-pill" onclick="pickDate(this)">Tue Mar 11</div>
+          <div class="date-pill" onclick="pickDate(this)">Wed Mar 12</div>
+          <div class="date-pill" onclick="pickDate(this)">Thu Mar 13</div>
+          <div class="date-pill" onclick="pickDate(this)">Fri Mar 14</div>
+        </div>
+      </div>
+      <label class="fc-lbl mb-2">New Time</label>
+      <div class="row g-2">
+        <div class="col-4"><div class="time-slot sel" onclick="pickTime(this)">7:00 AM</div></div>
+        <div class="col-4"><div class="time-slot" onclick="pickTime(this)">9:00 AM</div></div>
+        <div class="col-4"><div class="time-slot na">10:00 AM</div></div>
+        <div class="col-4"><div class="time-slot" onclick="pickTime(this)">1:00 PM</div></div>
+        <div class="col-4"><div class="time-slot" onclick="pickTime(this)">3:00 PM</div></div>
+        <div class="col-4"><div class="time-slot" onclick="pickTime(this)">5:00 PM</div></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Cancel</button>
+      <button class="fc-btn fc-btn-pink" data-bs-dismiss="modal">✓ Confirm Reschedule</button>
+    </div>
+  </div></div>
+</div>
+
+<!-- Cancel -->
+<div class="modal fade" id="cancelModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+    <div class="modal-header">
+      <div><div class="modal-title">Cancel Session</div><div class="modal-sub">Sat, Mar 8 · 8:00 AM · Coach Marco</div></div>
+      <button class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:rgba(255,42,38,.07);border:1px solid rgba(255,42,38,.2);border-radius:0px;padding:14px;margin-bottom:16px">
+        <div style="font-size:13.5px;font-weight:600;color:var(--accent3);margin-bottom:6px">⚠️ Cancellation Policy</div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6">Sessions cancelled <strong style="color:var(--text)">less than 24 hours</strong> before the scheduled time will <strong style="color:var(--accent3)">forfeit the full session fee (₱600)</strong>. Earlier cancellations are fully refunded.</div>
+      </div>
+      <div style="background:var(--surface2);border-radius:0px;padding:12px 14px;margin-bottom:14px">
+        <div class="d-flex justify-content-between mb-1"><span style="font-size:12px;color:var(--muted)">Session</span><span style="font-size:13px">Sat Mar 8 · 8:00 AM</span></div>
+        <div class="d-flex justify-content-between mb-1"><span style="font-size:12px;color:var(--muted)">Fee paid</span><span style="font-size:13px">₱600</span></div>
+        <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Refund eligible?</span><span style="color:var(--accent);font-size:13px;font-weight:600">✓ Yes — 26 hrs remaining</span></div>
+      </div>
+      <div><label class="fc-lbl">Reason (optional)</label>
+        <textarea class="fc-ta" placeholder="e.g. Schedule conflict, illness…"></textarea></div>
+    </div>
+    <div class="modal-footer">
+      <button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Keep Session</button>
+      <button class="fc-btn fc-btn-danger" data-bs-dismiss="modal">✕ Cancel Session</button>
+    </div>
+  </div></div>
+</div>
+
+<!-- Receipt -->
+<div class="modal fade" id="receiptModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
+    <div class="modal-header">
+      <div><div class="modal-title">Payment Receipt</div><div class="modal-sub">#SES-006</div></div>
+      <button class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--surface2);border-radius:0px;padding:16px;display:flex;flex-direction:column;gap:10px">
+        <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Description</span><span>PT Session · Coach Marco</span></div>
+        <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Date</span><span>Mar 7, 2026 · 7:00 AM</span></div>
+        <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Duration</span><span>1 hour</span></div>
+        <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Method</span><span>Cash</span></div>
+        <div class="d-flex justify-content-between" style="border-top:1px solid var(--border);padding-top:10px">
+          <span style="font-size:12px;color:var(--muted)">Amount</span>
+          <span style="font-family:'Lalezar',cursive;font-size:22px;color:var(--accent)">₱600</span>
+        </div>
+        <div class="d-flex justify-content-between"><span style="font-size:12px;color:var(--muted)">Status</span><span class="fc-badge b-teal">Paid ✓</span></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Close</button>
+      <button class="fc-btn fc-btn-pink" data-bs-dismiss="modal">⬇ Download</button>
+    </div>
+  </div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// ─── NAVIGATION ───
+function navTo(pageId) {
+  document.querySelectorAll('.fc-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-lnk').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + pageId);
+  if (page) page.classList.add('active');
+  const link = document.querySelector(`.nav-lnk[data-page="${pageId}"]`);
+  if (link) link.classList.add('active');
+  if (pageId === 'book') goStep(1);
+  if (window.innerWidth < 992) closeSidebar();
+  window.scrollTo(0, 0);
+}
+
+document.querySelectorAll('.nav-lnk[data-page]').forEach(btn => {
+  btn.addEventListener('click', () => navTo(btn.dataset.page));
+});
+document.querySelectorAll('[data-goto]').forEach(el => {
+  el.addEventListener('click', () => navTo(el.dataset.goto));
+});
+
+// ─── SIDEBAR ───
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('show');
+}
+document.getElementById('hambBtn').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('show');
+});
+document.getElementById('sidebarOverlay').addEventListener('click', closeSidebar);
+
+// ─── NOTIFICATIONS ───
+const notifBtn = document.getElementById('notifBtn');
+const notifPanel = document.getElementById('notifPanel');
+notifBtn.addEventListener('click', e => { e.stopPropagation(); notifPanel.classList.toggle('open'); });
+document.addEventListener('click', () => notifPanel.classList.remove('open'));
+notifPanel.addEventListener('click', e => e.stopPropagation());
+
+// ─── BOOKING STEPS ───
+function goStep(n) {
+  document.querySelectorAll('.bstep').forEach(s => s.classList.remove('active'));
+  const step = document.getElementById('bs' + n);
+  if (step) step.classList.add('active');
+  window.scrollTo(0, 0);
+
+  for (let i = 1; i <= 4; i++) {
+    const num = document.getElementById('sn' + i);
+    const lbl = document.getElementById('sl' + i);
+    const line = document.getElementById('ln' + i);
+    if (!num) continue;
+    if (i < n) {
+      num.className = 'step-num done'; num.textContent = '✓';
+      if (lbl) { lbl.className = 'step-lbl d-none d-sm-block'; }
+      if (line) line.className = 'step-line done';
+    } else if (i === n) {
+      num.className = 'step-num act'; num.textContent = i;
+      if (lbl) { lbl.className = 'step-lbl act d-none d-sm-block'; }
+    } else {
+      num.className = 'step-num'; num.textContent = i;
+      if (lbl) { lbl.className = 'step-lbl d-none d-sm-block'; }
+      if (line) line.className = 'step-line';
+    }
+  }
+}
+
+// ─── PICKERS ───
+function pickTrainer(el) {
+  el.closest('.row').querySelectorAll('.trainer-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function pickDate(el) {
+  const row = el.closest('.date-row');
+  row.querySelectorAll('.date-pill').forEach(d => d.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function pickTime(el) {
+  const row = el.closest('.row') || el.parentElement;
+  row.querySelectorAll('.time-slot:not(.na)').forEach(t => t.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function pickPay(el) {
+  const container = el.closest('.d-flex.flex-column') || el.closest('.row') || el.parentElement;
+  container.querySelectorAll('.pay-card').forEach(p => p.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+// ─── SAVE FEEDBACK ───
+document.getElementById('saveProfileBtn').addEventListener('click', function() {
+  const orig = this.textContent;
+  this.textContent = '✓ Saved!';
+  setTimeout(() => this.textContent = orig, 2000);
+});
+</script>
 </body>
 </html>
