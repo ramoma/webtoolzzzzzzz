@@ -48,6 +48,12 @@
                     "message" => "loogging in {$check_password}"
                 ]);
                 exit;
+            }else{
+                echo json_encode([
+                    "Status"=>"failed",
+                    "message" => "wrong password"
+                ]);
+                exit;
             }
 
             
@@ -55,7 +61,7 @@
         else{
             echo json_encode([
                 "Status" => "failed",
-                "message" => "wrong email or passwordx`"
+                "message" => "wrong username"
             ]);
             exit;
         }
