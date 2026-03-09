@@ -39,6 +39,7 @@ create table user_accounts(
     id int NOT NULL AUTO_INCREMENT,
     full_name varchar(100) NOT NULL UNIQUE,
     email varchar(100) NOT NULL UNIQUE,
+    username varchar(100) NOT NULL UNIQUE,
     password varchar(100) NOT NULL,
     gender enums("Male", "Female"),
     membership enums("Daily","10_Days","2_Weeks","Monthly"),
