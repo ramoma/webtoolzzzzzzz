@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A's Gym – About Us</title>
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --pink-hot:    #EE5ABD;
+    --pink-mid:    #B72D6F;
+    --pink-deep:   #800020;
+    --orange-soft: #ED6E52;
+    --orange-hot:  #FF2A26;
+    --teal:        #00F5FF;
+    --black:       #1B1B1B;
+    --black-soft:  #111111;
+    --white:       #D9D9D9;
+    --white-dim:   #888;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.3;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(27,27,27,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #EE5ABD18;
+  }
+
+  .nav-logo {
+    font-family: 'Lalezar', cursive;
+    font-size: 22px;
+    color: var(--pink-hot);
+    letter-spacing: 0.04em;
+    text-shadow: 0 0 18px #EE5ABD60;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--white-dim);
+    text-decoration: none; font-weight: 600;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--pink-hot); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    overflow: hidden;
+  }
+
+  /* diagonal pink stripe background */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(
+        -55deg,
+        transparent 0px,
+        transparent 48px,
+        #EE5ABD06 48px,
+        #EE5ABD06 50px
+      );
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 800px; height: 500px;
+    background: radial-gradient(ellipse, #EE5ABD22 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-glow-2 {
+    position: absolute;
+    bottom: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(ellipse, #B72D6F14 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px; letter-spacing: 0.55em; text-transform: uppercase;
+    color: var(--pink-hot); font-weight: 700; margin-bottom: 18px;
+    opacity: 0; animation: riseUp 0.7s 0.1s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Lalezar', cursive;
+    font-size: clamp(62px, 13vw, 140px);
+    line-height: 0.92;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    text-shadow: 0 0 40px #EE5ABD50, 0 0 100px #EE5ABD20;
+    opacity: 0; animation: riseUp 0.8s 0.2s ease forwards;
+    position: relative; z-index: 1;
+  }
+
+  .hero-title .accent { color: var(--pink-hot); }
+
+  .hero-divider {
+    width: 80px; height: 3px;
+    background: linear-gradient(90deg, var(--pink-hot), var(--pink-mid));
+    margin: 28px auto;
+    opacity: 0; animation: riseUp 0.6s 0.35s ease forwards;
+  }
+
+  .hero-desc {
+    max-width: 560px;
+    font-size: 16px; line-height: 1.85; color: var(--white-dim);
+    font-weight: 300;
+    opacity: 0; animation: riseUp 0.7s 0.45s ease forwards;
+  }
+
+  .hero-stat-row {
+    display: flex; gap: 60px; justify-content: center;
+    margin-top: 64px;
+    opacity: 0; animation: riseUp 0.7s 0.6s ease forwards;
+  }
+
+  .hero-stat { text-align: center; }
+
+  .hero-stat-num {
+    font-family: 'Lalezar', cursive;
+    font-size: 48px; color: var(--pink-hot);
+    text-shadow: 0 0 20px #EE5ABD60;
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    color: #555; margin-top: 6px; font-weight: 600;
+  }
+
+  /* ── SECTION SHARED ── */
+  .section {
+    position: relative;
+    padding: 110px 24px;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  .section-full {
+    position: relative;
+    padding: 110px 24px;
+  }
+
+  .section-label {
+    font-size: 10px; letter-spacing: 0.5em; text-transform: uppercase;
+    color: var(--pink-hot); font-weight: 700; margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-family: 'Lalezar', cursive;
+    font-size: clamp(38px, 6vw, 68px);
+    line-height: 1;
+    letter-spacing: 0.03em;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+
+  .section-title .accent { color: var(--pink-hot); }
+
+  .section-body {
+    font-size: 15px; line-height: 1.9;
+    color: #777; max-width: 680px; font-weight: 400;
+  }
+
+  .section-body p + p { margin-top: 18px; }
+
+  .pink-rule {
+    width: 50px; height: 3px;
+    background: linear-gradient(90deg, var(--pink-hot), var(--pink-mid));
+    margin-bottom: 32px;
+  }
+
+  /* ── HISTORY ── */
+  .history-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .history-img-block {
+    position: relative;
+  }
+
+  .history-img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: #111;
+    border: 1px solid #EE5ABD22;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 72px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .history-img-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, #EE5ABD0a 0%, transparent 50%),
+      repeating-linear-gradient(-45deg, transparent 0, transparent 8px, #EE5ABD05 8px, #EE5ABD05 9px);
+  }
+
+  .history-badge {
+    position: absolute;
+    bottom: -18px; right: -18px;
+    width: 110px; height: 110px;
+    background: var(--pink-hot);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border: 4px solid var(--black);
+    box-shadow: 0 0 24px #EE5ABD60;
+  }
+
+  .history-badge-num {
+    font-family: 'Lalezar', cursive;
+    font-size: 30px; color: var(--black); line-height: 1;
+  }
+
+  .history-badge-txt {
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--black); font-weight: 700;
+  }
+
+  /* timeline pills */
+  .timeline {
+    display: flex; flex-direction: column; gap: 0; margin-top: 48px;
+  }
+
+  .timeline-item {
+    display: flex; gap: 20px;
+    padding-bottom: 28px;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 19px; top: 32px;
+    width: 2px; bottom: 0;
+    background: linear-gradient(180deg, #EE5ABD40, transparent);
+  }
+
+  .timeline-item:last-child::before { display: none; }
+
+  .timeline-dot {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: #111;
+    border: 2px solid var(--pink-hot);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Lalezar', cursive;
+    font-size: 12px; color: var(--pink-hot);
+    box-shadow: 0 0 12px #EE5ABD40;
+  }
+
+  .timeline-content {}
+
+  .timeline-year {
+    font-size: 10px; letter-spacing: 0.3em; color: var(--pink-hot);
+    text-transform: uppercase; font-weight: 700; margin-bottom: 4px;
+  }
+
+  .timeline-text {
+    font-size: 13px; color: #666; line-height: 1.7;
+  }
+
+  /* ── MISSION / VISION ── */
+  .mv-section {
+    background: #0e0e0e;
+    border-top: 1px solid #EE5ABD14;
+    border-bottom: 1px solid #EE5ABD14;
+  }
+
+  .mv-inner {
+    max-width: 1140px; margin: 0 auto;
+    padding: 110px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+
+  .mv-card {
+    position: relative;
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 6px;
+    padding: 48px 40px;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .mv-card:hover {
+    border-color: var(--pink-mid);
+    box-shadow: 0 0 30px #EE5ABD14;
+  }
+
+  .mv-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  }
+
+  .mv-card.mission::before {
+    background: linear-gradient(90deg, var(--pink-hot), var(--pink-mid));
+  }
+
+  .mv-card.vision::before {
+    background: linear-gradient(90deg, var(--pink-mid), var(--pink-deep));
+  }
+
+  .mv-card-bg-icon {
+    position: absolute; bottom: -20px; right: 10px;
+    font-size: 120px; opacity: 0.04; pointer-events: none;
+    line-height: 1;
+  }
+
+  .mv-icon {
+    font-size: 36px; margin-bottom: 20px;
+  }
+
+  .mv-heading {
+    font-family: 'Lalezar', cursive;
+    font-size: 36px; letter-spacing: 0.04em;
+    color: var(--pink-hot); margin-bottom: 18px;
+  }
+
+  .mv-text {
+    font-size: 14px; line-height: 1.95; color: #666; font-weight: 400;
+  }
+
+  .mv-values {
+    margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px;
+  }
+
+  .mv-tag {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--pink-hot); font-weight: 700;
+    border: 1px solid #EE5ABD33;
+    padding: 5px 14px; border-radius: 2px;
+    background: #EE5ABD08;
+  }
+
+  /* ── TRAINERS ── */
+  .trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .trainer-card {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 6px;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.23,1,0.32,1), border-color 0.25s, box-shadow 0.25s;
+    opacity: 0;
+    animation: riseUp 0.6s ease forwards;
+  }
+
+  .trainer-card:nth-child(1) { animation-delay: 0.05s; }
+  .trainer-card:nth-child(2) { animation-delay: 0.15s; }
+  .trainer-card:nth-child(3) { animation-delay: 0.25s; }
+
+  .trainer-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--pink-mid);
+    box-shadow: 0 0 28px #EE5ABD18, 0 18px 48px rgba(0,0,0,0.5);
+  }
+
+  .trainer-photo {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: #181818;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .trainer-photo::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, transparent 50%, #111 100%),
+      repeating-linear-gradient(135deg, transparent 0, transparent 10px, #EE5ABD04 10px, #EE5ABD04 11px);
+  }
+
+  .trainer-photo-accent {
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--pink-hot), var(--pink-mid));
+  }
+
+  .trainer-role-badge {
+    position: absolute;
+    bottom: 16px; left: 16px; z-index: 2;
+    background: var(--pink-hot);
+    color: var(--black);
+    font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+    font-weight: 800; padding: 5px 12px; border-radius: 2px;
+  }
+
+  .trainer-info {
+    padding: 24px 26px 28px;
+  }
+
+  .trainer-name {
+    font-family: 'Lalezar', cursive;
+    font-size: 24px; color: var(--white);
+    letter-spacing: 0.04em; margin-bottom: 4px;
+  }
+
+  .trainer-title {
+    font-size: 11px; color: var(--pink-hot);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 700; margin-bottom: 14px;
+  }
+
+  .trainer-bio {
+    font-size: 12px; color: #555; line-height: 1.75;
+    margin-bottom: 18px;
+  }
+
+  .trainer-creds {
+    display: flex; flex-direction: column; gap: 6px;
+  }
+
+  .cred {
+    display: flex; align-items: flex-start; gap: 8px;
+    font-size: 11px; color: #555;
+  }
+
+  .cred-dot {
+    color: var(--pink-hot); font-size: 7px;
+    margin-top: 4px; flex-shrink: 0;
+  }
+
+  /* ── QUOTE BANNER ── */
+  .quote-banner {
+    background: linear-gradient(135deg, #1a0810 0%, #160610 50%, #1a0810 100%);
+    border-top: 1px solid #EE5ABD18;
+    border-bottom: 1px solid #EE5ABD18;
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-banner::before {
+    content: '"';
+    position: absolute;
+    top: -30px; left: 50%; transform: translateX(-50%);
+    font-family: 'Lalezar', cursive;
+    font-size: 320px;
+    color: #EE5ABD08;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .quote-text {
+    font-family: 'Lalezar', cursive;
+    font-size: clamp(24px, 4vw, 42px);
+    color: var(--white);
+    max-width: 800px; margin: 0 auto 20px;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+    position: relative; z-index: 1;
+  }
+
+  .quote-text .hl { color: var(--pink-hot); }
+
+  .quote-attr {
+    font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase;
+    color: #444; font-weight: 600;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid #1a1a1a;
+    padding: 32px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Lalezar', cursive;
+    font-size: 18px; color: var(--pink-hot);
+    text-shadow: 0 0 14px #EE5ABD50;
+  }
+
+  .footer-copy {
+    font-size: 10px; letter-spacing: 0.25em;
+    text-transform: uppercase; color: #2a2a2a;
+  }
+
+  .footer-links {
+    display: flex; gap: 28px; list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: #333; text-decoration: none; transition: color 0.2s;
+    font-weight: 600;
+  }
+
+  .footer-links a:hover { color: var(--pink-hot); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes riseUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .history-wrap { grid-template-columns: 1fr; gap: 48px; }
+    .mv-inner { grid-template-columns: 1fr; }
+    .trainers-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 24px; }
+    .nav-links { gap: 20px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-stat-row { gap: 32px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">A'S GYM</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#" class="active">About</a></li>
+    <li><a href="#">Memberships</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <p class="hero-eyebrow">★ Our Story ★</p>
+  <h1 class="hero-title">MORE THAN<br/>A <span class="accent">GYM</span></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-desc" style="opacity:0;animation:riseUp 0.7s 0.5s ease forwards;">
+    A's Gym was built on passion, grit, and a belief that every person deserves a space to become their strongest self — body, mind, and spirit. We're not just a fitness center. We're a community.
+  </p>
+
+  <div class="hero-stat-row">
+    <div class="hero-stat">
+      <div class="hero-stat-num">5+</div>
+      <div class="hero-stat-label">Years Strong</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">500+</div>
+      <div class="hero-stat-label">Members Served</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3</div>
+      <div class="hero-stat-label">Expert Trainers</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">7</div>
+      <div class="hero-stat-label">Days a Week</div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<div class="section">
+  <div class="history-wrap">
+
+    <div class="history-img-block">
+      <div class="history-img-placeholder">🏋️</div>
+      <div class="history-badge">
+        <div class="history-badge-num">EST</div>
+        <div class="history-badge-txt">2019</div>
+      </div>
+    </div>
+
+    <div>
+      <p class="section-label">Our History</p>
+      <h2 class="section-title">HOW IT ALL <span class="accent">BEGAN</span></h2>
+      <div class="pink-rule"></div>
+      <div class="section-body">
+        <p>A's Gym started as a dream in a small garage in 2019. Our founder, driven by a personal fitness journey that transformed her life, wanted to create a space that felt welcoming, powerful, and unapologetically bold — just like the women and men who would train there.</p>
+        <p>What began with a handful of members and a few barbells has grown into one of the neighborhood's most beloved fitness communities, known for its signature pink aesthetic, no-judgment atmosphere, and results-driven coaching.</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">19</div>
+          <div class="timeline-content">
+            <div class="timeline-year">2019 — The Beginning</div>
+            <div class="timeline-text">A's Gym opens its doors with 30 founding members and a vision to build something different.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">21</div>
+          <div class="timeline-content">
+            <div class="timeline-year">2021 — Expansion</div>
+            <div class="timeline-text">We moved to a bigger space, added group classes, and launched our Personal Training program.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">23</div>
+          <div class="timeline-content">
+            <div class="timeline-year">2023 — Community Milestone</div>
+            <div class="timeline-text">Surpassed 500 members. Recognized as a top local gym for women's fitness and community culture.</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot">NOW</div>
+          <div class="timeline-content">
+            <div class="timeline-year">Today — Still Growing</div>
+            <div class="timeline-text">Continuously improving our facilities, programs, and community — one rep at a time.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- QUOTE BANNER -->
+<div class="quote-banner">
+  <p class="quote-text">"Strength isn't given. It's <span class="hl">built</span> — one day, one rep, one choice at a time."</p>
+  <p class="quote-attr">— A's Gym Founder</p>
+</div>
+
+<!-- MISSION & VISION -->
+<div class="mv-section">
+  <div class="mv-inner">
+
+    <div class="mv-card mission">
+      <div class="mv-card-bg-icon">🎯</div>
+      <div class="mv-icon">🎯</div>
+      <h3 class="mv-heading">OUR MISSION</h3>
+      <p class="mv-text">
+        To provide an inclusive, high-energy fitness environment where every member — beginner or athlete — feels empowered, supported, and motivated to push beyond their limits. We deliver expert coaching, quality equipment, and a community that lifts each other up.
+      </p>
+      <div class="mv-values">
+        <span class="mv-tag">Empowerment</span>
+        <span class="mv-tag">Inclusivity</span>
+        <span class="mv-tag">Excellence</span>
+      </div>
+    </div>
+
+    <div class="mv-card vision">
+      <div class="mv-card-bg-icon">🔭</div>
+      <div class="mv-icon">🔭</div>
+      <h3 class="mv-heading">OUR VISION</h3>
+      <p class="mv-text">
+        To become the most loved fitness community in the city — a place where health is a lifestyle, not a chore. We envision a future where A's Gym is synonymous with transformation: physical, mental, and personal growth for every single member who walks through our doors.
+      </p>
+      <div class="mv-values">
+        <span class="mv-tag">Community</span>
+        <span class="mv-tag">Growth</span>
+        <span class="mv-tag">Transformation</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TRAINERS -->
+<div class="section">
+  <div style="text-align:center; margin-bottom: 64px;">
+    <p class="section-label" style="display:block;">Meet the Team</p>
+    <h2 class="section-title" style="font-size: clamp(38px,6vw,68px);">YOUR <span class="accent">COACHES</span></h2>
+    <div class="pink-rule" style="margin: 0 auto;"></div>
+    <p style="font-size:14px; color:#555; max-width:480px; margin: 0 auto; line-height:1.8;">
+      Our certified trainers don't just coach — they transform. Each one brings a unique specialization and a shared commitment to your success.
+    </p>
+  </div>
+
+  <div class="trainers-grid">
+
+    <!-- TRAINER 1 -->
+    <div class="trainer-card">
+      <div class="trainer-photo">
+        💪
+        <div class="trainer-photo-accent"></div>
+        <div class="trainer-role-badge">Head Trainer</div>
+      </div>
+      <div class="trainer-info">
+        <h3 class="trainer-name">Coach Alex</h3>
+        <p class="trainer-title">Strength & Conditioning</p>
+        <p class="trainer-bio">With over 8 years in the industry, Alex specializes in powerlifting foundations and body recomposition. Her no-fluff, results-first approach has helped hundreds of members hit PRs they never thought possible.</p>
+        <div class="trainer-creds">
+          <div class="cred"><span class="cred-dot">◆</span> NSCA Certified Strength & Conditioning Specialist</div>
+          <div class="cred"><span class="cred-dot">◆</span> Precision Nutrition Level 1 Coach</div>
+          <div class="cred"><span class="cred-dot">◆</span> 8 Years Training Experience</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAINER 2 -->
+    <div class="trainer-card">
+      <div class="trainer-photo">
+        🏃
+        <div class="trainer-photo-accent"></div>
+        <div class="trainer-role-badge">Cardio & HIIT</div>
+      </div>
+      <div class="trainer-info">
+        <h3 class="trainer-name">Coach Marco</h3>
+        <p class="trainer-title">HIIT & Functional Fitness</p>
+        <p class="trainer-bio">Marco brings high-octane energy to every session. Specializing in HIIT, metabolic conditioning, and functional movement, he designs workouts that are as fun as they are effective.</p>
+        <div class="trainer-creds">
+          <div class="cred"><span class="cred-dot">◆</span> ACE Certified Personal Trainer</div>
+          <div class="cred"><span class="cred-dot">◆</span> TRX Suspension Training Certified</div>
+          <div class="cred"><span class="cred-dot">◆</span> CrossFit Level 2 Trainer</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAINER 3 -->
+    <div class="trainer-card">
+      <div class="trainer-photo">
+        🧘
+        <div class="trainer-photo-accent"></div>
+        <div class="trainer-role-badge">Wellness Coach</div>
+      </div>
+      <div class="trainer-info">
+        <h3 class="trainer-name">Coach Ria</h3>
+        <p class="trainer-title">Mobility & Wellness</p>
+        <p class="trainer-bio">Ria believes fitness is holistic. Blending mobility work, corrective exercise, and mindfulness, she helps members move better, recover faster, and build a sustainable relationship with their bodies.</p>
+        <div class="trainer-creds">
+          <div class="cred"><span class="cred-dot">◆</span> NASM Certified Personal Trainer</div>
+          <div class="cred"><span class="cred-dot">◆</span> Corrective Exercise Specialist (CES)</div>
+          <div class="cred"><span class="cred-dot">◆</span> 200-hr Yoga Teacher Certified</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">A'S GYM</div>
+  <ul class="footer-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Memberships</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 A's Gym · All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
