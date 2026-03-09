@@ -270,7 +270,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
   <div class="notif-item unread">
     <div class="n-ico" style="background:rgba(255,42,38,.15)">⏰</div>
-    <div><div class="n-msg">Your <strong>Premium</strong> membership expires in <strong>3 days</strong></div><div class="n-time">Today</div></div>
+    <div><div class="n-msg">Your <strong>Monthly</strong> membership expires in <strong>3 days</strong></div><div class="n-time">Today</div></div>
   </div>
   <div class="notif-item unread">
     <div class="n-ico" style="background:rgba(237,110,82,.15)">💳</div>
@@ -289,7 +289,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="mem-mini">
     <div class="mem-ava">JD</div>
     <div class="mem-name">Jake Dela Cruz</div>
-    <div class="mem-plan">⭐ Premium Member</div>
+    <div class="mem-plan">⭐ Monthly Member</div>
     <div class="mem-exp warn">Expires Mar 10, 2026</div>
   </div>
 
@@ -329,7 +329,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
     <div class="col-6 col-xl-3">
       <div class="stat-card sc-teal">
-        <div class="sl">Upcoming Session</div><div class="sv">3</div>
+        <!-- CHANGED: "Upcoming Session" → "Upcoming PT Sessions" -->
+        <div class="sl">Upcoming PT Sessions</div><div class="sv">3</div>
         <div class="ss">Next: Sat Mar 8</div>
       </div>
     </div>
@@ -410,9 +411,11 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
         </div>
         <div style="padding:16px 18px">
           <div class="d-flex justify-content-between align-items-center mb-1">
+            <!-- CHANGED: "Premium" → "Monthly" -->
             <div style="font-family:'Lalezar',cursive;font-size:17px;color:var(--accent2)">Monthly</div>
             <span class="fc-badge b-red">Expiring</span>
           </div>
+          <!-- CHANGED: ₱2,500 → ₱600 -->
           <div style="font-size:12px;color:var(--muted);margin-bottom:8px">₱600.00 / month</div>
           <div class="mbar-track"><div class="mbar-fill mbar-warn" style="width:10%"></div></div>
           <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px">
@@ -464,9 +467,10 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
             <td><span class="fc-badge b-teal">Paid</span></td>
           </tr>
           <tr>
-            <td><div style="font-weight:500">Premium Membership</div><div style="font-size:11px;color:var(--muted)">Mar 1 – Mar 31</div></td>
+            <!-- CHANGED: ₱2,500 → ₱600, Premium → Monthly -->
+            <td><div style="font-weight:500">Monthly Membership</div><div style="font-size:11px;color:var(--muted)">Mar 1 – Mar 31</div></td>
             <td class="d-none d-sm-table-cell"><span class="fc-badge b-orange">Membership</span></td>
-            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱2,500</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
             <td class="d-none d-md-table-cell">Mar 1</td>
             <td><span class="fc-badge b-teal">Paid</span></td>
           </tr>
@@ -486,9 +490,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- ════════════════════════════════════════
      PAGE: BOOK A SESSION
-     User stories:
-     - Select a trainer, choose date/time, complete payment → session confirmed
-     - Receive confirmation notification after payment
 ════════════════════════════════════════ -->
 <div class="fc-page" id="page-book">
   <div class="pg-hdr">
@@ -639,7 +640,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     <div class="fc-card" style="padding:20px">
       <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Complete Payment</div>
       <div style="font-size:13px;color:var(--muted);margin-bottom:20px">Pay to confirm your session</div>
-
       <div style="background:var(--surface2);border:1px solid var(--border);border-radius:0px;padding:14px 16px;margin-bottom:20px">
         <div style="font-size:10.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Session Summary</div>
         <div class="d-flex justify-content-between align-items-end flex-wrap gap-2">
@@ -650,7 +650,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
           <div style="font-family:'Lalezar',cursive;font-size:24px;color:var(--accent)">₱600</div>
         </div>
       </div>
-
       <label class="fc-lbl mb-3">Payment Method</label>
       <div class="row g-3 mb-4">
         <div class="col-12 col-sm-4">
@@ -672,7 +671,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
           </div>
         </div>
       </div>
-
       <div style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:18px">
         By confirming, you agree to the <span style="color:var(--accent2);cursor:pointer">cancellation policy</span>.
         Sessions cancelled less than 24 hours before are non-refundable.
@@ -711,9 +709,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- ════════════════════════════════════════
      PAGE: MY SESSIONS
-     User stories:
-     - View upcoming and past sessions
-     - Cancel or reschedule before cut-off
 ════════════════════════════════════════ -->
 <div class="fc-page" id="page-sessions">
   <div class="pg-hdr">
@@ -725,13 +720,19 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 
   <div class="row g-3 mb-3">
-    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Upcoming</div><div class="sv">3</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Upcoming PT Sessions</div><div class="sv">3</div></div></div>
     <div class="col-6 col-md-3"><div class="stat-card sc-pink"><div class="sl">Completed</div><div class="sv">4</div></div></div>
     <div class="col-6 col-md-3"><div class="stat-card sc-red"><div class="sl">No-shows</div><div class="sv">1</div></div></div>
     <div class="col-6 col-md-3"><div class="stat-card sc-orange"><div class="sl">Total Booked</div><div class="sv">8</div></div></div>
   </div>
 
   <!-- Upcoming -->
+  <div class="fc-card mb-3">
+    <div class="fc-card-hdr">
+      <span class="fc-card-title">Upcoming PT Sessions</span>
+      <span class="fc-badge b-pink">3 sessions</span>
+    </div>
+    <div style="padding:16px 18px;display:flex;flex-direction:column;gap:12px">
       <div class="sess-card next-up">
         <div class="sess-date-tag">🟢 Next Up</div>
         <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
@@ -832,7 +833,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- ════════════════════════════════════════
      PAGE: MEMBERSHIP
-     User story: View membership status so I know when it's due for renewal
 ════════════════════════════════════════ -->
 <div class="fc-page" id="page-membership">
   <div class="pg-hdr">
@@ -849,8 +849,10 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
       <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
         <div>
           <div style="font-size:10px;color:var(--accent2);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px">Current Plan</div>
-          <div style="font-family:'Lalezar',cursive;font-size:28px;color:var(--accent2)">Premium</div>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px">₱2,500 / month · Active since Feb 1, 2026</div>
+          <!-- CHANGED: Premium → Monthly -->
+          <div style="font-family:'Lalezar',cursive;font-size:28px;color:var(--accent2)">Monthly</div>
+          <!-- CHANGED: ₱2,500 → ₱600 -->
+          <div style="font-size:13px;color:var(--muted);margin-top:4px">₱600 / month · Active since Mar 1, 2026</div>
         </div>
         <span class="fc-badge b-red" style="font-size:13px;padding:6px 14px">⚠️ Expires in 3 days</span>
       </div>
@@ -863,12 +865,12 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
       </div>
     </div>
     <div style="padding:18px 20px">
-      <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Included in Premium</div>
+      <div style="font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Included in Monthly</div>
       <div class="row g-2 mb-4">
         <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>24/7 gym access</div></div>
-        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>4 PT sessions / month</div></div>
-        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>Locker room + towel service</div></div>
-        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>1 guest pass / month</div></div>
+        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>Locker room access</div></div>
+        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>All gym equipment</div></div>
+        <div class="col-12 col-sm-6"><div class="d-flex align-items-center gap-2" style="font-size:13px"><span style="color:var(--accent2)">✓</span>Unlimited visits</div></div>
       </div>
       <div class="d-flex gap-2 flex-wrap">
         <button class="fc-btn fc-btn-pink" data-bs-toggle="modal" data-bs-target="#renewModal">🔄 Renew Membership</button>
@@ -877,46 +879,109 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
   </div>
 
-  <!-- Plan comparison -->
+  <!-- Plan comparison — CHANGED to correct rates and PT plan features -->
   <div class="fc-card">
     <div class="fc-card-hdr"><span class="fc-card-title">Available Plans</span></div>
     <div class="row g-0">
-      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border)">
-        <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Basic</div>
-        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱1,200<span style="font-size:13px;color:var(--muted)">/mo</span></div>
-        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
-          <div><span style="color:var(--accent2)">✓ </span>Gym access 6AM–10PM</div>
-          <div><span style="color:var(--accent2)">✓ </span>Locker room</div>
-          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">PT sessions</span></div>
-          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">Guest pass</span></div>
-        </div>
-        <button class="fc-btn fc-btn-ghost fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Downgrade to Basic</button>
+
+      <!-- Gym Access Plans -->
+      <div class="col-12" style="padding:14px 20px 8px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.1)">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase">Gym Access</div>
       </div>
-      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border);border-left:1px solid rgba(238,90,189,.2);border-right:1px solid rgba(238,90,189,.2);background:rgba(238,90,189,.03)">
-        <div class="d-flex align-items-center gap-2 mb-1">
-          <div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">Premium</div>
-          <span class="fc-badge b-pink" style="font-size:10px">Current</span>
-        </div>
-        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱2,500<span style="font-size:13px;color:var(--muted)">/mo</span></div>
-        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
-          <div><span style="color:var(--accent2)">✓ </span>24/7 gym access</div>
-          <div><span style="color:var(--accent2)">✓ </span>Locker + towel service</div>
-          <div><span style="color:var(--accent2)">✓ </span>4 PT sessions/month</div>
-          <div><span style="color:var(--accent2)">✓ </span>1 guest pass/month</div>
-        </div>
-        <button class="fc-btn fc-btn-pink fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#renewModal">🔄 Renew Premium</button>
-      </div>
+
+      <!-- Day Pass -->
       <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border)">
         <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">Day Pass</div>
-        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent4);margin-bottom:12px">₱250<span style="font-size:13px;color:var(--muted)">/day</span></div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent4);margin-bottom:12px">₱60<span style="font-size:13px;color:var(--muted)">/day</span></div>
         <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
           <div><span style="color:var(--accent2)">✓ </span>Single-day gym access</div>
           <div><span style="color:var(--accent2)">✓ </span>Locker room</div>
+          <div><span style="color:var(--accent2)">✓ </span>All gym equipment</div>
           <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">PT sessions</span></div>
-          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">Guest pass</span></div>
         </div>
         <button class="fc-btn fc-btn-ghost fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Buy Day Pass</button>
       </div>
+
+      <!-- 10-Day Pass -->
+      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border);border-left:1px solid var(--border)">
+        <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">10-Day Pass</div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱250<span style="font-size:13px;color:var(--muted)">/10 days</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>10 consecutive days access</div>
+          <div><span style="color:var(--accent2)">✓ </span>Locker room</div>
+          <div><span style="color:var(--accent2)">✓ </span>All gym equipment</div>
+          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">PT sessions</span></div>
+        </div>
+        <button class="fc-btn fc-btn-ghost fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Get 10-Day Pass</button>
+      </div>
+
+      <!-- 2-Week Pass -->
+      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border);border-left:1px solid var(--border)">
+        <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">2-Week Pass</div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱350<span style="font-size:13px;color:var(--muted)">/2 weeks</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>14 days gym access</div>
+          <div><span style="color:var(--accent2)">✓ </span>Locker room</div>
+          <div><span style="color:var(--accent2)">✓ </span>All gym equipment</div>
+          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">PT sessions</span></div>
+        </div>
+        <button class="fc-btn fc-btn-ghost fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Get 2-Week Pass</button>
+      </div>
+
+      <!-- Monthly -->
+      <div class="col-12 col-md-4" style="padding:18px;border-bottom:1px solid var(--border);background:rgba(238,90,189,.03);border-top:1px solid rgba(238,90,189,.15)">
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent2)">Monthly</div>
+          <span class="fc-badge b-pink" style="font-size:10px">Current</span>
+        </div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱600<span style="font-size:13px;color:var(--muted)">/month</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>24/7 gym access</div>
+          <div><span style="color:var(--accent2)">✓ </span>Locker room</div>
+          <div><span style="color:var(--accent2)">✓ </span>Unlimited visits</div>
+          <div><span style="color:var(--muted)">✗ </span><span style="color:var(--muted)">PT sessions</span></div>
+        </div>
+        <button class="fc-btn fc-btn-pink fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#renewModal">🔄 Renew Monthly</button>
+      </div>
+
+      <!-- PT Plans header -->
+      <div class="col-12" style="padding:14px 20px 8px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.1)">
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase">Personal Training Plans</div>
+      </div>
+
+      <!-- PT Standard — ₱4,000 -->
+      <div class="col-12 col-md-6" style="padding:18px;border-bottom:1px solid var(--border)">
+        <div style="font-family:'Lalezar',cursive;font-size:18px;margin-bottom:4px">PT Standard</div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱4,000<span style="font-size:13px;color:var(--muted)">/month</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>Strength Training</div>
+          <div><span style="color:var(--accent2)">✓ </span>Cardio</div>
+          <div><span style="color:var(--accent2)">✓ </span>Warm Up</div>
+          <div><span style="color:var(--accent2)">✓ </span>Cool Down</div>
+          <div><span style="color:var(--accent2)">✓ </span>10 Sessions</div>
+          <div><span style="color:var(--accent2)">✓ </span>1 Month validity</div>
+        </div>
+        <button class="fc-btn fc-btn-ghost fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Get PT Standard</button>
+      </div>
+
+      <!-- PT Premium — ₱6,000 -->
+      <div class="col-12 col-md-6" style="padding:18px;border-bottom:1px solid var(--border);border-left:1px solid var(--border);background:rgba(0,245,255,.02)">
+        <div class="d-flex align-items-center gap-2 mb-1">
+          <div style="font-family:'Lalezar',cursive;font-size:18px;color:var(--accent)">PT Premium</div>
+          <span class="fc-badge b-teal" style="font-size:10px">Best Value</span>
+        </div>
+        <div style="font-family:'Lalezar',cursive;font-size:26px;color:var(--accent);margin-bottom:12px">₱6,000<span style="font-size:13px;color:var(--muted)">/month</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;margin-bottom:16px">
+          <div><span style="color:var(--accent2)">✓ </span>Strength Training</div>
+          <div><span style="color:var(--accent2)">✓ </span>Dry Massage</div>
+          <div><span style="color:var(--accent2)">✓ </span>Bone Alignment</div>
+          <div><span style="color:var(--accent2)">✓ </span>Diet and Nutrition</div>
+          <div><span style="color:var(--accent2)">✓ </span>10 Sessions</div>
+          <div><span style="color:var(--accent2)">✓ </span>1 Month validity</div>
+        </div>
+        <button class="fc-btn fc-btn-teal fc-btn-sm w-100" data-bs-toggle="modal" data-bs-target="#changePlanModal">Get PT Premium</button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -924,8 +989,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- ════════════════════════════════════════
      PAGE: TRANSACTIONS
-     User story: View transactions — membership payments and PT session
-     payments — separately, for confirmation and management
 ════════════════════════════════════════ -->
 <div class="fc-page" id="page-transactions">
   <div class="pg-hdr">
@@ -936,8 +999,8 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 
   <div class="row g-3 mb-3">
-    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Total Paid</div><div class="sv" style="font-size:22px">₱6.4k</div><div class="ss">This month</div></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card sc-pink"><div class="sl">Membership</div><div class="sv" style="font-size:22px">₱2.5k</div><div class="ss">1 payment</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Total Paid</div><div class="sv" style="font-size:22px">₱4.8k</div><div class="ss">This month</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-pink"><div class="sl">Membership</div><div class="sv" style="font-size:22px">₱600</div><div class="ss">1 payment</div></div></div>
     <div class="col-6 col-md-3"><div class="stat-card sc-orange"><div class="sl">PT Sessions</div><div class="sv" style="font-size:22px">₱3.6k</div><div class="ss">6 sessions</div></div></div>
     <div class="col-6 col-md-3"><div class="stat-card sc-red"><div class="sl">Outstanding</div><div class="sv">₱0</div><div class="ss">All settled</div></div></div>
   </div>
@@ -958,17 +1021,18 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
         </tr></thead>
         <tbody>
           <tr>
-            <td><span class="fc-badge b-pink">Premium</span></td>
+            <!-- CHANGED: Premium ₱2,500 → Monthly ₱600 -->
+            <td><span class="fc-badge b-pink">Monthly</span></td>
             <td>Mar 1 – Mar 31</td>
-            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱2,500</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
             <td class="d-none d-sm-table-cell">GCash</td>
             <td><span class="fc-badge b-teal">Paid</span></td>
             <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#MBR-003</button></td>
           </tr>
           <tr>
-            <td><span class="fc-badge b-pink">Premium</span></td>
+            <td><span class="fc-badge b-pink">Monthly</span></td>
             <td>Feb 1 – Feb 28</td>
-            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱2,500</td>
+            <td style="font-family:'Lalezar',cursive;color:var(--accent)">₱600</td>
             <td class="d-none d-sm-table-cell">GCash</td>
             <td><span class="fc-badge b-teal">Paid</span></td>
             <td class="d-none d-md-table-cell"><button class="fc-btn fc-btn-ghost fc-btn-xs" data-bs-toggle="modal" data-bs-target="#receiptModal">#MBR-002</button></td>
@@ -1053,8 +1117,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <!-- ════════════════════════════════════════
      PAGE: MY PROFILE
-     User story: Modify personal details, payment method,
-     training regimens, and other personal information
 ════════════════════════════════════════ -->
 <div class="fc-page" id="page-profile">
   <div class="pg-hdr">
@@ -1067,7 +1129,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
   <div class="row g-3">
     <div class="col-12 col-md-6">
-
       <!-- Personal info -->
       <div class="fc-card mb-3" style="padding:20px">
         <div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:16px">Personal Information</div>
@@ -1075,7 +1136,7 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
           <div style="width:58px;height:58px;border-radius:0px;background:linear-gradient(135deg,var(--accent2),var(--accent5));display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:18px;color:#fff;flex-shrink:0">JD</div>
           <div>
             <div style="font-family:'Lalezar',cursive;font-size:17px">Jake Dela Cruz</div>
-            <div style="font-size:12px;color:var(--muted)">Premium Member · Since Feb 2026</div>
+            <div style="font-size:12px;color:var(--muted)">Monthly Member · Since Feb 2026</div>
             <button class="fc-btn fc-btn-ghost fc-btn-xs mt-2">📷 Change Photo</button>
           </div>
         </div>
@@ -1110,7 +1171,6 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
 
     <div class="col-12 col-md-6">
-
       <!-- Training regimen -->
       <div class="fc-card mb-3" style="padding:20px">
         <div style="font-family:'Lalezar',cursive;font-size:16px;margin-bottom:16px">Training Regimen</div>
@@ -1160,21 +1220,25 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 <div class="modal fade" id="renewModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered"><div class="modal-content">
     <div class="modal-header">
-      <div><div class="modal-title">Renew Membership</div><div class="modal-sub">Keep PT sessions & 24/7 access uninterrupted</div></div>
+      <div><div class="modal-title">Renew Membership</div><div class="modal-sub">Keep gym access uninterrupted</div></div>
       <button class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
       <div style="background:rgba(255,42,38,.07);border:1px solid rgba(255,42,38,.2);border-radius:0px;padding:11px 14px;margin-bottom:16px;font-size:13px;color:var(--accent3)">⚠️ Your membership expires in <strong>3 days</strong> — Mar 10, 2026</div>
       <div class="mb-3"><label class="fc-lbl">Plan</label>
-        <select class="fc-sel"><option>Premium — ₱2,500 / month</option><option>Basic — ₱1,200 / month</option></select></div>
-      <div class="mb-3"><label class="fc-lbl">Duration</label>
-        <select class="fc-sel"><option>1 Month — ₱2,500</option><option>3 Months — ₱7,000 (save ₱500)</option><option>6 Months — ₱13,500 (save ₱1,500)</option></select></div>
+        <!-- CHANGED: updated plan options with correct rates -->
+        <select class="fc-sel">
+          <option>Monthly — ₱600</option>
+          <option>2-Week Pass — ₱350</option>
+          <option>10-Day Pass — ₱250</option>
+          <option>Day Pass — ₱60</option>
+        </select>
+      </div>
       <div class="mb-3"><label class="fc-lbl">Payment Method</label>
         <select class="fc-sel"><option>GCash (saved)</option><option>Cash</option><option>Card</option></select></div>
       <div style="background:rgba(0,245,255,.06);border:1px solid rgba(0,245,255,.2);border-radius:0px;padding:14px">
-        <div class="d-flex justify-content-between mb-1" style="font-size:13px"><span style="color:var(--muted)">Plan</span><span>Premium</span></div>
-        <div class="d-flex justify-content-between mb-1" style="font-size:13px"><span style="color:var(--muted)">Duration</span><span>1 Month</span></div>
-        <div class="d-flex justify-content-between" style="border-top:1px solid var(--border);padding-top:10px;margin-top:8px"><span style="font-weight:600">Total Due</span><span style="font-family:'Lalezar',cursive;font-size:22px;color:var(--accent)">₱2,500</span></div>
+        <div class="d-flex justify-content-between mb-1" style="font-size:13px"><span style="color:var(--muted)">Plan</span><span>Monthly</span></div>
+        <div class="d-flex justify-content-between" style="border-top:1px solid var(--border);padding-top:10px;margin-top:8px"><span style="font-weight:600">Total Due</span><span style="font-family:'Lalezar',cursive;font-size:22px;color:var(--accent)">₱600</span></div>
       </div>
     </div>
     <div class="modal-footer">
@@ -1193,8 +1257,17 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
     </div>
     <div class="modal-body">
       <div class="mb-3"><label class="fc-lbl">New Plan</label>
-        <select class="fc-sel"><option>Basic — ₱1,200/mo</option><option selected>Premium — ₱2,500/mo</option><option>Day Pass — ₱250/day</option></select></div>
-      <div style="background:rgba(255,42,38,.06);border:1px solid rgba(255,42,38,.2);border-radius:0px;padding:12px;font-size:12.5px;color:var(--accent3)">⚠️ Downgrading from Premium removes PT session credits and guest pass at the start of your next billing cycle.</div>
+        <!-- CHANGED: updated plan options -->
+        <select class="fc-sel">
+          <option>Day Pass — ₱60/day</option>
+          <option>10-Day Pass — ₱250</option>
+          <option>2-Week Pass — ₱350</option>
+          <option selected>Monthly — ₱600/month</option>
+          <option>PT Standard — ₱4,000/month</option>
+          <option>PT Premium — ₱6,000/month</option>
+        </select>
+      </div>
+      <div style="background:rgba(0,245,255,.05);border:1px solid rgba(0,245,255,.15);border-radius:0px;padding:12px;font-size:12.5px;color:var(--muted)">ℹ️ Plan changes take effect at the start of your next billing cycle.</div>
     </div>
     <div class="modal-footer">
       <button class="fc-btn fc-btn-ghost" data-bs-dismiss="modal">Cancel</button>
