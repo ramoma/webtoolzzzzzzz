@@ -45,7 +45,7 @@
 
                 echo json_encode([
                     "Status" => "success",
-                    "message" => "loogging in {$check_password}"
+                    "message" => "loogging in"
                 ]);
                 exit;
             }else{
@@ -55,10 +55,7 @@
                 ]);
                 exit;
             }
-
-            
-        }
-        else{
+        }else{
             echo json_encode([
                 "Status" => "failed",
                 "message" => "wrong username"

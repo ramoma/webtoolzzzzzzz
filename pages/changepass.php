@@ -30,6 +30,7 @@ $current_step = $_SESSION['step'] ?? 1;
             height: 100vh;
             display: flex; align-items: center; justify-content: center;
         }
+        /* what */
         .card-custom {
             background-color: #e0e0e0;
             border-radius: 0;

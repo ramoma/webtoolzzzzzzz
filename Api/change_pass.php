@@ -2,9 +2,7 @@
 session_start();
 require_once '../Api/connection.php';
 
-header("Content-Type: application/json");
-
-$current_step = $_SESSION['step'] ?? 1;
+header("Content-Type: application/json");         
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -55,26 +53,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             mysqli_stmt_bind_param($stmt, "ss", $hashed, $email);
             mysqli_stmt_execute($stmt);
 
+            echo json_encode(["success" => true, "message" => "Password updated successfully!", "redirect" => "login_page.html"]);
+
             $_SESSION['error'] = "Password updated successfully!";
             session_destroy();
-            header("Location: changepass.php");
+            
             exit;
         } else {
             $_SESSION['error'] = "Passwords do not match!";
-            header("Location: changepass.php");
+            header("Location: changepass.html");
             exit;
         }
-
-        $hashed = password_hash($new_pass, PASSWORD_BCRYPT);
-        $email  = $_SESSION['reset_email'];
-
-        $stmt = mysqli_prepare($conn, "UPDATE user_accounts SET password = ? WHERE email = ?");
-        mysqli_stmt_bind_param($stmt, "ss", $hashed, $email);
-        mysqli_stmt_execute($stmt);
-
-        session_destroy();
-        echo json_encode(["success" => true, "message" => "Password updated successfully!", "redirect" => "login_page.php"]);
-        exit;
     }
 }
 
