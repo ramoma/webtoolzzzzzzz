@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- hate -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="../../Api/login.php" method="post">
+        <input type="submit" value="logout" id="logout">
+    </form>
+</body> 
+</html>
+<script>
+    document.getElementById("logout").addEventListener("click", function(e){
+        e.preventDefault();
+
+        logout = document.getElementById("logout").value;
+
+        fetch("../../Api/login.php", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json"
+            },
+            body : JSON.stringify({logout: logout})
+        })
+        .then(res => res.json())
+        .then(data=> {
+            console.log(data.message);
+        })
+        .catch(err => console.log("Somethign went wrong", err));
+    });
+</script>

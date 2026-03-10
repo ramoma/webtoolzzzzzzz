@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../images/aonlylogo.png">
+    <title>A's Gym - Registration</title>
+    <link rel="stylesheet" href="styles/register_page.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+
+<div class="page-wrapper">
+    <div class="login-card">
+
+        <!-- Logo -->
+        <div class="logo-area">
+            <div></div>
+        </div>
+
+        <div class="page-title">Sign-up</div>
+
+        <form action="../Api/register.php" method="post" id="card1" class="card1 ">
+
+            <label class="section-label">Username <span class="hidden text-danger" id="user_error">* username is already taken</span></label>
+            <div class="input-row">
+                <input type="text" name="username" id="username" placeholder="Username" required>
+            </div>
+
+            <!-- Email -->
+            <label class="section-label">Email <span class="hidden text-danger" id="used_email">*email is already in use</span><span class="hidden text-danger" id="invalid_email">* invalid email</span></label>
+            <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+
+            <!-- Email -->
+            <label class="section-label">Password</label>
+            <input type="password" name="password" id="password" placeholder="Password" required >
+
+            <label class="section-label">Confirm Password</label>
+            <input type="password" name="c_password" id="c_password" placeholder="Confirm Password" required>
+
+            <hr class="divider">
+
+            <input type="submit" value="continue" class="login-btn" id="c_submit">
+
+        </form>
+
+        <form action="../Api/register.php" method="post" id="card2" class="card2 hidden">
+
+            <!-- Name -->
+            <label class="section-label">Name</label>
+            <div class="input-row">
+                <input type="text" name="firstname" id="firstname" placeholder="First name">
+                <input type="text" name="lastname" id="lastname" placeholder="Last name">
+            </div>
+
+            <hr class="divider">
+
+
+            <!-- Gender -->
+            <label class="section-label">Gender</label>
+            <div class="radio-group">
+                <label class="radio-row">
+                    <input type="radio" name="gender" id="gender" value="Male">
+                    <span class="radio-label">Male</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" name="gender" id="gender" value="Female">
+                    <span class="radio-label">Female</span>
+                </label>
+            </div>
+
+            <hr class="divider">
+
+            <!-- Membership -->
+            <label class="section-label-main">Membership</label>
+            <div class="radio-group">
+                <label class="radio-row">
+                    <input type="radio" id="membership" name="membership" value="Daily">
+                    <span class="radio-label">Daily</span>
+                    <span class="radio-price">PHP 60</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" id="membership" name="membership" value="10_Days">
+                    <span class="radio-label">10 Days</span>
+                    <span class="radio-price">PHP 250</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" id="membership" name="membership" value="2_Weeks">
+                    <span class="radio-label">2 Weeks</span>
+                    <span class="radio-price">PHP 350</span>
+                </label>
+                <label class="radio-row">
+                    <input type="radio" id="membership" name="membership" value="Monthly">
+                    <span class="radio-label">Monthly</span>
+                    <span class="radio-price">PHP 6,000</span>
+                </label>
+            </div>
+
+            
+
+            <hr class="divider">
+
+            <input type="submit" id="register_submit" value="Done" class="login-btn">
+            <input type="submit" id="skip" value="skip" class="skip-link">
+
+        </form>
+
+    </div>
+</div>
+
+<script src="../Scripts/register_script.js"></script>
+</body>
+</html>
