@@ -10,7 +10,7 @@ document.getElementById("c_submit").addEventListener("click", function(e){
     let c_submit = document.getElementById("c_submit").value;
     
     if(password != "" && c_password != ""){
-       if(password == c_password){
+       if(password == c_password && password.length >= 8 && c_password.length >= 8){
             
             let data = {
                 username: username,
@@ -31,32 +31,33 @@ document.getElementById("c_submit").addEventListener("click", function(e){
             .then(res => res.json())
             .then(data =>{
 
-                if(data.Status === "user error"){
-                    console.log(data.Status);
-                    window.alert(data.message);
+                if(data.Status === "invalid email"){
+                    document.getElementById("invalid_email").classList.remove("hidden");
+                }else if(data.Status === "user error"){
                     document.getElementById("user_error").classList.remove("hidden");
                 }
                 else if(data.Status === "email error"){
-                    console.log(data.Status);
-                    window.alert(data.message);
+                    document.getElementById("used_email").classList.remove("hidden");
                 }
                 else if(data.Status === "account error"){
                     console.log(data.Status);
                     window.alert(data.message);
-                }
-                else{
+                }else{
                     console.log(data.Status);
                     document.querySelector(".card1").classList.add("hidden");
                     document.querySelector(".card2").classList.remove("hidden");
                 }
             }).catch(err=>console.error("something went wrong", err));
         
-        }
-        else{
+        }else if(password.length < 8 && c_password < 8 || password.length >= 12 && c_password.length >= 12){
+            window.alert("passwords must be more than 8 characters or less than 12 characters");
+        }else if(password.length > c_password || password.length < c_password){
+            window.alert("passwords must match length");
+        }else{
             window.alert("passwords dont match");
         } 
     }else{
-        window.alert("missing input fields");
+            window.alert("missing input fields")
     }
 });
 
@@ -97,7 +98,7 @@ document.getElementById("skip").addEventListener("click", function(e){
             }
             else{
                window.alert("sent verification code");
-                window.open("http://localhost/htmls/webtoolzzzzzzz/pages/index.html", "_self"); 
+            window.location.href = data.location; 
             }      
     }).catch(err=> console.log("something went wrong", err));
 
@@ -139,8 +140,10 @@ document.getElementById("register_submit").addEventListener("click", function(e)
 
             if(data.Status === "success"){
                 window.alert("sent verification code");
-                window.open("http://localhost/htmls/webtoolzzzzzzz/pages/index.html", "_self");
                 console.log(data.message);
+                window.location.href = data.location;
+            }else{
+                window.alert("something went wrong " + data.message);
             }
             
         })

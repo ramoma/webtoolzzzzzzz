@@ -10,66 +10,66 @@
     $username = $data["username"] ?? "";
     $password = $data["password"] ?? "";
 
-    if(isset($data["logout"])){
-        
-        session_destroy();
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-        echo json_encode([
-            "message" => "something testing testing"
-        ]);
-        
-        exit;
-    }
-    if(isset($_SESSION['username'])){
+        if(isset($data["logout"])){
+            
+            session_destroy();
 
-        echo json_encode([
-            "Status" => "account_logged",
-            "message" => "account still logged in"
-        ]);
-        exit;
-    }
-    if(isset($data["login"])){
+            echo json_encode([
+                "message" => "something testing testing"
+            ]);
+            
+            exit;
+        }
+        if(isset($_SESSION['username'])){
 
-        $stmt = $conn->prepare("select password from user_accounts where username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->store_result();
+            echo json_encode([
+                "Status" => "account_logged",
+                "message" => "account still logged in"
+            ]);
+            exit;
+        }
+        if(isset($data["login"])){
 
-        if($stmt->num_rows > 0){
+            $stmt = $conn->prepare("select password from user_accounts where username = ?");
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $stmt->store_result();
 
-            $stmt->bind_result($check_password);
-            $stmt->fetch();
+            if($stmt->num_rows > 0){
 
-            if(password_verify($password, $check_password)){
-                $_SESSION['username'] = $username;
+                $stmt->bind_result($check_password);
+                $stmt->fetch();
 
-                echo json_encode([
-                    "Status" => "success",
-                    "message" => "loogging in"
-                ]);
-                exit;
+                if(password_verify($password, $check_password)){
+                    $_SESSION['username'] = $username;
+
+                    echo json_encode([
+                        "Status" => "success",
+                        "message" => "loogging in"
+                    ]);
+                    exit;
+                }else{
+                    echo json_encode([
+                        "Status"=>"failed",
+                        "message" => "wrong password"
+                    ]);
+                    exit;
+                }
             }else{
                 echo json_encode([
-                    "Status"=>"failed",
-                    "message" => "wrong password"
+                    "Status" => "failed",
+                    "message" => "wrong username"
                 ]);
                 exit;
             }
         }else{
             echo json_encode([
-                "Status" => "failed",
-                "message" => "wrong username"
+                "Status" => "not_logged",
+                "message" => "no logged account"
             ]);
             exit;
         }
-    }else{
-        echo json_encode([
-            "Status" => "not_logged",
-            "message" => "no logged account"
-        ]);
-        exit;
     }
-    
-
-    
 ?>
