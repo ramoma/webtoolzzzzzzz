@@ -41,8 +41,8 @@ create table user_accounts(
     email varchar(100) NOT NULL UNIQUE,
     username varchar(100) NOT NULL UNIQUE,
     password varchar(100) NOT NULL,
-    gender enums("Male", "Female"),
-    membership enums("Daily","10_Days","2_Weeks","Monthly"),
+    gender enum("Male", "Female"),
+    membership enum("Daily","10_Days","2_Weeks","Monthly"),
     PRIMARY KEY (id)
 );
 
