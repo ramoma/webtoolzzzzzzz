@@ -1,10 +1,10 @@
-document.addEventListener("DOMContentLoaded", function(e){
+document.addEventListener("DOMContentLoaded", function(){
 
-    e.preventDefault();
 
-    fetch("../Api/login.php")
+    fetch("../Api/check_status.php")
     .then(res => res.json())
     .then(data => {
+        // console.log(data + "balls");
         if(data.Status == "account_logged"){
             window.alert(data.message);
             window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");

@@ -1,3 +1,19 @@
+document.addEventListener("DOMContentLoaded", function(){
+
+    fetch("../Api/check_status.php")
+    .then(res => res.json())
+    .then(data => {
+        if(data.Status == "account_logged"){
+            window.alert(data.message);
+            window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");
+        }
+        else{
+            console.log(data.message);
+        }
+    })
+
+});
+
 document.getElementById("c_submit").addEventListener("click", function(e){
 
     e.preventDefault();

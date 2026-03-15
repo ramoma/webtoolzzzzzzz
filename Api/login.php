@@ -2,7 +2,7 @@
     session_start();
 
     require("connection.php");
-    header("Content-type: application/json");
+    header("Content-Type: application/json");
 
     $json = file_get_contents("php://input");
     $data = json_decode($json, true);
@@ -10,18 +10,7 @@
     $username = $data["username"] ?? "";
     $password = $data["password"] ?? "";
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        if(isset($data["logout"])){
-            
-            session_destroy();
-
-            echo json_encode([
-                "message" => "something testing testing"
-            ]);
-            
-            exit;
-        }
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
         if(isset($_SESSION['username'])){
 
             echo json_encode([
@@ -30,6 +19,21 @@
             ]);
             exit;
         }
+    }
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        if(isset($data["logout"])){
+
+            session_destroy();
+
+            echo json_encode([
+                "message" => "something testing testing"
+            ]);
+
+            exit;
+        }
+
         if(isset($data["login"])){
 
             $stmt = $conn->prepare("select password from user_accounts where username = ?");

@@ -15,9 +15,7 @@
     $gender         = $data["gender"] ?? "";
     $membership     = $data["membership"] ?? "";
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-        if(isset($_SESSION['username'])){
+   if(isset($_SESSION['username'])){
 
             echo json_encode([
                 "Status" => "account_logged",
@@ -25,6 +23,10 @@
             ]);
             exit;
         }
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+
         
         if(isset($data["c_submit"])){
 
