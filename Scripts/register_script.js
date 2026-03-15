@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", function(e){
+document.addEventListener("DOMContentLoaded", function(){
 
-    e.preventDefault();
+    console.log("what the fuck");
 
     fetch("../Api/login.php")
     .then(res => res.json())

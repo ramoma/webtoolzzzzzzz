@@ -1,75 +1,79 @@
 <?php
-session_start();
+    session_start();
 
-require("connection.php");
-header("Content-Type: application/json");
+    require("connection.php");
+    header("Content-Type: application/json");
 
-$json = file_get_contents("php://input");
-$data = json_decode($json, true);
+    $json = file_get_contents("php://input");
+    $data = json_decode($json, true);
 
-$username = $data["username"] ?? "";
-$password = $data["password"] ?? "";
+    $username = $data["username"] ?? "";
+    $password = $data["password"] ?? "";
 
-if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        if(isset($_SESSION['username'])){
 
-    if(isset($data["logout"])){
-
-        session_destroy();
-
-        echo json_encode([
-            "message" => "something testing testing"
-        ]);
-
-        exit;
+            echo json_encode([
+                "Status" => "account_logged",
+                "message" => "account still logged in"
+            ]);
+            exit;
+        }
     }
-    if(isset($_SESSION['username'])){
 
-        echo json_encode([
-            "Status" => "account_logged",
-            "message" => "account still logged in"
-        ]);
-        exit;
-    }
-    if(isset($data["login"])){
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-        $stmt = $conn->prepare("select password from user_accounts where username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->store_result();
+        if(isset($data["logout"])){
 
-        if($stmt->num_rows > 0){
+            session_destroy();
 
-            $stmt->bind_result($check_password);
-            $stmt->fetch();
+            echo json_encode([
+                "message" => "something testing testing"
+            ]);
 
-            if(password_verify($password, $check_password)){
-                $_SESSION['username'] = $username;
+            exit;
+        }
 
-                echo json_encode([
-                    "Status" => "success",
-                    "message" => "loogging in"
-                ]);
-                exit;
+        if(isset($data["login"])){
+
+            $stmt = $conn->prepare("select password from user_accounts where username = ?");
+            $stmt->bind_param("s", $username);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if($stmt->num_rows > 0){
+
+                $stmt->bind_result($check_password);
+                $stmt->fetch();
+
+                if(password_verify($password, $check_password)){
+                    $_SESSION['username'] = $username;
+
+                    echo json_encode([
+                        "Status" => "success",
+                        "message" => "loogging in"
+                    ]);
+                    exit;
+                }else{
+                    echo json_encode([
+                        "Status"=>"failed",
+                        "message" => "wrong password"
+                    ]);
+                    exit;
+                }
             }else{
                 echo json_encode([
-                    "Status"=>"failed",
-                    "message" => "wrong password"
+                    "Status" => "failed",
+                    "message" => "wrong username"
                 ]);
                 exit;
             }
         }else{
             echo json_encode([
-                "Status" => "failed",
-                "message" => "wrong username"
+                "Status" => "not_logged",
+                "message" => "no logged account"
             ]);
             exit;
         }
-    }else{
-        echo json_encode([
-            "Status" => "not_logged",
-            "message" => "no logged account"
-        ]);
-        exit;
     }
-}
 ?>
