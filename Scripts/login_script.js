@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function(e){
     fetch("../Api/login.php")
     .then(res => res.json())
     .then(data => {
+        console.log(data + "balls");
         if(data.Status == "account_logged"){
             window.alert(data.message);
             window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");
