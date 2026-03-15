@@ -323,26 +323,26 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   <div class="row g-3 mb-3">
     <div class="col-6 col-xl-3">
       <div class="stat-card sc-pink">
-        <div class="sl">Sessions Done</div><div class="sv">4</div>
+        <div class="sl">Sessions Done</div><div id = "sessions_done" class="sv">4</div>
         <div class="ss">This month</div>
       </div>
     </div>
     <div class="col-6 col-xl-3">
       <div class="stat-card sc-teal">
         <!-- CHANGED: "Upcoming Session" → "Upcoming PT Sessions" -->
-        <div class="sl">Upcoming PT Sessions</div><div class="sv">3</div>
+        <div class="sl">Upcoming PT Sessions</div><div id = "upcoming_ptsessions" class="sv">3</div>
         <div class="ss">Next: Sat Mar 8</div>
       </div>
     </div>
     <div class="col-6 col-xl-3">
       <div class="stat-card sc-orange">
-        <div class="sl">PT Sessions Left</div><div class="sv">2</div>
+        <div class="sl">PT Sessions Left</div><div id = "ptsessions_left" class="sv">2</div>
         <div class="ss">out of 10</div>
       </div>
     </div>
     <div class="col-6 col-xl-3">
       <div class="stat-card sc-red">
-        <div class="sl">Membership</div><div class="sv">3d</div>
+        <div class="sl">Membership</div><div id = "membership_duration" class="sv">3d</div>
         <div class="ss" style="color:var(--accent3)">Expiring soon!</div>
       </div>
     </div>
@@ -720,10 +720,10 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
   </div>
 
   <div class="row g-3 mb-3">
-    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Upcoming PT Sessions</div><div class="sv">3</div></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card sc-pink"><div class="sl">Completed</div><div class="sv">4</div></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card sc-red"><div class="sl">No-shows</div><div class="sv">1</div></div></div>
-    <div class="col-6 col-md-3"><div class="stat-card sc-orange"><div class="sl">Total Booked</div><div class="sv">8</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-teal"><div class="sl">Upcoming PT Sessions</div><div id = "ms_upcoming_ptsessions" class="sv">3</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-pink"><div class="sl">Completed</div><div id = "ms_ompleted_sessions" class="sv">4</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-red"><div class="sl">No-shows</div><div id = "ms_no_shows" class="sv">1</div></div></div>
+    <div class="col-6 col-md-3"><div class="stat-card sc-orange"><div class="sl">Total Booked</div><div id = "ms_total_booked" class="sv">8</div></div></div>
   </div>
 
   <!-- Upcoming -->
@@ -1135,13 +1135,13 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
         <div class="d-flex align-items-center gap-3 mb-4">
           <div style="width:58px;height:58px;border-radius:0px;background:linear-gradient(135deg,var(--accent2),var(--accent5));display:flex;align-items:center;justify-content:center;font-family:'Lalezar',cursive;font-size:18px;color:#fff;flex-shrink:0">JD</div>
           <div>
-            <div style="font-family:'Lalezar',cursive;font-size:17px">Jake Dela Cruz</div>
+            <div id = "mp_fullname" style="font-family:'Lalezar',cursive;font-size:17px">Jake Dela Cruz</div>
             <div style="font-size:12px;color:var(--muted)">Monthly Member · Since Feb 2026</div>
             <button class="fc-btn fc-btn-ghost fc-btn-xs mt-2">📷 Change Photo</button>
           </div>
         </div>
         <div class="row g-3">
-          <div class="col-12 col-sm-6"><label class="fc-lbl">First Name</label><input class="fc-input" value="Jake"/></div>
+          <div class="col-12 col-sm-6"><label id = "mp_firstname" class="fc-lbl">First Name</label><input class="fc-input" value="Jake"/></div>
           <div class="col-12 col-sm-6"><label class="fc-lbl">Last Name</label><input class="fc-input" value="Dela Cruz"/></div>
           <div class="col-12"><label class="fc-lbl">Email Address</label><input class="fc-input" value="jake@email.com" type="email"/></div>
           <div class="col-12 col-sm-6"><label class="fc-lbl">Phone Number</label><input class="fc-input" value="+63 917 123 4567"/></div>
@@ -1368,6 +1368,24 @@ body{font-family:'Barlow',sans-serif;background:var(--bg);color:var(--text);min-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+
+// start of custyom shit for databaseing
+
+  document.getElementById("sessions_done").innerHTML = "No. of ses done";
+  document.getElementById("upcoming_ptsessions").innerHTML = "upcoming pt ses";
+  document.getElementById("ptsessions_left").innerHTML = "pt ses left-uh";
+  document.getElementById("membership_duration").innerHTML = "duration";
+
+  document.getElementById("ms_upcoming_ptsessions").innerHTML = "upcoming pt ses";
+  document.getElementById("ms_ompleted_sessions").innerHTML = "cempleted";
+  document.getElementById("ms_no_shows").innerHTML = "no-shows";
+  document.getElementById("ms_total_booked").innerHTML = "total bobobokod";
+  
+  document.getElementById("mp_fullname").innerHTML = "Jake Dela Cruz";
+  document.getElementById("mp_firstname").innerHTML = "Jake";
+  document.getElementById("ms_total_booked").innerHTML = "Dela Cruz";
+  document.getElementById("ms_total_booked").innerHTML = "total bobobokod";
+
 // ─── NAVIGATION ───
 function navTo(pageId) {
   document.querySelectorAll('.fc-page').forEach(p => p.classList.remove('active'));

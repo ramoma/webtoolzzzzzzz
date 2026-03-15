@@ -273,10 +273,11 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
     </div>
   </div>
   <div class="row g-3 mb-3">
-    <div class="col-6 col-xl-3"><div class="stat-card sc-green"><div class="stat-lbl">Total Members</div><div class="stat-val">248</div><div class="stat-change"><span class="up">↑ 12</span> new this month</div></div></div>
-    <div class="col-6 col-xl-3"><div class="stat-card sc-pink"><div class="stat-lbl">Sessions Today</div><div class="stat-val">17</div><div class="stat-change"><span class="up">↑ 3</span> vs yesterday</div></div></div>
-    <div class="col-6 col-xl-3"><div class="stat-card sc-red"><div class="stat-lbl">Pending Payments</div><div class="stat-val">5</div><div class="stat-change"><span class="dn">↓ needs action</span></div></div></div>
-    <div class="col-6 col-xl-3"><div class="stat-card sc-orange"><div class="stat-lbl">Revenue (Mar)</div><div class="stat-val">₱84k</div><div class="stat-change"><span class="up">↑ 8%</span> vs Feb</div></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card sc-green"><div class="stat-lbl">Total Members</div><div id = "total_members" class="stat-val">0</div><div class="stat-change"><span class="up">↑ 12</span> new this month</div></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card sc-pink"><div class="stat-lbl">Sessions Today</div><div id = "sessions_today" class="stat-val">0</div><div class="stat-change"><span class="up">↑ 3</span> vs yesterday</div></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card sc-pink"><div class="stat-lbl">Sessions This Month</div><div id = "sessions_thismonth" class="stat-val">0</div><div class="stat-change"><span class="up">↑ 3</span> vs yesterday</div></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card sc-red"><div class="stat-lbl">Pending Payments</div><div id = "pending_payments" class="stat-val">0</div><div class="stat-change"><span class="dn">↓ needs action</span></div></div></div>
+    <div class="col-6 col-xl-3"><div class="stat-card sc-orange"><div class="stat-lbl">Revenue (Mar)</div><div id = "earnings_thismonth" class="stat-val">0</div><div class="stat-change"><span class="up">↑ 8%</span> vs Feb</div></div></div>
   </div>
   <div class="row g-3 mb-3">
     <div class="col-12 col-lg-7">
@@ -308,8 +309,8 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
   <div class="row g-3 mb-3">
     <div class="col-12 col-md-6">
       <div class="fc-card">
-        <div class="fc-card-header"><span class="fc-card-title">Monthly Revenue</span><button class="fc-card-link" data-goto="reports">Report →</button></div>
-        <div class="rev-split border-bottom"><div class="rev-col"><div class="rev-val" style="color:var(--accent)">₱61k</div><div class="rev-lbl">Memberships</div></div><div class="rev-col"><div class="rev-val" style="color:var(--accent2)">₱23k</div><div class="rev-lbl">PT Sessions</div></div><div class="rev-col"><div class="rev-val" style="color:var(--accent4)">₱84k</div><div class="rev-lbl">Total</div></div></div>
+        <div class="fc-card-header"><span class="fc-card-title">Monthly Earnings</span><button class="fc-card-link" data-goto="reports">Report →</button></div>
+        <div class="rev-split border-bottom"><div class="rev-col"><div id = "me_memberships" class="rev-val" style="color:var(--accent)">₱61k</div><div class="rev-lbl">Memberships</div></div><div class="rev-col"><div id = "me_ptsessions" class="rev-val" style="color:var(--accent2)">₱23k</div><div class="rev-lbl">PT Sessions</div></div><div class="rev-col"><div id = "me_total" class="rev-val" style="color:var(--accent4)">₱84k</div><div class="rev-lbl">Total</div></div></div>
         <div class="chart-wrap">
           <div class="bar-row"><div class="bar-lbl">Oct</div><div class="bar-track"><div class="bar-fill" style="width:52%"></div></div><div class="bar-val">₱43k</div></div>
           <div class="bar-row"><div class="bar-lbl">Nov</div><div class="bar-track"><div class="bar-fill" style="width:60%"></div></div><div class="bar-val">₱51k</div></div>
@@ -739,6 +740,19 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+
+// start of custyom shit for databaseing
+
+  document.getElementById("total_members").innerHTML = "sophia is a bum";
+  document.getElementById("sessions_today").innerHTML = "Real";
+  document.getElementById("sessions_thismonth").innerHTML = "Bianca is a mad woman";
+  document.getElementById("pending_payments").innerHTML = "Pending payments";
+  document.getElementById("earnings_thismonth").innerHTML = "Earnings this month-uh";
+
+  document.getElementById("me_memberships").innerHTML = "strip";
+  document.getElementById("me_ptsessions").innerHTML = "yo";
+  document.getElementById("me_total").innerHTML = "clothes";
+
 // ── NAV ──
 document.querySelectorAll('.nav-lnk[data-page]').forEach(btn => {
   btn.addEventListener('click', () => {
