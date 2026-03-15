@@ -110,8 +110,8 @@
 .logo{
   z-index: 1000;
   position:absolute;
-  height: 204px; 
-  width: 611px; 
+  height: 204px;
+  width: 611px;
   background-image: url("../../images/image-removebg-preview.png");
   background-size: contain;
   background-repeat: no-repeat;

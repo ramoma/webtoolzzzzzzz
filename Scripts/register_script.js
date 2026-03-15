@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-    console.log("what the fuck");
-
-    fetch("../Api/login.php")
+    fetch("../Api/check_status.php")
     .then(res => res.json())
     .then(data => {
         if(data.Status == "account_logged"){

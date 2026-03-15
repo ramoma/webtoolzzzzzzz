@@ -1,20 +1,20 @@
-// document.addEventListener("DOMContentLoaded", function(e){
-//
-//
-//     fetch("../Api/login.php")
-//     .then(res => res.json())
-//     .then(data => {
-//         // console.log(data + "balls");
-//         if(data.Status == "account_logged"){
-//             window.alert(data.message);
-//             window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");
-//         }
-//         else{
-//             console.log(data.message);
-//         }
-//     })
-//
-// });
+document.addEventListener("DOMContentLoaded", function(){
+
+
+    fetch("../Api/check_status.php")
+    .then(res => res.json())
+    .then(data => {
+        // console.log(data + "balls");
+        if(data.Status == "account_logged"){
+            window.alert(data.message);
+            window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");
+        }
+        else{
+            console.log(data.message);
+        }
+    })
+
+});
 
 document.getElementById("login").addEventListener("click", function(e){
 
