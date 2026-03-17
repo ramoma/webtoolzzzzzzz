@@ -49,10 +49,17 @@
                 if(password_verify($password, $check_password)){
                     $_SESSION['username'] = $username;
 
+                    $stmt = $conn->prepare("update user_accounts set activity_status = 'Active' where username = ? ");
+                    $stmt->bind_param("s",$username);
+                    $stmt->execute();
+
+
                     echo json_encode([
                         "Status" => "success",
                         "message" => "loogging in"
                     ]);
+                    $stmt->close();
+
                     exit;
                 }else{
                     echo json_encode([
