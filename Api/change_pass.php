@@ -2,7 +2,7 @@
 session_start();
 require_once '../Api/connection.php';
 
-header("Content-Type: application/json");         
+header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $_SESSION['error'] = "Password updated successfully!";
             session_destroy();
-            
+
             exit;
         } else {
             $_SESSION['error'] = "Passwords do not match!";

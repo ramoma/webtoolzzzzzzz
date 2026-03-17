@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(){
 
 
-    fetch("../Api/check_status.php")
+    fetch("../Api/login.php")
     .then(res => res.json())
     .then(data => {
         // console.log(data + "balls");
