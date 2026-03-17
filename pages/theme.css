@@ -1,0 +1,19 @@
+:root {
+    --bg: #1B1B1B;
+    --surface: #222;
+    --surface2: #292929;
+    --border: #333;
+    --accent: #00F5FF;
+    --accent2: #EE5ABD;
+    --accent3: #FF2A26;
+    --accent4: #ED6E52;
+    --accent5: #B72D6F;
+    --text: #D9D9D9;
+    --muted: #777;
+}
+
+body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
