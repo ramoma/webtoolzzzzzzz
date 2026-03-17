@@ -7,10 +7,16 @@ document.addEventListener("DOMContentLoaded", function(){
     fetch("../Api/user_dashboard_data.php")
     .then(res => res.json())
     .then(data => {
+        if(data.Status == "success"){
+            total_members.innerHTML = data.user_count;
+            sessions_today.innerHTML = data.sessions_count;
+            pending_payments.innerHTML = data.payment_status;
+        }else if(data.Status == "not_logged"){
+            document.location.href = data.redirect;
+        }else{
+            console.log("what");
+        }
 
-        total_members.innerHTML = data.user_count;
-        sessions_today.innerHTML = data.sessions_count;
-        pending_payments.innerHTML = data.payment_status;
 
     })
 
