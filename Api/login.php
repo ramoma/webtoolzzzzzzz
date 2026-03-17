@@ -36,28 +36,47 @@
 
         if(isset($data["login"])){
 
-            $stmt = $conn->prepare("select password from user_accounts where username = ?");
+            $stmt = $conn->prepare("select password, role from user_accounts where username = ?");
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $stmt->store_result();
 
             if($stmt->num_rows > 0){
 
-                $stmt->bind_result($check_password);
+                $stmt->bind_result($check_password, $role);
                 $stmt->fetch();
 
                 if(password_verify($password, $check_password)){
                     $_SESSION['username'] = $username;
 
-                    $stmt = $conn->prepare("update user_accounts set activity_status = 'Active' where username = ? ");
-                    $stmt->bind_param("s",$username);
-                    $stmt->execute();
+                    // $stmt = $conn->prepare("update user_accounts set activity_status = 'Active' where username = ? ");
+                    // $stmt->bind_param("s",$username);
+                    // $stmt->execute();
 
+                    switch($role){
+                        case "Admin":
+                            echo json_encode([
+                                "Status" => "success",
+                                "message" => "logging in",
+                                "redirect" => "admin_dashboard.html"
+                            ]);
+                            break;
+                        case "User":
+                            echo json_encode([
+                                "Status" => "success",
+                                "message" => "logging in",
+                                "redirect" => "user_dashboard.html"
+                            ]);
+                            break;
+                        case "Trainer":
+                            echo json_encode([
+                                "Status" => "success",
+                                "message" => "logging in",
+                                "redirect" => "trainer_dashboard.html"
+                            ]);
+                            break;
 
-                    echo json_encode([
-                        "Status" => "success",
-                        "message" => "loogging in"
-                    ]);
+                    }
                     $stmt->close();
 
                     exit;

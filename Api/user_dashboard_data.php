@@ -14,8 +14,22 @@
         $stmt->fetch();
         $stmt->close();
 
+
+        $stmt2 = $conn->prepare("select
+            count(case when duration_sess is not null then 1 end) as sessions_count,
+            count(case when payment_status = 'Unpaid' then 1 end) as payment_status
+            from sessions
+        ");
+        $stmt2->execute();
+        $stmt2->store_result();
+        $stmt2->bind_result($sessions_count, $payment_status);
+        $stmt2->fetch();
+        $stmt2->close;
+
         echo json_encode([
-            "user_count" => $count
+            "user_count" => $count,
+            "sessions_count" => $sessions_count,
+            "payment_status" => $payment_status
         ]);
         exit;
 

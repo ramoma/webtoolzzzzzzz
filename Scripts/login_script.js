@@ -46,7 +46,8 @@ document.getElementById("login").addEventListener("click", function(e){
         .then(data => {
             if(data.Status == "success"){
                 window.alert(data.message);
-                window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");
+                window.location.href = data.redirect;
+                // window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");
             }else if(data.Status == "failed"){
                 window.alert(data.message);
             }else{
