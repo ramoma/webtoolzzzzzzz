@@ -35,6 +35,7 @@ create database gym_database;
 
 # first table in the database
 
+```
 create table user_accounts(
     id int NOT NULL AUTO_INCREMENT,
     full_name varchar(100) NOT NULL UNIQUE,
@@ -46,6 +47,20 @@ create table user_accounts(
     PRIMARY KEY (id)
 );
 
+create table sessions(
+    id int not null,
+    duration_sess int not null,
+    date date,
+    payment_status enum('Paid', 'Unpaid'),
+    foreign key (id) references user_accounts (id)
+);
+
+create table transactions(
+    id int not null,
+    payment int not null,
+    foreign key (id) references user_accounts (id)
+);
+```
 
 
 #this is not finished yet because i forgot to add this initially sorry
