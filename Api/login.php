@@ -13,10 +13,39 @@
     if($_SERVER['REQUEST_METHOD'] == 'GET'){
         if(isset($_SESSION['username'])){
 
-            echo json_encode([
-                "Status" => "account_logged",
-                "message" => "account still logged in"
-            ]);
+            $stmt = $conn->prepare("select role from user_accounts where username = ?");
+            $stmt->bind_param("s", $_SESSION['username']);
+            $stmt->execute();
+            $stmt->store_result();
+            $stmt->bind_result($role);
+            $stmt->fetch();
+            // $stmt->close();
+
+            switch($role){
+                case "Admin":
+                    echo json_encode([
+                        "Status" => "account_logged",
+                        "message" => "logging in",
+                        "redirect" => "admin_dashboard.html"
+                    ]);
+                    break;
+                case "User":
+                    echo json_encode([
+                        "Status" => "account_logged",
+                        "message" => "still in",
+                        "redirect" => "user_dashboard.html"
+                    ]);
+                    break;
+                case "Trainer":
+                    echo json_encode([
+                        "Status" => "account_logged",
+                        "message" => "logging in",
+                        "redirect" => "trainer_dashboard.html"
+                    ]);
+                    break;
+
+            }
+            $stmt->close();
             exit;
         }
     }

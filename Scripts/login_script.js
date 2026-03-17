@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(){
         // console.log(data + "balls");
         if(data.Status == "account_logged"){
             window.alert(data.message);
-            window.open("http://localhost/htmls/webtoolzzzzzzz/pages/user_dashboard.html", "_self");
+            window.location.href = data.redirect;
         }
         else{
             console.log(data.message);
