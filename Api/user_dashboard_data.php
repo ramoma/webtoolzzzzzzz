@@ -17,7 +17,7 @@
 
 
             $stmt2 = $conn->prepare("select
-                count(case when duration_sess is not null then 1 end) as sessions_count,
+                count(case when session_status != 'Closed'  then 1 end) as sessions_count,
                 count(case when payment_status = 'Unpaid' then 1 end) as payment_status
                 from sessions
             ");
