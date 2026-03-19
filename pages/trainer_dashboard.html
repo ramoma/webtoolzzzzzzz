@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="stylesheet" href="sidebar.html">
+  <link rel="stylesheet" href="theme.css">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>A's Gym — Trainer Dashboard</title>
@@ -390,8 +390,16 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
 </div>
 
 <!-- ── SIDEBAR ── -->
- <div class = "sidebar-overlay">
- </div>
+<div id="sidebar-container"></div>
+<script>
+  fetch('sidebar.html')
+    .then(r => r.text())
+    .then(html => {
+      document.getElementById('sidebar-container').innerHTML = html;
+      initSidebar();
+    });
+</script>
+ 
 <!-- <nav class="fc-sidebar" id="sidebar">
   <div class="profile-card">
     <div class="profile-av">CM</div>
@@ -400,7 +408,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
     <div class="profile-rating">★ 4.9 <span style="color:var(--muted);font-size:11px;">(42 reviews)</span></div>
   </div>
   <div class="nav-sec">Main</div>
-  <button class="nav-lnk active" data-page="dashboard"><span>⬡</span>Dashboard</button>
+  <button class="nav-lnk active" data-page="dashboard"><span>⬡</span>Dashboard</  button>
   <button class="nav-lnk" data-page="sessions"><span>📅</span>My Sessions</button>
   <button class="nav-lnk" data-page="members"><span>👥</span>My Members</button>
   <div class="nav-sec">Personal</div>
