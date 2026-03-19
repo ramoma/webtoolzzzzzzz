@@ -1,23 +1,17 @@
 document.addEventListener("DOMContentLoaded", function(){
 
-    const total_members = document.getElementById("total_members");
-    const sessions_today = document.getElementById("sessions_today");
-    const pending_payments = document.getElementById("pending_payments");
+    const sess_done = document.getElementById("sessions_done");
 
     fetch("../Api/user_dashboard_data.php")
     .then(res => res.json())
     .then(data => {
-        if(data.Status == "success"){
-            total_members.innerHTML = data.user_count;
-            sessions_today.innerHTML = data.sessions_count;
-            pending_payments.innerHTML = data.payment_status;
-        }else if(data.Status == "not_logged"){
-            document.location.href = data.redirect;
+
+        if(data.Status === "success"){
+            sess_done.innerHTML = data.sess_count;
         }else{
-            console.log("what");
+            document.location.href = data.redirect;
         }
 
+    });
 
-    })
-
-});
+})
