@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link rel="icon" type="img/png" href="../images/aonlylogo.png">
+<link rel = "stylesheet" href="calendar.css">
 <style>
 :root {
   --bg:#1B1B1B; --surface:#222; --surface2:#292929; --border:#333;
@@ -224,6 +225,7 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
     <span class="role-tag d-none d-sm-inline">Admin</span>
   </div>
   <div class="d-flex align-items-center gap-2">
+    <div class="ic-btn" id="calBtn" title="Calendar">📅</div>
     <div class="ic-btn" id="notifBtn">🔔<span class="ndot"></span></div>
     <div class="ic-btn d-none d-sm-flex">🔍</div>
     <div class="fc-avatar">AD</div>
@@ -258,6 +260,8 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
   <div class="nav-sec">System</div>
   <button class="nav-lnk" data-page="reports"><span>📊</span>Reports</button>
   <button class="nav-lnk" data-page="settings"><span>⚙️</span>Settings</button>
+  <div class="nav-sec">View</div>
+  <button class="nav-lnk" data-page="calendar"><span>🗓️</span>Calendar</button>
 </nav>
 
 <!-- ── MAIN ── -->
@@ -683,6 +687,53 @@ body { font-family:'Barlow',sans-serif; background:var(--bg); color:var(--text);
   </div>
 </div>
 
+<!-- ════ CALENDAR — GOOGLE-STYLE MONTH VIEW ════ -->
+<div class="fc-page" id="page-calendar">
+  <div class="pg-header">
+    <div><div class="pg-title">Calendar</div><div class="pg-sub" id="cal-sub">March 2026</div></div>
+    <div class="d-flex gap-2 align-items-center flex-wrap">
+      <button class="fc-btn fc-btn-primary" data-bs-toggle="modal" data-bs-target="#markSessionModal">+ Session</button>
+    </div>
+  </div>
+
+  <div class="gcal-wrap">
+    <div class="gcal-toolbar">
+      <div class="gcal-month-title" id="gcal-title">March <span>2026</span></div>
+      <div class="gcal-nav">
+        <button class="gcal-today-btn" id="gcal-today">Today</button>
+        <button class="gcal-nav-btn" id="gcal-prev">‹</button>
+        <button class="gcal-nav-btn" id="gcal-next">›</button>
+      </div>
+    </div>
+
+    <div class="gcal-dow-row">
+      <div class="gcal-dow">Sun</div><div class="gcal-dow">Mon</div>
+      <div class="gcal-dow">Tue</div><div class="gcal-dow">Wed</div>
+      <div class="gcal-dow">Thu</div><div class="gcal-dow">Fri</div>
+      <div class="gcal-dow">Sat</div>
+    </div>
+
+    <div class="gcal-grid" id="gcal-grid"></div>
+
+    <div class="gcal-detail-bar" id="gcal-detail">
+      <div class="gcal-detail-title">
+        <span id="gcal-detail-heading">Sessions</span>
+        <button onclick="document.getElementById('gcal-detail').classList.remove('open')" style="background:none;border:none;color:var(--muted);font-size:16px;cursor:pointer;">✕</button>
+      </div>
+      <div class="gcal-detail-list" id="gcal-detail-list"></div>
+    </div>
+
+    <div class="gcal-legend">
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:var(--accent)"></div>Strength</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:var(--accent2)"></div>Body Sculpting</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:var(--accent4)"></div>Cardio</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:var(--accent5)"></div>Weight Loss</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:var(--accent3)"></div>Flexibility</div>
+      <div class="gcal-legend-item"><div class="gcal-legend-dot" style="background:var(--muted)"></div>No-show</div>
+    </div>
+  </div>
+</div>
+
 </div><!-- /fc-content -->
 </div><!-- /fc-main -->
 
@@ -776,6 +827,13 @@ document.querySelectorAll('[data-goto]').forEach(el => {
   });
 });
 
+document.getElementById('calBtn').addEventListener('click', () => {
+  document.querySelectorAll('.fc-page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-lnk').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-calendar').classList.add('active');
+  document.querySelector('.nav-lnk[data-page="calendar"]').classList.add('active');
+});
+
 // ── SIDEBAR TOGGLE ──
 function closeSidebar() {
   document.getElementById('sidebar').classList.remove('open');
@@ -799,6 +857,169 @@ document.getElementById('saveSettingsBtn').addEventListener('click', function() 
   this.textContent = '✓ Saved!';
   setTimeout(() => this.textContent = '💾 Save All', 2000);
 });
+
+const SESSION_DATA = {
+  // March 2026
+  '2026-3-1':  [{t:'8AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'},  {t:'10AM',name:'Rica Bautista',  type:'Body Sculpting',  cls:'ev-sculpt'}],
+  '2026-3-3':  [{t:'7AM', name:'Kevin Reyes',     type:'Cardio',            cls:'ev-cardio'},   {t:'9AM', name:'Marco Lim',      type:'Weight Loss',     cls:'ev-weight'}],
+  '2026-3-4':  [{t:'8AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'11AM',name:'Rica Bautista',  type:'Body Sculpting',  cls:'ev-sculpt'}, {t:'2PM', name:'Ana Santos', type:'Flexibility', cls:'ev-flex'}],
+  '2026-3-5':  [{t:'7AM', name:'Kevin Reyes',     type:'Cardio',            cls:'ev-cardio'},   {t:'5PM', name:'Luis Torres',    type:'No-show',         cls:'ev-noshow'}],
+  '2026-3-6':  [{t:'9AM', name:'Rica Bautista',   type:'Body Sculpting',    cls:'ev-sculpt'},   {t:'11AM',name:'Marco Lim',      type:'Weight Loss',     cls:'ev-weight'}],
+  '2026-3-7':  [{t:'7AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'9AM', name:'Marco Lim',      type:'Weight Loss',     cls:'ev-weight'}, {t:'11AM',name:'Kevin Reyes',   type:'Cardio',          cls:'ev-cardio'}, {t:'1PM', name:'Rica Bautista', type:'Body Sculpting', cls:'ev-sculpt'}, {t:'3PM', name:'Ana Santos', type:'Flexibility', cls:'ev-flex'}, {t:'5PM', name:'Luis Torres', type:'Strength Training', cls:'ev-strength'}],
+  '2026-3-8':  [{t:'8AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'10AM',name:'Luis Torres',    type:'Strength Training',cls:'ev-strength'},{t:'12PM',name:'Rica Bautista', type:'Body Sculpting', cls:'ev-sculpt'}],
+  '2026-3-10': [{t:'7AM', name:'Kevin Reyes',     type:'Cardio',            cls:'ev-cardio'},   {t:'9AM', name:'Ana Santos',     type:'Flexibility',     cls:'ev-flex'},   {t:'11AM',name:'Marco Lim', type:'Weight Loss', cls:'ev-weight'}],
+  '2026-3-11': [{t:'8AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'2PM', name:'Rica Bautista',  type:'Body Sculpting',  cls:'ev-sculpt'}],
+  '2026-3-12': [{t:'7AM', name:'Kevin Reyes',     type:'Cardio',            cls:'ev-cardio'},   {t:'4PM', name:'Luis Torres',    type:'Strength Training',cls:'ev-strength'}],
+  '2026-3-13': [{t:'9AM', name:'Marco Lim',       type:'Weight Loss',       cls:'ev-weight'},   {t:'11AM',name:'Ana Santos',     type:'Flexibility',     cls:'ev-flex'}],
+  '2026-3-14': [{t:'8AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'10AM',name:'Rica Bautista',  type:'Body Sculpting',  cls:'ev-sculpt'}, {t:'1PM', name:'Kevin Reyes',  type:'Cardio',  cls:'ev-cardio'}],
+  '2026-3-15': [{t:'9AM', name:'Luis Torres',     type:'Strength Training', cls:'ev-strength'}, {t:'11AM',name:'Marco Lim',      type:'Weight Loss',     cls:'ev-weight'}],
+  '2026-3-17': [{t:'7AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'9AM', name:'Ana Santos',     type:'Flexibility',     cls:'ev-flex'}],
+  '2026-3-18': [{t:'10AM',name:'Rica Bautista',   type:'Body Sculpting',    cls:'ev-sculpt'},   {t:'12PM',name:'Kevin Reyes',    type:'Cardio',          cls:'ev-cardio'}],
+  '2026-3-19': [{t:'8AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'3PM', name:'Luis Torres',    type:'Strength Training',cls:'ev-strength'}],
+  '2026-3-20': [{t:'9AM', name:'Marco Lim',       type:'Weight Loss',       cls:'ev-weight'}],
+  '2026-3-21': [{t:'8AM', name:'Rica Bautista',   type:'Body Sculpting',    cls:'ev-sculpt'},   {t:'10AM',name:'Jake Dela Cruz', type:'Strength Training',cls:'ev-strength'},{t:'1PM', name:'Kevin Reyes', type:'Cardio', cls:'ev-cardio'}],
+  '2026-3-22': [{t:'9AM', name:'Ana Santos',      type:'Flexibility',       cls:'ev-flex'},     {t:'11AM',name:'Luis Torres',    type:'Strength Training',cls:'ev-strength'}],
+  '2026-3-24': [{t:'7AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'9AM', name:'Marco Lim',      type:'Weight Loss',     cls:'ev-weight'},  {t:'11AM',name:'Rica Bautista',type:'Body Sculpting',cls:'ev-sculpt'}],
+  '2026-3-26': [{t:'8AM', name:'Kevin Reyes',     type:'Cardio',            cls:'ev-cardio'},   {t:'2PM', name:'Ana Santos',     type:'Flexibility',     cls:'ev-flex'}],
+  '2026-3-27': [{t:'9AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'11AM',name:'Luis Torres',    type:'Strength Training',cls:'ev-strength'}],
+  '2026-3-28': [{t:'10AM',name:'Rica Bautista',   type:'Body Sculpting',    cls:'ev-sculpt'},   {t:'12PM',name:'Marco Lim',      type:'Weight Loss',     cls:'ev-weight'}],
+  '2026-3-29': [{t:'8AM', name:'Jake Dela Cruz',  type:'Strength Training', cls:'ev-strength'}, {t:'10AM',name:'Kevin Reyes',    type:'Cardio',          cls:'ev-cardio'},  {t:'1PM', name:'Ana Santos',  type:'Flexibility',cls:'ev-flex'}],
+};
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+let curYear = 2026, curMonth = 2; // 0-indexed month (2 = March)
+
+function buildCalendar(year, month) {
+  const grid = document.getElementById('gcal-grid');
+  const titleEl = document.getElementById('gcal-title');
+  const subEl = document.getElementById('cal-sub');
+  grid.innerHTML = '';
+  document.getElementById('gcal-detail').classList.remove('open');
+
+  titleEl.innerHTML = `${MONTHS[month]} <span>${year}</span>`;
+  subEl.textContent = `${MONTHS[month]} ${year}`;
+
+  const firstDay = new Date(year, month, 1).getDay(); // 0=Sun
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrev  = new Date(year, month, 0).getDate();
+  const today = new Date();
+
+  // Total cells: always show 6 rows = 42 cells
+  const totalCells = 42;
+
+  for (let i = 0; i < totalCells; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'gcal-cell';
+
+    let dayNum, cellYear = year, cellMonth = month;
+
+    if (i < firstDay) {
+      // Previous month
+      dayNum = daysInPrev - firstDay + i + 1;
+      cellMonth = month - 1;
+      if (cellMonth < 0) { cellMonth = 11; cellYear = year - 1; }
+      cell.classList.add('other-month');
+    } else if (i - firstDay < daysInMonth) {
+      dayNum = i - firstDay + 1;
+    } else {
+      dayNum = i - firstDay - daysInMonth + 1;
+      cellMonth = month + 1;
+      if (cellMonth > 11) { cellMonth = 0; cellYear = year + 1; }
+      cell.classList.add('other-month');
+    }
+
+    // Today highlight
+    if (dayNum === today.getDate() && cellMonth === today.getMonth() && cellYear === today.getFullYear()) {
+      cell.classList.add('today');
+    }
+
+    // Day number
+    const dayNumEl = document.createElement('div');
+    dayNumEl.className = 'gcal-day-num';
+    dayNumEl.textContent = dayNum;
+    cell.appendChild(dayNumEl);
+
+    // Sessions
+    const key = `${cellYear}-${cellMonth + 1}-${dayNum}`;
+    const sessions = SESSION_DATA[key];
+
+    if (sessions && sessions.length) {
+      cell.classList.add('has-sessions');
+      const MAX_VISIBLE = 3;
+      sessions.slice(0, MAX_VISIBLE).forEach(s => {
+        const ev = document.createElement('div');
+        ev.className = `gcal-event ${s.cls}`;
+        ev.innerHTML = `<span style="font-size:9px;opacity:.8">${s.t}</span> ${s.name.split(' ')[0]}`;
+        ev.title = `${s.t} — ${s.name} · ${s.type}`;
+        cell.appendChild(ev);
+      });
+      if (sessions.length > MAX_VISIBLE) {
+        const more = document.createElement('div');
+        more.className = 'gcal-more';
+        more.textContent = `+${sessions.length - MAX_VISIBLE} more`;
+        cell.appendChild(more);
+      }
+
+      // Click to show detail panel
+      cell.addEventListener('click', () => showDayDetail(cellYear, cellMonth, dayNum, sessions));
+    }
+
+    grid.appendChild(cell);
+  }
+}
+
+function showDayDetail(year, month, day, sessions) {
+  const detail = document.getElementById('gcal-detail');
+  const heading = document.getElementById('gcal-detail-heading');
+  const list = document.getElementById('gcal-detail-list');
+
+  const dateStr = new Date(year, month, day).toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+  heading.textContent = `${dateStr} — ${sessions.length} session${sessions.length > 1 ? 's' : ''}`;
+  list.innerHTML = '';
+
+  sessions.forEach(s => {
+    const colors = {
+      'ev-strength': 'var(--accent)',
+      'ev-sculpt':   'var(--accent2)',
+      'ev-cardio':   'var(--accent4)',
+      'ev-weight':   'var(--accent5)',
+      'ev-flex':     'var(--accent3)',
+      'ev-noshow':   'var(--muted)'
+    };
+    const item = document.createElement('div');
+    item.className = 'gcal-detail-item';
+    item.innerHTML = `
+      <div class="gcal-detail-time" style="color:${colors[s.cls]}">${s.t}</div>
+      <div class="gcal-detail-divider"></div>
+      <div class="flex-fill">
+        <div class="gcal-detail-name">${s.name}</div>
+        <div class="gcal-detail-type">${s.type} · 1hr</div>
+      </div>
+      <span style="font-size:10px;padding:2px 8px;background:${colors[s.cls]}20;color:${colors[s.cls]};font-weight:700">${s.cls === 'ev-noshow' ? 'No-show' : 'Confirmed'}</span>
+    `;
+    list.appendChild(item);
+  });
+
+  detail.classList.add('open');
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Nav buttons
+document.getElementById('gcal-prev').addEventListener('click', () => {
+  curMonth--; if (curMonth < 0) { curMonth = 11; curYear--; }
+  buildCalendar(curYear, curMonth);
+});
+document.getElementById('gcal-next').addEventListener('click', () => {
+  curMonth++; if (curMonth > 11) { curMonth = 0; curYear++; }
+  buildCalendar(curYear, curMonth);
+});
+document.getElementById('gcal-today').addEventListener('click', () => {
+  const t = new Date(); curYear = t.getFullYear(); curMonth = t.getMonth();
+  buildCalendar(curYear, curMonth);
+});
+
+// Initial render
+buildCalendar(curYear, curMonth);
 </script>
 </body>
 </html>
